@@ -11,6 +11,7 @@
   "author": "jfc",
   "license": "ISC",
   "dependencies": {
-    "cypress": "^12.7.0"
+    "cypress": "^12.7.0",
+    "mocha": "^10.2.0"
   }
 }
