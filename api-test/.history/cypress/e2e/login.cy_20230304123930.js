@@ -17,8 +17,8 @@ describe('login test', () => {
       
       cy.getAllCookies().then(cookies=>{
         const token_cookie = cookies[0];
-        expect(token_cookie, 'verificamos existencia de un token').to.have.property('name').eq('JSESSIONID');
-        expect(token_cookie, 'verificamos longitud de token').to.have.property('value').to.have.length.of.at.least(30)
+        expect(token_cookie).to.have.property('name').eq('JSESSIONID');
+        expect(token_cookie).to.have.property('value').to.have.length.of.at.most(30)
 
       })
     })
