@@ -1,0 +1,35 @@
+{
+  "name": "api-test",
+  "version": "1.0.0",
+  "description": "api test tgs web service",
+  "main": "index.js",
+  "scripts": {
+    "cy:open": "cypress open --e2e",
+    "cy:run": "cypress run",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "jfc",
+  "license": "ISC",
+  "dependencies": {
+    "cypress": "^12.7.0",
+    "mocha": "^10.2.0"
+  },
+  "devDependencies": {
+    "cypress-multi-reporters": "^1.6.2"
+  },
+  "reporter": "cypress-multi-reporters",
+"reporterOptions": {
+  "reporterEnabled": "mocha-junit-reporter, mochawesome",
+  "mochaJunitReporterReporterOptions": {
+    "mochaFile": "results/junit/test-results.[hash].xml",
+    "rootSuiteTitle": "Cypress Tests"
+  },
+  "mochawesomeReporterOptions": {
+    "reportDir": "results/mochawesome",
+    "overwrite": false,
+    "html": false,
+    "json": true
+  }
+}
+
+}
