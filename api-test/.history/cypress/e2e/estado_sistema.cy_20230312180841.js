@@ -19,6 +19,7 @@ describe('Manu, pantalla, carga inicial', () => {
       .click()
   })
 
+
   it('Acceso a Estados de Sistema', () => {
     cy.visit('http://10.1.11.237:8080/etgs/')
     cy.contains('span.MuiListItemText-primary', 'SPAC')

@@ -49,3 +49,4 @@ describe('Manu, pantalla, carga inicial', () => {
       .should('be.visible')
   })
 })
+git add .

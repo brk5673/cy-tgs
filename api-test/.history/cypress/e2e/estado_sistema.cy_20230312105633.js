@@ -1,7 +1,8 @@
 import {USERNAME, PASSWORD} from "../fixtures/credentials"
 
 describe('Manu, pantalla, carga inicial', () => {
-  beforeEach(() => {
+  it('Acceso con credenciales validas', () => {
+    cy.log('Visitar login website, y verificar URL/logo')
     cy.visit('http://10.1.11.237:8080/etgs/login')
     cy.url()
       .should('eq', 'http://10.1.11.237:8080/etgs/login')
@@ -17,10 +18,11 @@ describe('Manu, pantalla, carga inicial', () => {
       .type(PASSWORD)
     cy.get('button[type="submit"]')
       .click()
+    cy.url()
+      .should('eq', 'http://10.1.11.237:8080/etgs/')
   })
+  it('Verificar menu', () => {
 
-  it('Acceso a Estados de Sistema', () => {
-    cy.visit('http://10.1.11.237:8080/etgs/')
     cy.contains('span.MuiListItemText-primary', 'SPAC')
       .click()
     cy.contains('span.MuiListItemText-primary', 'Control')
@@ -32,20 +34,6 @@ describe('Manu, pantalla, carga inicial', () => {
     cy.contains('Estado del Sistema')
       .should('exist')
     cy.log('Visualizar el boton "Listar"')
-    cy.contains('Listar')
-      .should('exist')
-  })
-
-  it('Validar botones "Imprimir", "Descargar PDF", "Descargar Excel"', () => {
-    cy.visit('http://10.1.11.237:8080/etgs/spac/control/estadodelsistema')
-    cy.contains('Listar')
-      .should('exist')
-      .click()
-    cy.get('div.HeaderSvgCustomIcon.PdfIcon')
-      .should('be.visible')
-    cy.get('div.HeaderSvgCustomIcon.ExcelIcon')
-      .should('be.visible')
-    cy.get('path').eq(0)
-      .should('be.visible')
+    cy.contains('Listar').should('exist')
   })
 })
