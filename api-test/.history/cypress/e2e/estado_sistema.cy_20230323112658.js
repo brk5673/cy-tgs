@@ -119,15 +119,9 @@ describe('Test cases de modulo Estado de Sistema', () => { // corregir describe
     cy.get('[name="fechaHasta"]').clear().type('16032023')
     cy.contains('Listar').click()
     cy.get('.MuiTableCell-root.MuiTableCell-body.MuiTableCell-sizeSmall').should('exist') // validar contenido de tabla
-    cy.get('.MuiGrid-root.MuiGrid-container.MuiGrid-align-items-xs-center.MuiGrid-grid-xs-6 .MuiButton-label').eq(1).click() // click en el boton agregar nuevo
-    cy.get('.MuiDialogContent-root.commonDialog_content .MuiInputBase-input.MuiInput-input.MuiInputBase-inputAdornedStart.MuiInputBase-inputAdornedEnd') // select datepicker in popup
-      .clear().type('16032023')
-    cy.get('.MuiDialogContent-root.commonDialog_content .MuiInputBase-input.MuiInput-input.MuiAutocomplete-input.MuiAutocomplete-inputFocused.MuiInputBase-inputAdornedEnd').eq(0) // select 'entidad legal' dropdown
-      .type('ugen{enter}')
-    cy.get('.MuiDialogContent-root.commonDialog_content .MuiInputBase-input.MuiInput-input.MuiAutocomplete-input.MuiAutocomplete-inputFocused.MuiInputBase-inputAdornedEnd').eq(1) // select 'estado' dropdown
-      .type('alerta{enter}')
-      cy.type('{tab}')
-    //falta terminar
+    cy.get('id-container.MuiGrid-item.MuiGrid-grid-xs-12 > div > button:nth-child(2) > span.MuiButton-label').click() // click en el boton agregar nuevo
+    
+      //falta terminar
   })
 
 })

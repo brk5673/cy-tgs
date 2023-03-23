@@ -126,7 +126,7 @@ describe('Test cases de modulo Estado de Sistema', () => { // corregir describe
       .type('ugen{enter}')
     cy.get('.MuiDialogContent-root.commonDialog_content .MuiInputBase-input.MuiInput-input.MuiAutocomplete-input.MuiAutocomplete-inputFocused.MuiInputBase-inputAdornedEnd').eq(1) // select 'estado' dropdown
       .type('alerta{enter}')
-      cy.type('{tab}')
+    cy.get('.MuiDialogContent-root.commonDialog_content .jss131 MuiOutlinedInput-notchedOutline').clear() // select 'observaciones' input
     //falta terminar
   })
 

@@ -31,11 +31,11 @@ describe('Test cases de modulo Estado de Sistema', () => { // corregir describe
     cy.log('Visualizar el boton "Listar"')
     cy.contains('Listar').should('exist')
 
-    cy.contains('Estado del Sistema').should('exist') // validar que aparece la tabla 'Estado del sistema'
+    cy.contains('Estado del Sistema').should('exist')
     
-    cy.get('[name="fechaDesde"]').clear().type('01122022') 
+    cy.get('[name="fechaDesde"]').clear().clear().type('01122022') // se usa clear() 2 veces por un comportamiento inapropiado del datepicker
       cy.get('[name="fechaDesde"][value="01/12/2022"]').should('exist')
-    cy.get('[name="fechaHasta"]').clear().type('28022023')
+    cy.get('[name="fechaHasta"]').clear().clear().type('28022023')
       cy.get('[name="fechaHasta"][value="28/02/2023"]').should('exist')
 
       cy.get('path').eq(20).click({force:true})
@@ -43,12 +43,12 @@ describe('Test cases de modulo Estado de Sistema', () => { // corregir describe
       cy.get('div.MuiPickersBasePicker-container').should('be.visible')
   })
 
-  it('us831 - validar funcionamiento boton "Listar" y datos, botones y leyenda de tabla', () => {
+  it.only('us831 - validar funcionamiento boton "Listar" y datos, botones y leyenda de tabla', () => {
     cy.visit('http://10.1.11.237:8080/etgs/spac/control/estadodelsistema')
       cy.get('#navPath').should('contain.text', 'Estado del Sistema', {matchCase: false}) // validar estar situado en 'estado del sitema'
-    cy.get('[name="fechaDesde"]').clear().type('16032023') // borrado del datepicker y tipeado
+    cy.get('[name="fechaDesde"]').clear().type('16032023') // se usa clear() 2 veces por un comportamiento inapropiado del datepicker
       cy.get('[name="fechaDesde"][value="16/03/2023"]').should('exist')
-    cy.get('[name="fechaHasta"]').clear().type('16032023')
+    cy.get('[name="fechaHasta"]').clear().clear().type('16032023')
       cy.get('[name="fechaHasta"][value="16/03/2023"]').should('exist')
     cy.contains('Listar').click() // listar datos
     cy.get('.MuiTab-wrapper').should('contain.text', 'Estado del Sistema', {matchCase: false})
@@ -69,8 +69,8 @@ describe('Test cases de modulo Estado de Sistema', () => { // corregir describe
   it('us832 - Validacion exportar Excel', () => {
     cy.visit('http://10.1.11.237:8080/etgs/spac/control/estadodelsistema')
       cy.get('#navPath').should('contain.text', 'Estado del Sistema', {matchCase: false}) // validar nombre en Headers
-    cy.get('[name="fechaDesde"]').clear().type('16032023')
-    cy.get('[name="fechaHasta"]').clear().type('16032023')
+    cy.get('[name="fechaDesde"]').clear().clear().type('16032023')
+    cy.get('[name="fechaHasta"]').clear().clear().type('16032023')
     cy.contains('Listar').click()
     cy.get('.MuiTableCell-root.MuiTableCell-body.MuiTableCell-sizeSmall').should('exist') // validar contenido de tabla
     cy.get('div.HeaderSvgCustomIcon.ExcelIcon').should('be.visible').click()
@@ -80,8 +80,8 @@ describe('Test cases de modulo Estado de Sistema', () => { // corregir describe
   it('us833 - Validacion exportar PDF', () => {
     cy.visit('http://10.1.11.237:8080/etgs/spac/control/estadodelsistema')
       cy.get('#navPath').should('contain.text', 'Estado del Sistema', {matchCase: false}) // validar nombre en Headers
-    cy.get('[name="fechaDesde"]').clear().type('16032023')
-    cy.get('[name="fechaHasta"]').clear().type('16032023')
+    cy.get('[name="fechaDesde"]').clear().clear().type('16032023')
+    cy.get('[name="fechaHasta"]').clear().clear().type('16032023')
     cy.contains('Listar').click()
     cy.get('.MuiTableCell-root.MuiTableCell-body.MuiTableCell-sizeSmall').should('exist') // validar contenido de tabla
     cy.get('div.HeaderSvgCustomIcon.PdfIcon').should('be.visible').click()
@@ -91,8 +91,8 @@ describe('Test cases de modulo Estado de Sistema', () => { // corregir describe
   it('us834 - Validacion de Imprimir PDF', () => {
     cy.visit('http://10.1.11.237:8080/etgs/spac/control/estadodelsistema')
       cy.get('#navPath').should('contain.text', 'Estado del Sistema', {matchCase: false}) // validar nombre en Headers
-    cy.get('[name="fechaDesde"]').clear().type('16032023')
-    cy.get('[name="fechaHasta"]').clear().type('16032023')
+    cy.get('[name="fechaDesde"]').clear().clear().type('16032023')
+    cy.get('[name="fechaHasta"]').clear().clear().type('16032023')
     cy.contains('Listar').click()
     cy.get('.MuiTableCell-root.MuiTableCell-body.MuiTableCell-sizeSmall').should('exist') // validar contenido de tabla
     cy.get('path').eq(0).click()
@@ -102,8 +102,8 @@ describe('Test cases de modulo Estado de Sistema', () => { // corregir describe
   it('us848 - Validacion eliminar estado de grilla', () => {
     cy.visit('http://10.1.11.237:8080/etgs/spac/control/estadodelsistema')
       cy.get('#navPath').should('contain.text', 'Estado del Sistema', {matchCase: false}) // validar nombre en Headers
-    cy.get('[name="fechaDesde"]').clear().type('16032023')
-    cy.get('[name="fechaHasta"]').clear().type('16032023')
+    cy.get('[name="fechaDesde"]').clear().clear().type('16032023')
+    cy.get('[name="fechaHasta"]').clear().clear().type('16032023')
     cy.contains('Listar').click()
     cy.get('.MuiTableCell-root.MuiTableCell-body.MuiTableCell-sizeSmall').should('exist') // validar contenido de tabla
     cy.get('#root > div.jss1 > div > main > div > div.MuiGrid-root.MuiGrid-container.MuiGrid-grid-xs-12 > div > div.tabs_swipper > div > div > div > div.table_paper_list > div > table > tbody > tr:nth-child(1) > td:nth-child(9) > button')
@@ -112,22 +112,17 @@ describe('Test cases de modulo Estado de Sistema', () => { // corregir describe
       //falta terminar
   })
 
-  it.only('us851 - Validacion Agregar nuevo estado', () => {
+  it('us851 - Validacion Agregar nuevo estado', () => {
     cy.visit('http://10.1.11.237:8080/etgs/spac/control/estadodelsistema')
       cy.get('#navPath').should('contain.text', 'Estado del Sistema', {matchCase: false}) // validar nombre en Headers
-    cy.get('[name="fechaDesde"]').clear().type('16032023')
-    cy.get('[name="fechaHasta"]').clear().type('16032023')
+    cy.get('[name="fechaDesde"]').clear().clear().type('16032023')
+    cy.get('[name="fechaHasta"]').clear().clear().type('16032023')
     cy.contains('Listar').click()
     cy.get('.MuiTableCell-root.MuiTableCell-body.MuiTableCell-sizeSmall').should('exist') // validar contenido de tabla
-    cy.get('.MuiGrid-root.MuiGrid-container.MuiGrid-align-items-xs-center.MuiGrid-grid-xs-6 .MuiButton-label').eq(1).click() // click en el boton agregar nuevo
-    cy.get('.MuiDialogContent-root.commonDialog_content .MuiInputBase-input.MuiInput-input.MuiInputBase-inputAdornedStart.MuiInputBase-inputAdornedEnd') // select datepicker in popup
-      .clear().type('16032023')
-    cy.get('.MuiDialogContent-root.commonDialog_content .MuiInputBase-input.MuiInput-input.MuiAutocomplete-input.MuiAutocomplete-inputFocused.MuiInputBase-inputAdornedEnd').eq(0) // select 'entidad legal' dropdown
-      .type('ugen{enter}')
-    cy.get('.MuiDialogContent-root.commonDialog_content .MuiInputBase-input.MuiInput-input.MuiAutocomplete-input.MuiAutocomplete-inputFocused.MuiInputBase-inputAdornedEnd').eq(1) // select 'estado' dropdown
-      .type('alerta{enter}')
-      cy.type('{tab}')
-    //falta terminar
+    cy.get('#root > div.jss1 > div > main > div > div.MuiGrid-root.MuiGrid-container.MuiGrid-grid-xs-12 > div > div.tabs_swipper > div > div > div > div.table_paper_list > div > table > tbody > tr:nth-child(1) > td:nth-child(9) > button')
+      .click() // click en el icono para eliminar fila
+    
+      //falta terminar
   })
 
 })

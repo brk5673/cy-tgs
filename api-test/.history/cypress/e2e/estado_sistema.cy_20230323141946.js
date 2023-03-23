@@ -125,8 +125,7 @@ describe('Test cases de modulo Estado de Sistema', () => { // corregir describe
     cy.get('.MuiDialogContent-root.commonDialog_content .MuiInputBase-input.MuiInput-input.MuiAutocomplete-input.MuiAutocomplete-inputFocused.MuiInputBase-inputAdornedEnd').eq(0) // select 'entidad legal' dropdown
       .type('ugen{enter}')
     cy.get('.MuiDialogContent-root.commonDialog_content .MuiInputBase-input.MuiInput-input.MuiAutocomplete-input.MuiAutocomplete-inputFocused.MuiInputBase-inputAdornedEnd').eq(1) // select 'estado' dropdown
-      .type('alerta{enter}')
-      cy.type('{tab}')
+      .type('alerta{enter}{tab}')
     //falta terminar
   })
 

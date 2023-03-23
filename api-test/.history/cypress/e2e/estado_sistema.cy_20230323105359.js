@@ -112,22 +112,17 @@ describe('Test cases de modulo Estado de Sistema', () => { // corregir describe
       //falta terminar
   })
 
-  it.only('us851 - Validacion Agregar nuevo estado', () => {
+  it('us851 - Validacion Agregar nuevo estado', () => {
     cy.visit('http://10.1.11.237:8080/etgs/spac/control/estadodelsistema')
       cy.get('#navPath').should('contain.text', 'Estado del Sistema', {matchCase: false}) // validar nombre en Headers
     cy.get('[name="fechaDesde"]').clear().type('16032023')
     cy.get('[name="fechaHasta"]').clear().type('16032023')
     cy.contains('Listar').click()
     cy.get('.MuiTableCell-root.MuiTableCell-body.MuiTableCell-sizeSmall').should('exist') // validar contenido de tabla
-    cy.get('.MuiGrid-root.MuiGrid-container.MuiGrid-align-items-xs-center.MuiGrid-grid-xs-6 .MuiButton-label').eq(1).click() // click en el boton agregar nuevo
-    cy.get('.MuiDialogContent-root.commonDialog_content .MuiInputBase-input.MuiInput-input.MuiInputBase-inputAdornedStart.MuiInputBase-inputAdornedEnd') // select datepicker in popup
-      .clear().type('16032023')
-    cy.get('.MuiDialogContent-root.commonDialog_content .MuiInputBase-input.MuiInput-input.MuiAutocomplete-input.MuiAutocomplete-inputFocused.MuiInputBase-inputAdornedEnd').eq(0) // select 'entidad legal' dropdown
-      .type('ugen{enter}')
-    cy.get('.MuiDialogContent-root.commonDialog_content .MuiInputBase-input.MuiInput-input.MuiAutocomplete-input.MuiAutocomplete-inputFocused.MuiInputBase-inputAdornedEnd').eq(1) // select 'estado' dropdown
-      .type('alerta{enter}')
-      cy.type('{tab}')
-    //falta terminar
+    cy.get('#root > div.jss1 > div > main > div > div.MuiGrid-root.MuiGrid-container.MuiGrid-grid-xs-12 > div > div.tabs_swipper > div > div > div > div.table_paper_list > div > table > tbody > tr:nth-child(1) > td:nth-child(9) > button')
+      .click() // click en el icono para eliminar fila
+    
+      //falta terminar
   })
 
 })
