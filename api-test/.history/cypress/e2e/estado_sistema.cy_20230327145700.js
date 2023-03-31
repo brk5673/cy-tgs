@@ -99,7 +99,7 @@ describe('Test cases de modulo Estado de Sistema', () => { // corregir describe
     // falta validar que se abre una ventana nueva con el documento para imprimir
   })
 
-  it.only('us848 - Validacion eliminar estado de grilla', () => {
+  it('us848 - Validacion eliminar estado de grilla', () => {
     cy.visit('http://10.1.11.237:8080/etgs/spac/control/estadodelsistema')
       cy.get('#navPath').should('contain.text', 'Estado del Sistema', {matchCase: false}) // validar nombre en Headers
     cy.get('[name="fechaDesde"]').clear().type('16032023')
