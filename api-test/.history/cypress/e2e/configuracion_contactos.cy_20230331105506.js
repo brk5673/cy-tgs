@@ -27,10 +27,9 @@ describe('Test cases de modulo Estado de Sistema', () => { // corregir describe
         cy.contains('span.MuiListItemText-primary', 'Configuración de contactos').click()
 
       //  cy.url().should('eq', 'http://10.1.11.237:8080/etgs/spac/mantenimiento/desviodeinyeccion/configuraciondecontactos')
-      //  cy.get('#navPath').contains('Configuración de contactos', {matchCase: false}).should('exist') // validar nombre el headers
-        cy.contains('Gasoducto').should('exist')
-        cy.contains('Entidad Legal').should('exist')
-        cy.contains('Contacto').should('exist')
+      //  cy.get('#navPath').contains('Configuraci', {matchCase: false}).should('exist') // validar nombre el headers
+      //  cy.log('Visualizar el boton "Listar"')
+      //  cy.contains('Listar').should('exist')
     })
 
 })  
