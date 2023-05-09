@@ -75,18 +75,8 @@ describe('Test cases de modulo <SPAC/Mantenimiento/Desvio de inyecciones/Configu
     cy.contains('Agregar Nuevo').click()
 
     cy.get(':nth-child(1) > .MuiAutocomplete-root > .MuiFormControl-root').click().type('TF - Troncal{enter}')
-    cy.get(':nth-child(2) > .MuiAutocomplete-root > .MuiFormControl-root').click().type('CINERGIA{enter}')
-    cy.get('#name').click().type('Messi{enter}')
-    cy.get('#mail').click().type('pruebas@messi.com{enter}')
-    cy.contains('Aceptar').click()
-    cy.wait(200)
-
-    cy.get('input[name="nombre"]').type('Mess')
-    cy.contains('Messi').should('exist')
-
-    cy.get('.actionBars > :nth-child(1) > .MuiButton-label').click()
-    cy.get('#message-id').should('exist')
-
+    cy.get(':nth-child(2) > .MuiAutocomplete-root > .MuiFormControl-root').click().type('CINERGIA {enter}')
+    cy.get(':nth-child(3) > .MuiAutocomplete-root > .MuiFormControl-root').click().type('Messi{enter}')
 
         
   })

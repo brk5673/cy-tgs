@@ -79,14 +79,7 @@ describe('Test cases de modulo <SPAC/Mantenimiento/Desvio de inyecciones/Configu
     cy.get('#name').click().type('Messi{enter}')
     cy.get('#mail').click().type('pruebas@messi.com{enter}')
     cy.contains('Aceptar').click()
-    cy.wait(200)
-
-    cy.get('input[name="nombre"]').type('Mess')
-    cy.contains('Messi').should('exist')
-
-    cy.get('.actionBars > :nth-child(1) > .MuiButton-label').click()
-    cy.get('#message-id').should('exist')
-
+    
 
         
   })

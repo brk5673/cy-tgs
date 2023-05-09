@@ -17,10 +17,9 @@ describe('Test cases de modulo <SPAC/Mantenimiento/Desvio de inyecciones/Configu
       .type(PASSWORD)
     cy.get('button[type="submit"]')
       .click()
-    cy.wait(200)
   })
 
-  it('us1120 - Validacion del menu, pantalla y carga inicial', () => {
+  it.only('us1120 - Validacion del menu, pantalla y carga inicial', () => {
     //dirigirse al punto configContactos por UI
     cy.visit('http://10.1.11.237:8080/etgs/')
     cy.contains('span.MuiListItemText-primary', 'SPAC').click()
@@ -47,10 +46,10 @@ describe('Test cases de modulo <SPAC/Mantenimiento/Desvio de inyecciones/Configu
     cy.get('table').contains('th', 'Deficit de Inyeccion').should('exist')
 
     //exportar grilla
-    cy.get('div.HeaderSvgCustomIcon.ExcelIcon').should('exist')
-    cy.get('div.HeaderSvgCustomIcon.PdfIcon').should('exist')
-    cy.get('svg.MuiSvgIcon-root.HeaderSvgCustomIcon.PrintIcon').should('exist')
-  
+    cy.get('div.HeaderSvgCustomIcon.ExcelIcon').click()
+    cy.get('div.HeaderSvgCustomIcon.PdfIcon').click()
+    cy.get('div.HeaderSvgCustomIcon.PrintIcon .MuiButtonBase-rootMuiIconButton-rootHeaderSvgCustomIconMuiIconButton-colorInheritMuiIconButton-sizeSmall').click()
+
 
 
   })
@@ -60,35 +59,25 @@ describe('Test cases de modulo <SPAC/Mantenimiento/Desvio de inyecciones/Configu
     cy.visit('http://10.1.11.237:8080/etgs/spac/mantenimiento/desviodeinyeccion/configuraciondecontactos')
     // usar los filtros y corroborar los datos obtenidos
     cy.get('input[name="nombreGasoducto"]').type('Neuba II')
-    cy.get('table').contains('td', 'Neuba II').should('exist')
     cy.get('input[name="nombreEntidadLegal"]').type('YPF S.A.')
-    cy.get('table').contains('td', 'YPF S.A.').should('exist')
     cy.get('input[name="nombre"]').type('Javier Val')
-    cy.get('table').contains('td', 'Javier Val').should('exist')
+    cy.get('button[type="submit"]').click()
+    cy.get('table').contains('td', 'GASODUCTO 1').should('exist')
+    cy.get('table').contains('td', 'ENTIDAD LEGAL 1').should('exist')
+    cy.get('table').contains('td', 'CONTACTO 1').should('exist')
     
   })
 
-  it.only('us1126 - Validar accion "Agregar nuevo"', () => {
-    // dirigirse al punto configContactos
+  it('us1127 - Validar la edicion de contactos existentes', () => {
+  // dirigirse al punto configContactos
     cy.visit('http://10.1.11.237:8080/etgs/spac/mantenimiento/desviodeinyeccion/configuraciondecontactos')
-    // agregar nuevo contacto
-    cy.contains('Agregar Nuevo').click()
-
-    cy.get(':nth-child(1) > .MuiAutocomplete-root > .MuiFormControl-root').click().type('TF - Troncal{enter}')
-    cy.get(':nth-child(2) > .MuiAutocomplete-root > .MuiFormControl-root').click().type('CINERGIA{enter}')
-    cy.get('#name').click().type('Messi{enter}')
-    cy.get('#mail').click().type('pruebas@messi.com{enter}')
-    cy.contains('Aceptar').click()
-    cy.wait(200)
-
-    cy.get('input[name="nombre"]').type('Mess')
-    cy.contains('Messi').should('exist')
-
-    cy.get('.actionBars > :nth-child(1) > .MuiButton-label').click()
-    cy.get('#message-id').should('exist')
-
-
-        
+  // editar un contacto existente
+    cy.get('table').contains('td', 'GASODUCTO 1').should('exist')
+    cy.get('table').contains('td', 'ENTIDAD LEGAL 1').should('exist')
+    cy.get('table').contains('td', 'CONTACTO 1').should('exist')
+    cy.get('table').contains('td', 'GASODUCTO 1').parent().contains('button', 'Editar').click()
+    
+      
   })
   
 
