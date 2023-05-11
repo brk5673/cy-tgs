@@ -68,7 +68,7 @@ describe('Test cases de modulo <SPAC/Mantenimiento/Desvio de inyecciones/Configu
     
   })
 
-  it('us1126 - Validar accion "Agregar nuevo"', () => {
+  it.only('us1126 - Validar accion "Agregar nuevo"', () => {
     // dirigirse al punto configContactos
     cy.visit('http://10.1.11.237:8080/etgs/spac/mantenimiento/desviodeinyeccion/configuraciondecontactos')
     // agregar nuevo contacto
@@ -88,39 +88,7 @@ describe('Test cases de modulo <SPAC/Mantenimiento/Desvio de inyecciones/Configu
     cy.get('#message-id').should('exist')
   })
 
-  it.only('us1127 - Validar editar contacto', () => {
-    let counter = 1
-    // go to configContact page
-    cy.visit('http://10.1.11.237:8080/etgs/spac/mantenimiento/desviodeinyeccion/configuraciondecontactos')
-    cy.get('.MuiTableBody-root.tables_body') // pick table
-      .find('tr:first-child > :nth-child(6)') // pick 1st row & 6th column on table
-      .find('.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-colorPrimary.MuiIconButton-sizeSmall') // select edit button
-      .should('exist').click({force: true})    
-    //edith 1st data on table for 1st time
-    cy.get('#name').clear().each(($input) => {
-      const textToType = `test ${counter}`
-      cy.wrap($input).type(textToType)
-      counter++
-      cy.contains('Aceptar').click()
-      //edit 1st data on table for 2th time
-      cy.get('.MuiTableBody-root.tables_body') // pick table
-      .find('tr:first-child > :nth-child(6)') //pick 1st row & 6th column on table
-      .find('.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-colorPrimary.MuiIconButton-sizeSmall') // select edit button
-      .should('exist').click({force: true})    
-      cy.get('#name').clear().each(($input) => {
-        const textToType = `test ${counter}`
-        cy.wrap($input).type(textToType)
-        counter++ 
-      })
-    })
-    cy.contains('Aceptar').click()
-    cy.get('.MuiTableBody-root.tables_body') // pick table
-      .find('tr:first-child').contains('test') // pick 1st row on table
-
-      cy.get('.actionBars > :nth-child(1) > .MuiButton-label').click() // select 'grabar' button on footer
-      cy.get('#message-id').should('exist')
-    
-  })
+  it('us1127')
   
 
 

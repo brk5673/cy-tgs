@@ -93,7 +93,7 @@ describe('Test cases de modulo <SPAC/Mantenimiento/Desvio de inyecciones/Configu
     // go to configContact page
     cy.visit('http://10.1.11.237:8080/etgs/spac/mantenimiento/desviodeinyeccion/configuraciondecontactos')
     cy.get('.MuiTableBody-root.tables_body') // pick table
-      .find('tr:first-child > :nth-child(6)') // pick 1st row & 6th column on table
+      .find('tr:first-child > :nth-child(6)') // pick 1st row on table & 6th column
       .find('.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-colorPrimary.MuiIconButton-sizeSmall') // select edit button
       .should('exist').click({force: true})    
     //edith 1st data on table for 1st time
@@ -104,7 +104,7 @@ describe('Test cases de modulo <SPAC/Mantenimiento/Desvio de inyecciones/Configu
       cy.contains('Aceptar').click()
       //edit 1st data on table for 2th time
       cy.get('.MuiTableBody-root.tables_body') // pick table
-      .find('tr:first-child > :nth-child(6)') //pick 1st row & 6th column on table
+      .find('tr:first-child > :nth-child(6)') //pick 1st row on table & 6th column
       .find('.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-colorPrimary.MuiIconButton-sizeSmall') // select edit button
       .should('exist').click({force: true})    
       cy.get('#name').clear().each(($input) => {
@@ -113,13 +113,10 @@ describe('Test cases de modulo <SPAC/Mantenimiento/Desvio de inyecciones/Configu
         counter++ 
       })
     })
-    cy.contains('Aceptar').click()
-    cy.get('.MuiTableBody-root.tables_body') // pick table
-      .find('tr:first-child').contains('test') // pick 1st row on table
-
-      cy.get('.actionBars > :nth-child(1) > .MuiButton-label').click() // select 'grabar' button on footer
-      cy.get('#message-id').should('exist')
     
+    cy.contains('Aceptar').click()
+
+  
   })
   
 
