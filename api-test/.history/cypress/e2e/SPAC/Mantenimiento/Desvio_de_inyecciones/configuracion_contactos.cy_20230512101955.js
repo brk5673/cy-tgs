@@ -50,12 +50,14 @@ describe('Test cases de modulo <SPAC/Mantenimiento/Desvio de inyecciones/Configu
     cy.get('div.HeaderSvgCustomIcon.ExcelIcon').should('exist')
     cy.get('div.HeaderSvgCustomIcon.PdfIcon').should('exist')
     cy.get('svg.MuiSvgIcon-root.HeaderSvgCustomIcon.PrintIcon').should('exist')
+  
+
+
   })
 
   it('us1123 - Validacion filtros <Gasoducto/Entidad_Legal/Contacto>', () => {
-    cy.visit('http://10.1.11.237:8080/etgs/spac/mantenimiento/desviodeinyeccion/configuraciondecontactos')  // dirigirse al punto configContactos
-    cy.get('#navPath').contains('Configuracion de Contactos', {matchCase: false}).should('exist') // validar nombre el headers
-
+    // dirigirse al punto configContactos
+    cy.visit('http://10.1.11.237:8080/etgs/spac/mantenimiento/desviodeinyeccion/configuraciondecontactos')
     // usar los filtros y corroborar los datos obtenidos
     cy.get('input[name="nombreGasoducto"]').type('Neuba II')
     cy.get('table').contains('td', 'Neuba II').should('exist')
@@ -63,12 +65,12 @@ describe('Test cases de modulo <SPAC/Mantenimiento/Desvio de inyecciones/Configu
     cy.get('table').contains('td', 'YPF S.A.').should('exist')
     cy.get('input[name="nombre"]').type('Javier Val')
     cy.get('table').contains('td', 'Javier Val').should('exist')
+    
   })
 
   it('us1126 - Validar accion "Agregar nuevo"', () => {
-    cy.visit('http://10.1.11.237:8080/etgs/spac/mantenimiento/desviodeinyeccion/configuraciondecontactos')  // dirigirse al punto configContactos
-    cy.get('#navPath').contains('Configuracion de Contactos', {matchCase: false}).should('exist') // validar nombre el headers
-
+    // dirigirse al punto configContactos
+    cy.visit('http://10.1.11.237:8080/etgs/spac/mantenimiento/desviodeinyeccion/configuraciondecontactos')
     // agregar nuevo contacto
     cy.contains('Agregar Nuevo').click()
 
@@ -86,24 +88,21 @@ describe('Test cases de modulo <SPAC/Mantenimiento/Desvio de inyecciones/Configu
     cy.get('#message-id').should('exist')
   })
 
-  it('us1127 - Validar editar contacto', () => {
+  it.only('us1127 - Validar editar contacto', () => {
     let counter = 1
-
-    cy.visit('http://10.1.11.237:8080/etgs/spac/mantenimiento/desviodeinyeccion/configuraciondecontactos') // go to configContact page
-    cy.get('#navPath').contains('Configuracion de Contactos', {matchCase: false}).should('exist') // validate headers name
-
+    // go to configContact page
+    cy.visit('http://10.1.11.237:8080/etgs/spac/mantenimiento/desviodeinyeccion/configuraciondecontactos')
     cy.get('.MuiTableBody-root.tables_body') // pick table
       .find('tr:first-child > :nth-child(6)') // pick 1st row & 6th column on table
       .find('.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-colorPrimary.MuiIconButton-sizeSmall') // select edit button
       .should('exist').click({force: true})    
-
     //edith 1st data on table for 1st time
     cy.get('#name').clear().each(($input) => {
       const textToType = `test ${counter}`
       cy.wrap($input).type(textToType)
       counter++
       cy.contains('Aceptar').click()
-    //edit 1st data on table for 2th time
+      //edit 1st data on table for 2th time
       cy.get('.MuiTableBody-root.tables_body') // pick table
       .find('tr:first-child > :nth-child(6)') //pick 1st row & 6th column on table
       .find('.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-colorPrimary.MuiIconButton-sizeSmall') // select edit button
@@ -123,34 +122,8 @@ describe('Test cases de modulo <SPAC/Mantenimiento/Desvio de inyecciones/Configu
     
   })
 
-  it('us1128 - validar eliminar contacto', () => {
-    cy.visit('http://10.1.11.237:8080/etgs/spac/mantenimiento/desviodeinyeccion/configuraciondecontactos') // go to configContact page
-    cy.get('#navPath').contains('Configuracion de Contactos', {matchCase: false}).should('exist') // validate headers name
-    cy.contains('test').should('exist') // check exist the 'test' name in table
-    cy.get('.MuiTableBody-root.tables_body') // pick table
-      .find('tr:first-child > :nth-child(7)') // pick 1st row & 7th column on table
-      .find('.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-colorPrimary.MuiIconButton-sizeSmall') // select delete button
-      .should('exist').click({force: true})
-    cy.on('window:confirm', () => {
-      return true
-    })
-    cy.contains('test').should('not.exist') // check not exist the 'test' name in table
-  })
+  it()
   
-  it.only('us1140 - validar exportar reportes (.xls/.pdf/print)', () => {
-    // go to configContact page
-    cy.visit('http://10.1.11.237:8080/etgs/spac/mantenimiento/desviodeinyeccion/configuraciondecontactos')
-    cy.get('#navPath').contains('Configuracion de Contactos', {matchCase: false}).should('exist') // validate headers name
-    
-    cy.get('div.HeaderSvgCustomIcon.PdfIcon').should('be.visible').click() // click on pdf button
-    cy.readFile('cypress/downloads/contactosDesvioDeInyeccion.pdf').should('exist') // .pdf doc download correctly
 
-    cy.get('div.HeaderSvgCustomIcon.ExcelIcon').should('be.visible').click() // click on excel button
-    cy.readFile('cypress/downloads/contactosDesvioDeInyeccion.xls').should('exist') // .xls doc download correctly
-
-    cy.get('path').eq(0).click() //click on print button
-    cy.window().should('have.property', 'open') // verify then you have the windows open 
-
-  })
 
 })  

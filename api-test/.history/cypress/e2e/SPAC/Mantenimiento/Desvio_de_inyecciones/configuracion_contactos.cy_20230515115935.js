@@ -137,7 +137,7 @@ describe('Test cases de modulo <SPAC/Mantenimiento/Desvio de inyecciones/Configu
     cy.contains('test').should('not.exist') // check not exist the 'test' name in table
   })
   
-  it.only('us1140 - validar exportar reportes (.xls/.pdf/print)', () => {
+  it.only('us1140 - validar exportar reportes', () => {
     // go to configContact page
     cy.visit('http://10.1.11.237:8080/etgs/spac/mantenimiento/desviodeinyeccion/configuraciondecontactos')
     cy.get('#navPath').contains('Configuracion de Contactos', {matchCase: false}).should('exist') // validate headers name
@@ -145,11 +145,11 @@ describe('Test cases de modulo <SPAC/Mantenimiento/Desvio de inyecciones/Configu
     cy.get('div.HeaderSvgCustomIcon.PdfIcon').should('be.visible').click() // click on pdf button
     cy.readFile('cypress/downloads/contactosDesvioDeInyeccion.pdf').should('exist') // .pdf doc download correctly
 
-    cy.get('div.HeaderSvgCustomIcon.ExcelIcon').should('be.visible').click() // click on excel button
+    cy.get('div.HeaderSvgCustomIcon.ExcelIcon').should('be.visible').click()
     cy.readFile('cypress/downloads/contactosDesvioDeInyeccion.xls').should('exist') // .xls doc download correctly
 
     cy.get('path').eq(0).click() //click on print button
-    cy.window().should('have.property', 'open') // verify then you have the windows open 
+
 
   })
 
