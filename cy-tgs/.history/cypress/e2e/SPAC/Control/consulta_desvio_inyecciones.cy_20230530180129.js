@@ -19,7 +19,7 @@ describe('Test cases de modulo <SPAC/Control/Consulta de Desvio de Inyecciones>'
     cy.wait(2000)
   })
 
-  it('us1080 - Validacion del menu, pantalla y carga inicial', () => {
+  it.only('us1080 - Validacion del menu, pantalla y carga inicial', () => {
     // dirigirse al punto Consulta Desvio Inyecciones por UI
     cy.visit('http://10.1.11.237:8080/etgs/')
     cy.contains('span.MuiListItemText-primary', 'SPAC').click()
@@ -42,7 +42,7 @@ describe('Test cases de modulo <SPAC/Control/Consulta de Desvio de Inyecciones>'
 
   it.only('us1081 - Validar listado desvio inyecciones', () => {
     // dirigirse al punto Consulta Desvio Inyecciones por UI
-    cy.visit('http://10.1.11.237:8080/etgs/spac/control/desvio-inyeccion')
+    cy.visit('http://10.1.11.237:8080/etgs//spac/control/desvio-inyeccion')
   })
 
 })

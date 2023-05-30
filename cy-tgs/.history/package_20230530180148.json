@@ -9,7 +9,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "cy:runChrome": "cypress run --browser chrome --spec cypress/e2e/login.cy.js",
     "cy:CC": "cypress run --browser chrome --spec cypress/e2e/SPAC/Mantenimiento/Desvio_de_inyecciones/configuracion_contactos.cy.js",
-    "cy:CDI": "cypress run --browser chrome --spec cypress/e2e/SPAC/Control/consulta_desvio_inyecciones.cy.js",
+    "cy:consultaInyecciones": "cypress run --browser chrome --spec cypress/e2e/SPAC/Control/consulta_desvio_inyecciones.cy.js",
     "api-regression-allure": "cypress run --browser chrome --spec cypress/e2e/**.js --env allure=true",
     "allure:report": "allure generate allure-results --clean -o allure-report"
   },
