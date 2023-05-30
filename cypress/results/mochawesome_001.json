@@ -1,0 +1,105 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 1,
+    "pending": 0,
+    "failures": 0,
+    "start": "2023-05-30T21:04:24.904Z",
+    "end": "2023-05-30T21:04:36.172Z",
+    "duration": 11268,
+    "testsRegistered": 1,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "8bbd256e-02a4-4ea0-bc1b-55458b6811a3",
+      "title": "",
+      "fullFile": "cypress\\e2e\\SPAC\\Control\\consulta_desvio_inyecciones.cy.js",
+      "file": "cypress\\e2e\\SPAC\\Control\\consulta_desvio_inyecciones.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "9caf0fce-f149-4875-933c-d8f048f2d552",
+          "title": "Test cases de modulo <SPAC/Control/Consulta de Desvio de Inyecciones>",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "us1081 - Validar listado desvio inyecciones",
+              "fullTitle": "Test cases de modulo <SPAC/Control/Consulta de Desvio de Inyecciones> us1081 - Validar listado desvio inyecciones",
+              "timedOut": null,
+              "duration": 9527,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// dirigirse al punto Consulta Desvio Inyecciones\ncy.visit('http://10.1.11.237:8080/etgs/spac/control/desvio-inyeccion');",
+              "err": {},
+              "uuid": "77494134-532d-440b-875e-c48376e81186",
+              "parentUUID": "9caf0fce-f149-4875-933c-d8f048f2d552",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "77494134-532d-440b-875e-c48376e81186"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 9527,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/results",
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "6.2.0"
+    }
+  }
+}
