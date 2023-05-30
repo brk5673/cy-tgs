@@ -1,0 +1,87 @@
+{
+    "tests": [
+      {
+        "key": "us1140 - validar exportar reportes (.xls/.pdf/print)",
+        "status": "PASSED",
+        "duration": 19093,
+        "steps": [
+          {
+            "name": "Go to configContact page",
+            "keyword": "Given",
+            "location": "cypress\\e2e\\SPAC\\Mantenimiento\\Desvio_de_inyecciones\\configuracion_contactos.cy.js:2"
+          },
+          {
+            "name": "Validate headers name",
+            "keyword": "Then",
+            "location": "cypress\\e2e\\SPAC\\Mantenimiento\\Desvio_de_inyecciones\\configuracion_contactos.cy.js:5",
+            "match": {
+              "expected": "Configuracion de Contactos",
+              "actual": "Configuracion de Contactos"
+            }
+          },
+          {
+            "name": "Click on pdf button",
+            "keyword": "When",
+            "location": "cypress\\e2e\\SPAC\\Mantenimiento\\Desvio_de_inyecciones\\configuracion_contactos.cy.js:9"
+          },
+          {
+            "name": ".pdf doc download correctly",
+            "keyword": "Then",
+            "location": "cypress\\e2e\\SPAC\\Mantenimiento\\Desvio_de_inyecciones\\configuracion_contactos.cy.js:13",
+            "match": {
+              "expected": true,
+              "actual": true
+            }
+          },
+          {
+            "name": "Click on excel button",
+            "keyword": "When",
+            "location": "cypress\\e2e\\SPAC\\Mantenimiento\\Desvio_de_inyecciones\\configuracion_contactos.cy.js:17"
+          },
+          {
+            "name": ".xls doc download correctly",
+            "keyword": "Then",
+            "location": "cypress\\e2e\\SPAC\\Mantenimiento\\Desvio_de_inyecciones\\configuracion_contactos.cy.js:21",
+            "match": {
+              "expected": true,
+              "actual": true
+            }
+          },
+          {
+            "name": "Click on print button",
+            "keyword": "When",
+            "location": "cypress\\e2e\\SPAC\\Mantenimiento\\Desvio_de_inyecciones\\configuracion_contactos.cy.js:25"
+          },
+          {
+            "name": "Verify then you have the windows open",
+            "keyword": "Then",
+            "location": "cypress\\e2e\\SPAC\\Mantenimiento\\Desvio_de_inyecciones\\configuracion_contactos.cy.js:29",
+            "match": {
+              "expected": true,
+              "actual": true
+            }
+          }
+        ]
+      }
+    ],
+    "suites": [
+      {
+        "key": "Test cases de modulo <SPAC/Mantenimiento/Desvio de inyecciones/Configuracion de contactos>",
+        "status": "PASSED",
+        "tests": [
+          {
+            "key": "us1140 - validar exportar reportes (.xls/.pdf/print)",
+            "status": "PASSED"
+          }
+        ]
+      }
+    ],
+    "info": {
+      "start": "2023-05-16T14:29:00.826Z",
+      "end": "2023-05-16T14:29:22.722Z",
+      "duration": 21896,
+      "testsRegistered": 1,
+      "passPercent": 100
+    }
+  }
+  
