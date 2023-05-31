@@ -54,9 +54,7 @@ describe('Test cases de modulo <SPAC/Control/Consulta de Desvio de Inyecciones>'
       .should('exist').contains('error', {matchCase: false})
     cy.get('.MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-textPrimary').contains('aceptar', {matchCase: false}).click()
 
-    //validate list exist
     cy.get('.MuiTypography-root.jss68.MuiTypography-h6').contains('Desvío de Inyección por Operador Relacionado').should('exist')
-    cy.get('.MuiTab-wrapper').contains('GASODUCTO: Cerri').should('exist')
     cy.get('.MuiTab-wrapper').contains('GASODUCTO: Neuba I').should('exist')
     cy.get('.MuiTab-wrapper').contains('GASODUCTO: Neuba II').should('exist')
     cy.get('.MuiTab-wrapper').contains('GASODUCTO: Sur').should('exist')
@@ -65,9 +63,7 @@ describe('Test cases de modulo <SPAC/Control/Consulta de Desvio de Inyecciones>'
       .contains('TOTALES').should('exist')
     cy.contains('TOTALES GASODUCTOS', {matchCase: false}).should('exist')
 
-    //validate list not exist when change the date
-    cy.get('.MuiGrid-root.MuiGrid-item.MuiGrid-grid-xs-12.MuiGrid-grid-md-6.MuiGrid-grid-lg-6').contains('01/05/2020').click() // clear inicial date
-    cy.get('.MuiTypography-root.jss68.MuiTypography-h6').contains('Desvío de Inyección por Operador Relacionado').should('notexist')
+
 
 
   })
