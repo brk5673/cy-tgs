@@ -83,10 +83,10 @@ describe('Test cases de modulo <SPAC/Control/Consulta de Desvio de Inyecciones>'
 
     // download list
     cy.get('div.HeaderSvgCustomIcon.PdfIcon').should('be.visible').click().wait(2000) // click on pdf button
-    cy.readFile('cypress/downloads/ConsultaDeDesvioDeInyecciones.pdf').should('exist') // .pdf doc download correctly
+    cy.readFile('cypress/downloads/C.pdf').should('exist') // .pdf doc download correctly
 
     cy.get('div.HeaderSvgCustomIcon.ExcelIcon').should('be.visible').click() // click on excel button
-    cy.readFile('cypress/downloads/ConsultaDeDesvioDeInyecciones.xls').should('exist') // .xls doc download correctly
+    cy.readFile('cypress/downloads/contactosDesvioDeInyeccion.xls').should('exist') // .xls doc download correctly
 
     cy.get('path').eq(0).click() //click on print button
     cy.window().should('have.property', 'open') // verify then you have the windows open 

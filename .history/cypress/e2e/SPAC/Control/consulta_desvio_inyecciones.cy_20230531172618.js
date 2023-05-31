@@ -52,7 +52,7 @@ describe('Test cases de modulo <SPAC/Control/Consulta de Desvio de Inyecciones>'
     
     cy.get('.MuiPaper-root.MuiDialog-paper.MuiDialog-paperScrollPaper.MuiDialog-paperWidthSm.MuiDialog-paperFullWidth.MuiPaper-elevation24.MuiPaper-rounded')
       .should('exist').contains('error', {matchCase: false})
-    cy.get('.MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-textPrimary').contains('aceptar', {matchCase: false}).click() // click on accept button
+    cy.get('.MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-textPrimary').contains('aceptar', {matchCase: false}).click()
 
     //validate list exist
     cy.get('.MuiTypography-root.jss68.MuiTypography-h6').contains('Desvío de Inyección por Operador Relacionado').should('exist')
@@ -72,26 +72,9 @@ describe('Test cases de modulo <SPAC/Control/Consulta de Desvio de Inyecciones>'
 
   })
   it.only('us1106 - Validar exportar grilla', () => {
-    // dirigirse al punto Consulta Desvio Inyecciones
-    cy.visit('http://10.1.11.237:8080/etgs/spac/control/desvio-inyeccion')
-    cy.get('input[name=fechaInicial]').clear().type('01052020') // click on initial date
-    cy.get('input[name=fechaFinal]').clear().type('01052020') // click on final date
-    cy.get('.MuiInputBase-input.MuiInput-input.MuiInputBase-inputAdornedStart.MuiInputBase-inputAdornedEnd').eq(3).click().clear().type('1800')
-    cy.get('.MuiButtonBase-root.MuiButton-root.MuiButton-text').click()
-    cy.wait(10000)
-    cy.get('.MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-textPrimary').contains('aceptar', {matchCase: false}).click() // click on accept button
-
-    // download list
-    cy.get('div.HeaderSvgCustomIcon.PdfIcon').should('be.visible').click().wait(2000) // click on pdf button
-    cy.readFile('cypress/downloads/ConsultaDeDesvioDeInyecciones.pdf').should('exist') // .pdf doc download correctly
-
-    cy.get('div.HeaderSvgCustomIcon.ExcelIcon').should('be.visible').click() // click on excel button
-    cy.readFile('cypress/downloads/ConsultaDeDesvioDeInyecciones.xls').should('exist') // .xls doc download correctly
-
-    cy.get('path').eq(0).click() //click on print button
-    cy.window().should('have.property', 'open') // verify then you have the windows open 
-
-  })
+        // dirigirse al punto Consulta Desvio Inyecciones
+        cy.visit('http://10.1.11.237:8080/etgs/spac/control/desvio-inyeccion')
+        
 
 
 
