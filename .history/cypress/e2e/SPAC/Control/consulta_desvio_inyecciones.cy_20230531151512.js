@@ -66,8 +66,8 @@ describe('Test cases de modulo <SPAC/Control/Consulta de Desvio de Inyecciones>'
     cy.contains('TOTALES GASODUCTOS', {matchCase: false}).should('exist')
 
     //validate list not exist when change the date
-    cy.get('.MuiCollapse-root.MuiCollapse-entered').eq(0).click() // clear inicial date
-    cy.contains('Desvío de Inyección por Operador Relacionado').should('not.exist')
+    cy.get('.MuiCollapse-root.MuiCollapse-entered').click().clear() // clear inicial date
+    cy.get('.MuiTypography-root.jss68.MuiTypography-h6').contains('Desvío de Inyección por Operador Relacionado').should('notexist')
 
 
   })

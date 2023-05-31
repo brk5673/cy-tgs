@@ -24,7 +24,7 @@ describe('Test cases de modulo <SPAC/Control/Consulta de Desvio de Inyecciones>'
     cy.visit('http://10.1.11.237:8080/etgs/')
     cy.contains('span.MuiListItemText-primary', 'SPAC').click()
     cy.contains('span.MuiListItemText-primary', 'Control').click()
-    cy.contains('span.MuiListItemText-primary', 'Consulta de Desvio de Inyecciones').click({force:true})
+    cy.contains('span.MuiListItemText-primary', 'Consulta de Desvio de Inyecciones').click()
     cy.wait(1000)
   
     // validate web elements
@@ -66,8 +66,8 @@ describe('Test cases de modulo <SPAC/Control/Consulta de Desvio de Inyecciones>'
     cy.contains('TOTALES GASODUCTOS', {matchCase: false}).should('exist')
 
     //validate list not exist when change the date
-    cy.get('.MuiCollapse-root.MuiCollapse-entered').eq(0).click() // clear inicial date
-    cy.contains('Desvío de Inyección por Operador Relacionado').should('not.exist')
+    cy.get('.MuiGrid-root.MuiGrid-item.MuiGrid-grid-xs-12.MuiGrid-grid-md-6.MuiGrid-grid-lg-6').eq(0).contains('01/05/2020').clear() // clear inicial date
+    cy.get('.MuiTypography-root.jss68.MuiTypography-h6').contains('Desvío de Inyección por Operador Relacionado').should('notexist')
 
 
   })
