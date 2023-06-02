@@ -99,7 +99,7 @@ describe('Test cases de modulo <SPAC/Mantenimiento/Desvio de inyecciones/Configu
 
     //edith 1st data on table for 1st time
     cy.get('#name').clear().each(($input) => {
-      const textToType = `test ${counter}`
+      const textToType = `cy test ${counter}`
       cy.wrap($input).type(textToType)
       counter++
       cy.contains('Aceptar').click()
@@ -109,7 +109,7 @@ describe('Test cases de modulo <SPAC/Mantenimiento/Desvio de inyecciones/Configu
       .find('.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-colorPrimary.MuiIconButton-sizeSmall') // select edit button
       .should('exist').click({force: true})    
       cy.get('#name').clear().each(($input) => {
-        const textToType = `test ${counter}`
+        const textToType = `cy test ${counter}`
         cy.wrap($input).type(textToType)
         counter++ 
       })
@@ -118,8 +118,8 @@ describe('Test cases de modulo <SPAC/Mantenimiento/Desvio de inyecciones/Configu
     cy.get('.MuiTableBody-root.tables_body') // pick table
       .find('tr:first-child').contains('test') // pick 1st row on table
 
-      cy.get('.actionBars > :nth-child(1) > .MuiButton-label').click() // select 'grabar' button on footer
-      cy.get('#message-id').should('exist')
+    cy.get('.actionBars > :nth-child(1) > .MuiButton-label').click() // select 'grabar' button on footer
+    cy.get('#message-id').should('exist')
     
   })
 
@@ -129,8 +129,8 @@ describe('Test cases de modulo <SPAC/Mantenimiento/Desvio de inyecciones/Configu
     cy.contains('test').should('exist') // check exist the 'test' name in table
     cy.get('.MuiTableBody-root.tables_body') // pick table
       .find('tr:first-child > :nth-child(7)') // pick 1st row & 7th column on table
-      .find('.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-colorPrimary.MuiIconButton-sizeSmall') // select delete button
-      .should('exist').click({force: true})
+      .find('.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-colorPrimary.MuiIconButton-sizeSmall') 
+        .should('exist').click({force: true}) // find & click on delete button
     cy.on('window:confirm', () => {
       return true
     })
@@ -141,6 +141,7 @@ describe('Test cases de modulo <SPAC/Mantenimiento/Desvio de inyecciones/Configu
     // go to configContact page
     cy.visit('http://10.1.11.237:8080/etgs/spac/mantenimiento/desviodeinyeccion/configuraciondecontactos')
     cy.get('#navPath').contains('Configuracion de Contactos', {matchCase: false}).should('exist') // validate headers name
+    cy.wait(2000)
     
     cy.get('div.HeaderSvgCustomIcon.PdfIcon').should('be.visible').click() // click on pdf button
     cy.readFile('cypress/downloads/contactosDesvioDeInyeccion.pdf').should('exist') // .pdf doc download correctly
