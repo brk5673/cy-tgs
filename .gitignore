@@ -1,6 +1,7 @@
 credentials.js
 node_modules
 .history
+.vscode
 videos
 screenshots
 results

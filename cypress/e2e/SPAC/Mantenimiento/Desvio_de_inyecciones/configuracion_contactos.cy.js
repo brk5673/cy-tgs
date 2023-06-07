@@ -151,7 +151,7 @@ describe('Test cases de modulo <SPAC/Mantenimiento/Desvio de inyecciones/Configu
 
     cy.get('path').eq(0).click() //click on print button
     cy.window().should('have.property', 'open') // verify then you have the windows open 
-
+    
   })
 
 })  

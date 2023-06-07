@@ -1,5 +1,6 @@
+import {USERNAME, PASSWORD, USERNAME1, PASSWORD1} from "../../../fixtures/credentials"
 
-describe('Test cases de modulo <SPAC/Control/Consulta de Desvio de Inyecciones>', () => {
+describe('Test cases de modulo <SPAC/Mantenimiento/Desvio de inyecciones/Configuracion de contactos>', () => {
   beforeEach(() => {
     cy.visit('http://10.1.11.237:8080/etgs/login')
     cy.url()
@@ -11,9 +12,9 @@ describe('Test cases de modulo <SPAC/Control/Consulta de Desvio de Inyecciones>'
       .and('be.visible')
 
     cy.get('input[name="userName"]')
-      .type('gpalladi')
+      .type(USERNAME)
     cy.get('input[name="password"]')
-      .type('Independiente1_')
+      .type(PASSWORD)
     cy.get('button[type="submit"]')
       .click()
     cy.wait(2000)
@@ -30,12 +31,12 @@ describe('Test cases de modulo <SPAC/Control/Consulta de Desvio de Inyecciones>'
     // validate web elements
     cy.get('#navPath').contains('Consulta de Desvio de Inyecciones', {matchCase: false}).should('exist') // validar nombre el headers
     cy.get('input[name=fechaInicial]').clear().type('01011990') // click on initial date
-    cy.get('.MuiInputBase-input.MuiInput-input.MuiInputBase-inputAdornedStart.MuiInputBase-inputAdornedEnd').eq(1).click().clear().type('0530')
+    cy.get('.MuiInputBase-input.MuiInput-input.MuiInputBase-inputAdornedStart.MuiInputBase-inputAdornedEnd').eq(1).click().clear().type('0500')
     cy.get('input[name=fechaFinal]').clear().type('31122099') // click on final date
-    cy.get('.MuiInputBase-input.MuiInput-input.MuiInputBase-inputAdornedStart.MuiInputBase-inputAdornedEnd').eq(3).click().clear().type('1830')
+    cy.get('.MuiInputBase-input.MuiInput-input.MuiInputBase-inputAdornedStart.MuiInputBase-inputAdornedEnd').eq(3).click().clear().type('1800')
     cy.get('.MuiButtonBase-root.MuiButton-root.MuiButton-text').click()
 
-    cy.wait(10000)
+    cy.wait(2000)
 
     cy.contains('Desvío de Inyección por Operador Relacionado').should('exist')
   })
@@ -44,12 +45,15 @@ describe('Test cases de modulo <SPAC/Control/Consulta de Desvio de Inyecciones>'
     // dirigirse al punto Consulta Desvio Inyecciones
     cy.visit('http://10.1.11.237:8080/etgs/spac/control/desvio-inyeccion')
     cy.get('#navPath').contains('Consulta de Desvio de Inyecciones', {matchCase: false}).should('exist') // validar nombre el headers
+
+    // to list data on list
     cy.get('input[name=fechaInicial]').clear().type('01052020') // click on initial date
     cy.get('input[name=fechaFinal]').clear().type('01052020') // click on final date
     cy.get('.MuiInputBase-input.MuiInput-input.MuiInputBase-inputAdornedStart.MuiInputBase-inputAdornedEnd').eq(3).click().clear().type('1800')
     cy.get('.MuiButtonBase-root.MuiButton-root.MuiButton-text').click()
     cy.wait(10000)
     
+    // interact with error modal
     cy.get('.MuiPaper-root.MuiDialog-paper.MuiDialog-paperScrollPaper.MuiDialog-paperWidthSm.MuiDialog-paperFullWidth.MuiPaper-elevation24.MuiPaper-rounded')
       .should('exist').contains('error', {matchCase: false})
     cy.get('.MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-textPrimary').contains('aceptar', {matchCase: false}).click() // click on accept button
@@ -71,7 +75,57 @@ describe('Test cases de modulo <SPAC/Control/Consulta de Desvio de Inyecciones>'
 
 
   })
-  it.only('us1106 - Validar exportar grilla', () => {
+
+  it.only('us1102 - Validar enviar nota', () => {
+    // dirigirse al punto Consulta Desvio Inyecciones
+    cy.visit('http://10.1.11.237:8080/etgs/spac/control/desvio-inyeccion')
+    cy.get('#navPath').contains('Consulta de Desvio de Inyecciones', {matchCase: false}).should('exist') // validate header's name
+
+    // to list data on list
+    cy.get('input[name=fechaInicial]').clear().type('01052020') // click on initial date
+    cy.get('input[name=fechaFinal]').clear().type('01052020') // click on final date
+    cy.get('.MuiInputBase-input.MuiInput-input.MuiInputBase-inputAdornedStart.MuiInputBase-inputAdornedEnd').eq(3).click().clear().type('1800')
+    cy.get('.MuiButtonBase-root.MuiButton-root.MuiButton-text').click()
+    cy.wait(10000)
+
+    // interact with error modal
+    cy.get('.MuiPaper-root.MuiDialog-paper.MuiDialog-paperScrollPaper.MuiDialog-paperWidthSm.MuiDialog-paperFullWidth.MuiPaper-elevation24.MuiPaper-rounded')
+      .should('exist').contains('error', {matchCase: false})
+    cy.get('.MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-textPrimary').contains('aceptar', {matchCase: false}).click() // click on accept button
+
+    // send <note1 SIN MAPO>
+    cy.get(':nth-child(4) > .tabs_swipper > .react-swipeable-view-container > [aria-hidden="false"] > .MuiPaper-root > .MuiTable-root > .MuiTableBody-root > :nth-child(1) > :nth-child(11) > .MuiButtonBase-root')
+      .click({force:true}) // click on send <Note1 sin MAPO>
+    cy.contains('DESVIO DE INYECCIÓN SIN SUPERACIÓN DE MAPO').should('exist')
+    cy.get('.MuiDialogActions-root > :nth-child(1) > .MuiButton-label').click()
+    cy.contains('La nota fue enviada exitosamente.').should('exist')
+
+    // send <note2 SIN MAPO>
+    cy.get(':nth-child(4) > .tabs_swipper > .react-swipeable-view-container > [aria-hidden="false"] > .MuiPaper-root > .MuiTable-root > .MuiTableBody-root > :nth-child(1) > :nth-child(12) > .MuiButtonBase-root')
+      .click({force:true}) // click on send <Note2 sin MAPO>
+    cy.contains('DESVIO DE INYECCIÓN SIN SUPERACIÓN DE MAPO').should('exist')
+    cy.get('#valorIngresado').type('123321')
+    cy.get('.MuiDialogActions-root > :nth-child(1) > .MuiButton-label').click()
+    cy.contains('La nota fue enviada exitosamente.').should('exist')
+
+    // send <note1 CON MAPO>
+    cy.get(':nth-child(4) > .tabs_swipper > .react-swipeable-view-container > [aria-hidden="false"] > .MuiPaper-root > .MuiTable-root > .MuiTableBody-root > :nth-child(1) > :nth-child(13) > .MuiButtonBase-root')
+      .click({force:true}) // click on send <Note1 con MAPO>
+    cy.contains('DESVIO DE INYECCIÓN CON SUPERACIÓN DE MAPO').should('exist')
+    cy.get('#valorIngresado').type('456654')
+    cy.get('.MuiDialogActions-root > :nth-child(1) > .MuiButton-label').click()
+    cy.contains('La nota fue enviada exitosamente.').should('exist')
+
+    // send <note2 CON MAPO>
+    cy.get(':nth-child(4) > .tabs_swipper > .react-swipeable-view-container > [aria-hidden="false"] > .MuiPaper-root > .MuiTable-root > .MuiTableBody-root > :nth-child(1) > :nth-child(14) > .MuiButtonBase-root')
+      .click({force:true}) // click on send <Note2 con MAPO>
+    cy.contains('DESVIO DE INYECCIÓN CON SUPERACIÓN DE MAPO').should('exist')
+    cy.get('.MuiDialogActions-root > :nth-child(1) > .MuiButton-label').click()
+    cy.contains('La nota fue enviada exitosamente.').should('exist')
+
+  })
+
+  it('us1106 - Validar exportar grilla', () => {
     // dirigirse al punto Consulta Desvio Inyecciones
     cy.visit('http://10.1.11.237:8080/etgs/spac/control/desvio-inyeccion')
     cy.get('input[name=fechaInicial]').clear().type('01052020') // click on initial date
@@ -81,14 +135,16 @@ describe('Test cases de modulo <SPAC/Control/Consulta de Desvio de Inyecciones>'
     cy.wait(10000)
     cy.get('.MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-textPrimary').contains('aceptar', {matchCase: false}).click() // click on accept button
 
-    // download list
+    // download list on pdf
     cy.get('div.HeaderSvgCustomIcon.PdfIcon').should('be.visible').click().wait(2000) // click on pdf button
     cy.readFile('cypress/downloads/ConsultaDeDesvioDeInyecciones.pdf').should('exist') // .pdf doc download correctly
 
-    cy.get('div.HeaderSvgCustomIcon.ExcelIcon').should('be.visible').click() // click on excel button
+    // download list on excel
+    cy.get('div.HeaderSvgCustomIcon.ExcelIcon').should('be.visible').click().wait(2000) // click on excel button
     cy.readFile('cypress/downloads/ConsultaDeDesvioDeInyecciones.xls').should('exist') // .xls doc download correctly
 
-    cy.get('path').eq(0).click() //click on print button
+    // print list
+    cy.get('path').eq(0).click().wait(2000) // click on print button
     cy.window().should('have.property', 'open') // verify then you have the windows open 
 
   })

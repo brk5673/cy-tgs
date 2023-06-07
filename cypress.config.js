@@ -13,7 +13,7 @@ module.exports = defineConfig({
     reporterOptions: {
       reportDir: 'cypress/results',
       overwrite: false,
-      html: false,
+      html: true,
       json: true,
     },
     baseUrl: "https://api-football-v1.p.rapidapi.com/v3",
