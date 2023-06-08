@@ -76,7 +76,7 @@ describe('Test cases de modulo <SPAC/Mantenimiento/Desvio de inyecciones/Configu
 
   })
 
-  it.only('us1102 - Validar enviar nota', () => {
+  it('us1102 - Validar enviar nota', () => {
     // dirigirse al punto Consulta Desvio Inyecciones
     cy.visit('http://10.1.11.237:8080/etgs/spac/control/desvio-inyeccion')
     cy.get('#navPath').contains('Consulta de Desvio de Inyecciones', {matchCase: false}).should('exist') // validate header's name
@@ -115,11 +115,12 @@ describe('Test cases de modulo <SPAC/Mantenimiento/Desvio de inyecciones/Configu
     cy.get('#valorIngresado').type('456654')
     cy.get('.MuiDialogActions-root > :nth-child(1) > .MuiButton-label').click()
     cy.contains('La nota fue enviada exitosamente.').should('exist')
+    cy.wait(500)
 
     // send <note2 CON MAPO>
     cy.get(':nth-child(4) > .tabs_swipper > .react-swipeable-view-container > [aria-hidden="false"] > .MuiPaper-root > .MuiTable-root > .MuiTableBody-root > :nth-child(1) > :nth-child(14) > .MuiButtonBase-root')
       .click({force:true}) // click on send <Note2 con MAPO>
-    cy.contains('DESVIO DE INYECCIÓN CON SUPERACIÓN DE MAPO').should('exist')
+    cy.contains('DESVIO DE INYECCIÓN CON SUPERACIÓN DE MAPO').should('exist') // validate note exist
     cy.get('.MuiDialogActions-root > :nth-child(1) > .MuiButton-label').click()
     cy.contains('La nota fue enviada exitosamente.').should('exist')
 
@@ -136,11 +137,11 @@ describe('Test cases de modulo <SPAC/Mantenimiento/Desvio de inyecciones/Configu
     cy.get('.MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-textPrimary').contains('aceptar', {matchCase: false}).click() // click on accept button
 
     // download list on pdf
-    cy.get('div.HeaderSvgCustomIcon.PdfIcon').should('be.visible').click().wait(2000) // click on pdf button
+    cy.get('div.HeaderSvgCustomIcon.PdfIcon').should('be.visible').click().wait(4000) // click on pdf button
     cy.readFile('cypress/downloads/ConsultaDeDesvioDeInyecciones.pdf').should('exist') // .pdf doc download correctly
 
     // download list on excel
-    cy.get('div.HeaderSvgCustomIcon.ExcelIcon').should('be.visible').click().wait(2000) // click on excel button
+    cy.get('div.HeaderSvgCustomIcon.ExcelIcon').should('be.visible').click().wait(4000) // click on excel button
     cy.readFile('cypress/downloads/ConsultaDeDesvioDeInyecciones.xls').should('exist') // .xls doc download correctly
 
     // print list
