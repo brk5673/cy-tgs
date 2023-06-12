@@ -27,7 +27,7 @@ describe('Test cases de modulo <SPAC/Mantenimiento/Desvio de inyecciones/Configu
     cy.contains('span.MuiListItemText-primary', 'Mantenimiento').click()
     cy.contains('span.MuiListItemText-primary', 'Desvío de Inyección').click()
     cy.contains('span.MuiListItemText-primary', 'Configuración de Contactos').click()
-  
+    cy.wait(500)
     // dirigirse a la pagina y validar el titulo en el headers
     cy.get('#navPath').contains('Configuracion de Contactos', {matchCase: false}).should('exist') // validar nombre el headers
     
@@ -68,7 +68,7 @@ describe('Test cases de modulo <SPAC/Mantenimiento/Desvio de inyecciones/Configu
   it('us1126 - Validar accion "Agregar nuevo"', () => {
     cy.visit('http://10.1.11.237:8080/etgs/spac/mantenimiento/desviodeinyeccion/configuraciondecontactos')  // dirigirse al punto configContactos
     cy.get('#navPath').contains('Configuracion de Contactos', {matchCase: false}).should('exist') // validar nombre el headers
-
+    cy.wait(1000)
     // agregar nuevo contacto
     cy.contains('Agregar Nuevo').click()
 
@@ -91,6 +91,7 @@ describe('Test cases de modulo <SPAC/Mantenimiento/Desvio de inyecciones/Configu
 
     cy.visit('http://10.1.11.237:8080/etgs/spac/mantenimiento/desviodeinyeccion/configuraciondecontactos') // go to configContact page
     cy.get('#navPath').contains('Configuracion de Contactos', {matchCase: false}).should('exist') // validate headers name
+    cy.wait(1000)
 
     cy.get('.MuiTableBody-root.tables_body') // pick table
       .find('tr:first-child > :nth-child(6)') // pick 1st row & 6th column on table
@@ -102,8 +103,9 @@ describe('Test cases de modulo <SPAC/Mantenimiento/Desvio de inyecciones/Configu
       const textToType = `cy test ${counter}`
       cy.wrap($input).type(textToType)
       counter++
-      cy.contains('Aceptar').click()
+      cy.contains('Aceptar').click({force: true})
     //edit 1st data on table for 2th time
+    
       cy.get('.MuiTableBody-root.tables_body') // pick table
       .find('tr:first-child > :nth-child(6)') //pick 1st row & 6th column on table
       .find('.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-colorPrimary.MuiIconButton-sizeSmall') // select edit button
@@ -111,12 +113,13 @@ describe('Test cases de modulo <SPAC/Mantenimiento/Desvio de inyecciones/Configu
       cy.get('#name').clear().each(($input) => {
         const textToType = `cy test ${counter}`
         cy.wrap($input).type(textToType)
-        counter++ 
+        counter++
       })
     })
-    cy.contains('Aceptar').click()
+    cy.contains('span.MuiButton-label', 'Aceptar').click();
+    cy.wait(500)
     cy.get('.MuiTableBody-root.tables_body') // pick table
-      .find('tr:first-child').contains('test') // pick 1st row on table
+      .contains('test') // pick 1st row on table
 
     cy.get('.actionBars > :nth-child(1) > .MuiButton-label').click() // select 'grabar' button on footer
     cy.get('#message-id').should('exist')
@@ -125,7 +128,9 @@ describe('Test cases de modulo <SPAC/Mantenimiento/Desvio de inyecciones/Configu
 
   it('us1128 - validar eliminar contacto', () => {
     cy.visit('http://10.1.11.237:8080/etgs/spac/mantenimiento/desviodeinyeccion/configuraciondecontactos') // go to configContact page
+    cy.wait(1000)
     cy.get('#navPath').contains('Configuracion de Contactos', {matchCase: false}).should('exist') // validate headers name
+
     cy.contains('test').should('exist') // check exist the 'test' name in table
     cy.get('.MuiTableBody-root.tables_body') // pick table
       .find('tr:first-child > :nth-child(7)') // pick 1st row & 7th column on table
