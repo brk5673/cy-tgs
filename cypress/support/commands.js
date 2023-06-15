@@ -33,3 +33,14 @@ Cypress.Commands.add('waitForDownload', () => {
       return filename.trim()
     })
   })
+
+  Cypress.Commands.add('loginAPI', (username, password) => {
+    cy.request('POST', 'http://10.1.11.236:8080/etgs/api/user/login', {
+      username, password
+    }).then((response) => {
+      let token = response.headers["set-cookie"][0].split("=")[1].split(";")[0]
+      cy.wrap(token).as("jsession")
+
+    });
+  
+  })

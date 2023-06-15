@@ -1,6 +1,6 @@
 //import { USERNAME, PASSWORD } from "../fixtures/credentials"
 
-import { PASSWORD1, USERNAME, USERNAME1 } from "../fixtures/credentials"
+import { PASS1, PASSWORD1, USER1, USERNAME, USERNAME1 } from "../fixtures/credentials"
 
 describe('login test', () => {
   it('login exitoso con credenciales validas', () => {
@@ -8,8 +8,8 @@ describe('login test', () => {
       method: 'POST',
       url: 'http://10.1.11.236:8080/etgs/api/user/login',
       body: {
-        username:USERNAME1,
-        password:PASSWORD1
+        username:USER1,
+        password:PASS1
       }
     })
     .then((response) => {

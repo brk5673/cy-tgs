@@ -1,4 +1,4 @@
-import {USERNAME, PASSWORD} from "../../../fixtures/credentials"
+import {USERNAME, PASSWORD} from "../../../../fixtures/credentials"
 
 
 

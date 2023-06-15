@@ -1,4 +1,4 @@
-import {USERNAME, PASSWORD, USERNAME1, PASSWORD1} from "../../../../fixtures/credentials"
+import {USERNAME, PASSWORD, USERNAME1, PASSWORD1} from "../../../../../fixtures/credentials"
 
 describe('Test cases de modulo <SPAC/Mantenimiento/Desvio de inyecciones/Configuracion de contactos>', () => {
   beforeEach(() => {
