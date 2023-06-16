@@ -16,7 +16,7 @@ module.exports = defineConfig({
       html: true,
       json: true,
     },
-    baseUrl: "https://api-football-v1.p.rapidapi.com/v3",
+    baseUrl: "http://10.1.11.237:8080/etgs", // sit URL
     setupNodeEvents,
     chromeWebSecurity: false,
     env: {
