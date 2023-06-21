@@ -8,7 +8,6 @@ describe('API tests <View Parametrizada> module', () => {
     
     it('init - status code 200, fechaMinima/fechaMaxima format', () => {
         cy.get('@jsession').then(token => {
-            console.log(token)
             cy.request({
                 method: 'GET',
                 url: '/api/spac/control/viewparametrizada/init',
@@ -31,7 +30,6 @@ describe('API tests <View Parametrizada> module', () => {
             })
         })  
     })
-
     it('listar - status code 200', () => {
         cy.get('@jsession').request({
             method: 'GET',
@@ -42,7 +40,6 @@ describe('API tests <View Parametrizada> module', () => {
             expect(response.status).to.eq(200)
         })
     })
-
     it('listar - response with properties', () => {
         cy.get('@jsession').request({
             method: 'GET',
@@ -62,8 +59,7 @@ describe('API tests <View Parametrizada> module', () => {
             // expect to have property 'codigo'
             expect(response.body[0]).to.have.property('codigo')
         })
-    })  
-
+    })
     it('listar - status 4xx parametros invalidos', () => {
             cy.request({
                 method: 'GET',
@@ -76,7 +72,6 @@ describe('API tests <View Parametrizada> module', () => {
             })
         
     })
-
     it('edi - status code 200', () => {
         cy.get('@jsession').then(token => {
             console.log(token)
@@ -92,7 +87,6 @@ describe('API tests <View Parametrizada> module', () => {
             })
         })
     })
-
     it('edi - status code 4xx fecha invalida', () => {
         cy.get('@jsession').request({
             method: 'GET',
@@ -105,7 +99,6 @@ describe('API tests <View Parametrizada> module', () => {
             response.status.should.equal(400)
         })
     })
-
     it('report - xls status 200', () => {
         cy.get('@jsession').request({
             method: 'GET',
@@ -116,7 +109,6 @@ describe('API tests <View Parametrizada> module', () => {
             expect(response.status).to.eq(200)
         })
     })
-
     it('report - pdf status 200', () => {
         cy.get('@jsession').request({
             method: 'GET',
@@ -127,7 +119,6 @@ describe('API tests <View Parametrizada> module', () => {
             expect(response.status).to.eq(200)
         })
     })
-
     it('report - print status 200', () => {
         cy.get('@jsession').request({
             method: 'GET',
@@ -138,7 +129,6 @@ describe('API tests <View Parametrizada> module', () => {
             expect(response.status).to.eq(200)
         })
     })
-
     it('report - print pdf', () => {
         cy.get('@jsession').request({
             method: 'GET',
