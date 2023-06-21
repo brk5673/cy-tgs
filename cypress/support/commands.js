@@ -35,7 +35,7 @@ Cypress.Commands.add('waitForDownload', () => {
   })
 
   Cypress.Commands.add('loginAPI', (username, password) => {
-    cy.request('POST', 'http://10.1.11.237:8080/etgs/api/user/login', {
+    cy.request('POST', '/api/user/login', {
       username, password
     }).then((response) => {
       let token = response.headers["set-cookie"][0].split("=")[1].split(";")[0]

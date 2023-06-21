@@ -6,12 +6,11 @@
   "scripts": {
     "cy:open": "cypress open --e2e --browser chrome",
     "cy:run": "cypress run",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "cy:runChrome": "cypress run --browser chrome --spec cypress/e2e/login.cy.js",
-    "cy:CC": "cypress run --browser chrome --spec cypress/e2e/SPAC/Mantenimiento/Desvio_de_inyecciones/configuracion_contactos.cy.js",
-    "cy:CDI": "cypress run --browser chrome --spec cypress/e2e/SPAC/Control/consulta_desvio_inyecciones.cy.js",
-    "api-regression-allure": "cypress run --browser chrome --spec cypress/e2e/**.js --env allure=true",
-    "allure:report": "allure generate allure-results --clean -o allure-report"
+    "ui:cc": "cypress run --browser chrome --spec cypress/e2e/SPAC/Mantenimiento/Desvio_de_inyecciones/configuracion_contactos.cy.js",
+    "ui:cdi": "cypress run --browser chrome --spec cypress/e2e/SPAC/Control/consulta_desvio_inyecciones.cy.js",
+    "api-regression": "cypress run --browser chrome --spec cypress/e2e/api/**.js --env mochawesome=true",
+    "api:vp": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Control/view_parametrizada.cy.js"
   },
   "author": "jfc",
   "license": "ISC",
@@ -20,7 +19,9 @@
     "jsonfile": "^6.1.0",
     "mocha": "^10.2.0"
   },
-  "plugins": ["cypress-xray-plugin"],
+  "plugins": [
+    "cypress-xray-plugin"
+  ],
   "cypress-xray-plugin": {
     "xrayUrl": "https://your-jira-server.com/xray",
     "xrayProjectKey": "YOUR_XRAY_PROJECT_KEY",

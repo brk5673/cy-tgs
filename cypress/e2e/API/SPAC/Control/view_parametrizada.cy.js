@@ -11,7 +11,7 @@ describe('API tests <View Parametrizada> module', () => {
             console.log(token)
             cy.request({
                 method: 'GET',
-                url: '${baseURL}/api/spac/control/viewparametrizada/init',
+                url: '/api/spac/control/viewparametrizada/init',
                 headers: {
                     'Cookie': 'JSESSIONID='+token
                 }
@@ -39,16 +39,21 @@ describe('API tests <View Parametrizada> module', () => {
         })
     })
 
-    it('listar - status 400 parametros invalidos', () => {
+    it('listar - status 4xx parametros invalidos', () => {
             cy.request({
                 method: 'GET',
-                url: '{baseURL}/api/spac/control/viewparametrizada/listar?=8&fechaDesde=2021-04-25&fechaHasta=2021-04-25&tipoDato=P&tipoVolumen=A&sort=volStdM3D,desc0'
+                url: '/api/spac/control/viewparametrizada/listar?codigo=8&fechaDesde=2021-04-25&fechaHasta=2021-04-25&tipoDato=R&tipoVolumen=A&sort=volStdM3D,desc',
+                failOnStatusCode: false
             }).then((response) => {
                 // Realiza las aserciones sobre la respuesta de la API
                 console.log(response.status)
-                expect(response.status).to.eq(200)
+                response.status.should.equal(400)
             })
         
+    })
+    // testing baseURL
+    it('visitar website', () =>{
+        cy.visit('/spac/control')
     })
 })
 
