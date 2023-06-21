@@ -40,16 +40,18 @@ describe('API tests <Estado del Sistema> module', () => {
             })
         })
     })
+    
     it('listar - status code 200', () => {
         cy.get('@jsession').request({
             method: 'GET',
-            url: '/api/spac/control/estadodelsistema/listar?fechaDesde=2021-06-13&fechaHasta=2021-06-13&sort=numeroEntidadLegal,asc'
+            url: '/api/spac/control/estadodelsistema/listar?fechaDesde=2023-06-21&fechaHasta=2023-06-21'
         })
         .then((response) => {
             // assertion with api response
             expect(response.status).to.eq(200)
         })
     })
+
     it('listar - status code 400, ', () => {
         cy.get('@jsession').request({
             method: 'GET',
@@ -61,5 +63,86 @@ describe('API tests <Estado del Sistema> module', () => {
             expect(response.status).to.eq(400)
         })
     })
+
+    it('estado general - status 200', () => {
+        cy.get('@jsession').request({
+            method: 'GET',
+            url: '/api/spac/control/estadodelsistema/estadogeneral?fechaDesde=2023-06-21&fechaHasta=2023-06-21'
+        })
+        .then((response) => {
+            // assertion with api response
+            expect(response.status).to.eq(200)
+        })
+    })
+
+    it('estado general - print general status', () => {
+        cy.get('@jsession').request({
+            url: '/api/spac/control/estadodelsistema/estadogeneral?fechaDesde=2023-06-21&fechaHasta=2023-06-21'
+        })
+        .then((response) => {
+            // assertion with api response
+            console.log(response.body)
+            // expect print body response
+            expect(response.body).to.have.property('estado')
+            expect(response.body['estado']).to.not.be.empty
+            // print his value
+            console.log(response.body['estado'])
+        })
+    })
+
+    it('agregar - status 200', () => {
+        cy.get('@jsession').request({
+            url: '/api/spac/control/estadodelsistema/agregar'
+        })
+        .then((response) => {
+            expect(response.status).to.eq(200)
+        })
+    })
+
+    it('agregar nuevo - status 200', () => {
+        cy.get('@jsession').request({
+            method: 'POST',
+            url: '/api/spac/control/estadodelsistema/agregarnuevo',
+            body: {
+                "fecha": "2023-06-21",
+                "entidadLegal": 648,
+                "estado": 2,
+                "observacion": "messi"    
+            }
+        })
+        .then((response) => {
+            expect(response.status).to.eq(200)
+        })
+    })
+
+    it('agregar nuevo - status 500', () => {
+        cy.get('@jsession').request({
+            method: 'POST',
+            url: '/api/spac/control/estadodelsistema/agregarnuevo',
+            failOnStatusCode: false,
+            body: {
+                "fecha": "2023-06-21",
+                "entidadLegal": 648,
+                "estado": 66,
+                "observacion": "messi"    
+            }
+        })
+        .then((response) => {
+            expect(response.status).to.eq(500)
+            console.log(response.status)
+        })
+    })
+
+
+
+
+
+
+
+
+
+
+
+
 
 })
