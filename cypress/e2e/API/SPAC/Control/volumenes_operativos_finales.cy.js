@@ -41,7 +41,7 @@ describe('API tests <Volumenes Operativos Finales> module', () => {
         })
     })
 
-    it.only('listar - status 200', () => {
+    it('listar - status 200', () => {
         cy.get('@jsession').request({
             method: 'GET',
             url: '/api/spac/control/volumenesoperativosfinales/listar?fecha=2021-06-21&sort=pC,desc'
@@ -65,7 +65,7 @@ describe('API tests <Volumenes Operativos Finales> module', () => {
         })
     })
 
-    it.only('grabar - status 200', () => {
+    it('grabar - status 200', () => {
         cy.get('@jsession').request({
             method: 'POST',
             url: '/api/spac/control/volumenesoperativosfinales/grabar?fecha=2021-06-21',
