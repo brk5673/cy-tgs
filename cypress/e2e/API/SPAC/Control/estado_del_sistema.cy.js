@@ -20,7 +20,7 @@ describe('API tests <Estado del Sistema> module', () => {
             })
         })  
     })
-    it('init - fechaMinima/fechaMaxima', () => {
+    it('init - home page data', () => {
         cy.get('@jsession').then(token => {
             cy.request({
                 method: 'GET',
