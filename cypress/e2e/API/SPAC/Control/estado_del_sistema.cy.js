@@ -133,8 +133,79 @@ describe('API tests <Estado del Sistema> module', () => {
         })
     })
 
+    it('agregar nuevo - status 404', () => {
+        cy.get('@jsession').request({
+            method: 'POST',
+            url: '/api/spac/control/estadodelsistema/agregarnuevo',
+            failOnStatusCode: false,
+            body: {
+                "fecha": "2023-06-21",
+                "entidadLegal": 99090,
+                "estado": 66,
+                "observacion": "messi2"    
+            }
+        })
+        .then((response) => {
+            expect(response.status).to.eq(404)
+        })
+    })
+
+    it('delete - status 200', () => {
+        cy.get('@jsession').request({
+            method: 'POST',
+            url: '/api/spac/control/estadodelsistema/eliminar?fechaPrograma=2023-06-21&numero=1'
+        })
+        .then((response) => {
+            expect(response.status).to.eq(200)
+        })
+    })
+
+    it('delete - status 409 [eliminar estado automatico]', () => {
+        cy.get('@jsession').request({
+            method: 'POST',
+            url: '/api/spac/control/estadodelsistema/eliminar?fechaPrograma=2020-06-21&numero=2',
+            failOnStatusCode: false
+        })
+        .then((response) => {
+            expect(response.status).to.eq(409)
+        })
+    })
+
+/*     it.only('report - xls status 200', () => {
+        cy.get('@jsession').request({
+            method: 'GET',
+            url: '/api/spac/control/estadodelsistema/xls?fechaDesde=2021-05-17&fechaHasta=2021-05-17'
+        })
+        .then((response) => {
+            // Realiza las aserciones sobre la respuesta de la API
+            expect(response.status).to.eq(200)
+        })
+    })
+
+    it.only('report - pdf status 200', () => {
+        cy.get('@jsession').request({
+            method: 'GET',
+            url: '/api/spac/control/estadodelsistema/pdf?fechaDesde=2021-05-17&fechaHasta=2021-05-17'
+        })
+        .then((response) => {
+            // Realiza las aserciones sobre la respuesta de la API
+            expect(response.status).to.eq(200)
+        })
+    })
+
+    it.only('report - print status 200', () => {
+        cy.get('@jsession').request({
+            method: 'GET',
+            url: '/api/spac/control/estadodelsistema/print?fechaDesde=2021-05-17&fechaHasta=2021-05-17'
+        })
+        .then((response) => {
+            // Realiza las aserciones sobre la respuesta de la API
+            expect(response.status).to.eq(200)
+        })
+    })
 
 
+ */
 
 
 
