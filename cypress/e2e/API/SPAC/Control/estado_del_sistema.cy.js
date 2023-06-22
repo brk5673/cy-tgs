@@ -163,7 +163,7 @@ describe('API tests <Estado del Sistema> module', () => {
     it('delete - status 409 [eliminar estado automatico]', () => {
         cy.get('@jsession').request({
             method: 'POST',
-            url: '/api/spac/control/estadodelsistema/eliminar?fechaPrograma=2020-06-21&numero=2',
+            url: '/api/spac/control/estadodelsistema/eliminar?fechaPrograma=2020-06-21&numero=1',
             failOnStatusCode: false
         })
         .then((response) => {
@@ -207,6 +207,15 @@ describe('API tests <Estado del Sistema> module', () => {
 
  */
 
+    it.only('notificar - status 200', () => {
+        cy.get('@jsession').request({
+            method: 'POST',
+            url: '/api/spac/control/estadodelsistema/notificar?fechaPrograma=2023-06-21&accion=N'
+        })
+        .then((response) => {
+            expect(response.status).to.eq(200)
+        })
+    })
 
 
 
