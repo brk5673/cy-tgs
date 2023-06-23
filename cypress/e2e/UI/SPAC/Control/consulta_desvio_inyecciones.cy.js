@@ -1,4 +1,5 @@
-import {USERNAME, PASSWORD, USERNAME1, PASSWORD1} from "../../../fixtures/credentials"
+import { PASS1, USER1 } from "../../../../fixtures/credentials"
+//import {USERNAME, PASSWORD, USERNAME1, PASSWORD1} from "../../../fixtures/credentials"
 
 describe('Test cases de modulo <SPAC/Mantenimiento/Desvio de inyecciones/Configuracion de contactos>', () => {
   beforeEach(() => {
@@ -12,9 +13,9 @@ describe('Test cases de modulo <SPAC/Mantenimiento/Desvio de inyecciones/Configu
       .and('be.visible')
 
     cy.get('input[name="userName"]')
-      .type(USERNAME)
+      .type(USER1)
     cy.get('input[name="password"]')
-      .type(PASSWORD)
+      .type(PASS1)
     cy.get('button[type="submit"]')
       .click()
     cy.wait(2000)

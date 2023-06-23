@@ -72,17 +72,69 @@ describe('API tests <Volumenes Operativos Finales> module', () => {
             body: [
                     {
                         "numeroPunto": 111,
-                        "caudal": 26499412,
+                        "caudal": 2222222222,
                         "pC": 10888
                     }
                   ]
-            
         })
         .then((response) => {
             // assertion with api response
             expect(response.status).to.eq(200)
         })
     })
+
+    it('report - [pdf] status 200', () => {
+        cy.get('@jsession').request({
+            method: 'GET',
+            url: '/api/spac/control/volumenesoperativosfinales/report?fecha=2021-06-21&reportType=pdf&sort=pC,desc'
+        })
+        .then((response) => {
+            // assertion on api response
+            expect(response.status).to.eq(200)
+        })
+    })
+
+    it('report - [xls] status 200', () => {
+        cy.get('@jsession').request({
+            method: 'GET',
+            url: '/api/spac/control/volumenesoperativosfinales/report?fecha=2021-06-21&reportType=xls&sort=pC,desc'
+        })
+        .then((response) => {
+            // assertion on api response
+            expect(response.status).to.eq(200)
+        })
+    })
+
+
+    //imprimirlo o descargarlo => pendiente
+    it.only('report - [print] status 200', () => {
+        cy.get('@jsession').request({
+            method: 'GET',
+            url: '/api/spac/control/volumenesoperativosfinales/report?fecha=2021-06-21&reportType=print&sort=pC,desc',
+         //   encoding: 'binary',
+        })
+        .then((response) => {
+            // assertion on api response
+            expect(response.status).to.eq(200)
+            console.log(response.body)
+/*             cy.writeFile('report.pdf', response.body, 'binary')
+            cy.openPDF('report.pdf')
+ */
+        })
+    })
+
+    it('report - [pdf] status 400 fecha invalida', () => {
+        cy.get('@jsession').request({
+            method: 'GET',
+            url: '/api/spac/control/volumenesoperativosfinales/report?fecha=2023-066-21&reportType=pdf&sort=pC,desc',
+            failOnStatusCode: false
+        })
+        .then((response) => {
+            // assertion on api response
+            expect(response.status).to.eq(400)
+        })
+    })
+
 
 
 

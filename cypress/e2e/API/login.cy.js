@@ -1,6 +1,6 @@
 //import { USERNAME, PASSWORD } from "../fixtures/credentials"
 
-import { PASS1, PASSWORD1, USER1, USERNAME, USERNAME1 } from "../fixtures/credentials"
+import { PASS1, PASSWORD1, USER1, USERNAME, USERNAME1 } from "../../fixtures/credentials"
 
 describe('login test', () => {
   it('login exitoso con credenciales validas', () => {
