@@ -6,7 +6,7 @@ describe('API tests <View Parametrizada> module', () => {
      cy.loginAPI(USER1, PASS1)
     })
     
-    it('init - status code 200, fechaMinima/fechaMaxima format', () => {
+    it('[init] status code 200, response properties', () => {
         cy.get('@jsession').then(token => {
             cy.request({
                 method: 'GET',
@@ -30,7 +30,8 @@ describe('API tests <View Parametrizada> module', () => {
             })
         })  
     })
-    it('listar - status code 200', () => {
+
+    it('[listar] status code 200', () => {
         cy.get('@jsession').request({
             method: 'GET',
             url: '/api/spac/control/viewparametrizada/listar?codigo=8&fechaDesde=2021-04-25&fechaHasta=2021-04-25&tipoDato=P&tipoVolumen=A&sort=volStdM3D,desc'
@@ -40,7 +41,8 @@ describe('API tests <View Parametrizada> module', () => {
             expect(response.status).to.eq(200)
         })
     })
-    it('listar - response with properties', () => {
+
+    it('[listar] response with properties', () => {
         cy.get('@jsession').request({
             method: 'GET',
             url: '/api/spac/control/viewparametrizada/listar?codigo=8&fechaDesde=2021-04-25&fechaHasta=2021-04-25&tipoDato=P&tipoVolumen=A&sort=volStdM3D,desc'
@@ -60,7 +62,8 @@ describe('API tests <View Parametrizada> module', () => {
             expect(response.body[0]).to.have.property('codigo')
         })
     })
-    it('listar - status 4xx parametros invalidos', () => {
+
+    it('[listar] status 4xx parametros invalidos', () => {
             cy.request({
                 method: 'GET',
                 url: '/api/spac/control/viewparametrizada/listar?codigo=8&fechaDesde=2021-04-25&fechaHasta=2021-04-25&tipoDato=R&tipoVolumen=A&sort=volStdM3D,desc',
@@ -72,7 +75,8 @@ describe('API tests <View Parametrizada> module', () => {
             })
         
     })
-    it('edi - status code 200', () => {
+
+    it('[edi] status code 200', () => {
         cy.get('@jsession').then(token => {
             console.log(token)
             cy.request({
@@ -87,7 +91,8 @@ describe('API tests <View Parametrizada> module', () => {
             })
         })
     })
-    it('edi - status code 4xx fecha invalida', () => {
+
+    it('[edi] status code 4xx fecha invalida', () => {
         cy.get('@jsession').request({
             method: 'GET',
             url: '/api/spac/control/viewparametrizada/generaredi?codigo=CERRI&fechaDesde=2023-03-16&fechaHasta=2021-03-16&tipoDato=G&tipoVolumen=A',
@@ -99,7 +104,8 @@ describe('API tests <View Parametrizada> module', () => {
             response.status.should.equal(400)
         })
     })
-    it('report - xls status 200', () => {
+
+    it('[report - xls] status200, .xls doc', () => {
         cy.get('@jsession').request({
             method: 'GET',
             url: '/api/spac/control/viewparametrizada/report?reportType=xls&codigo=157%2B515&fechaDesde=2021-02-22&fechaHasta=2021-03-22&tipoDato=G&tipoVolumen=P&sort=promedio9300M3H,desc'
@@ -107,9 +113,12 @@ describe('API tests <View Parametrizada> module', () => {
         .then((response) => {
             // Realiza las aserciones sobre la respuesta de la API
             expect(response.status).to.eq(200)
+            //expect response headers contain value file.pdf
+            expect(response.headers['content-disposition']).to.contain('.xls')
         })
     })
-    it('report - pdf status 200', () => {
+
+    it('[report - pdf] status200, .pdf doc', () => {
         cy.get('@jsession').request({
             method: 'GET',
             url: '/api/spac/control/viewparametrizada/report?reportType=pdf&codigo=157%2B515&fechaDesde=2021-02-22&fechaHasta=2021-03-22&tipoDato=G&tipoVolumen=P&sort=promedio9300M3H,desc'
@@ -117,9 +126,12 @@ describe('API tests <View Parametrizada> module', () => {
         .then((response) => {
             // assertion on api response
             expect(response.status).to.eq(200)
+            //expect response headers contain value file.pdf
+            expect(response.headers['content-disposition']).to.contain('.pdf')
         })
     })
-    it('report - print status 200', () => {
+
+    it('[report - print] status200, .pdf doc', () => {
         cy.get('@jsession').request({
             method: 'GET',
             url: '/api/spac/control/viewparametrizada/report?reportType=print&codigo=157%2B515&fechaDesde=2021-02-22&fechaHasta=2021-03-22&tipoDato=G&tipoVolumen=P&sort=promedio9300M3H,desc'
@@ -127,9 +139,12 @@ describe('API tests <View Parametrizada> module', () => {
         .then((response) => {
             // assertion on api response
             expect(response.status).to.eq(200)
+            //expect response headers contain value file.pdf
+            expect(response.headers['content-disposition']).to.contain('.pdf')
         })
     })
-    it('report - print pdf', () => {
+
+    it('[report - print] contain pdf', () => {
         cy.get('@jsession').request({
             method: 'GET',
             url: '/api/spac/control/viewparametrizada/report?reportType=print&codigo=157%2B515&fechaDesde=2021-02-22&fechaHasta=2021-03-22&tipoDato=G&tipoVolumen=P&sort=promedio9300M3H,desc'
