@@ -34,7 +34,7 @@ describe('API tests <Parte de Pautas> module', () => {
         })
     })
 
-    it.only('[listar] status 200', () => {
+    it('[listar] status 200', () => {
         cy.get('@jsession').request({
             method: 'GET',
             url: '/api/spac/control/partedepautas/listar?fecha=2021-06-21'

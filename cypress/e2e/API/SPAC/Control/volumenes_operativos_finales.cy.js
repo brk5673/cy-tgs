@@ -6,7 +6,7 @@ describe('API tests <Volumenes Operativos Finales> module', () => {
         cy.loginAPI(USER1, PASS1)
     })
 
-    it('init - status 200', () => {
+    it('[init] status 200', () => {
         cy.get('@jsession').request({
             method: 'GET',
             url: '/api/spac/control/volumenesoperativosfinales/init'
@@ -17,7 +17,7 @@ describe('API tests <Volumenes Operativos Finales> module', () => {
         })
     })
 
-    it('init - home page data', () => {
+    it('[init] response properties', () => {
         cy.get('@jsession').request({
             method: 'GET',
             url: '/api/spac/control/volumenesoperativosfinales/init'
@@ -41,7 +41,7 @@ describe('API tests <Volumenes Operativos Finales> module', () => {
         })
     })
 
-    it('listar - status 200', () => {
+    it('[listar] status200', () => {
         cy.get('@jsession').request({
             method: 'GET',
             url: '/api/spac/control/volumenesoperativosfinales/listar?fecha=2021-06-21&sort=pC,desc'
@@ -53,7 +53,7 @@ describe('API tests <Volumenes Operativos Finales> module', () => {
         })
     })
 
-    it('listar - status 400 [fecha invalida]', () => {
+    it('[listar] status400 invalid date', () => {
         cy.get('@jsession').request({
             method: 'GET',
             url: '/api/spac/control/volumenesoperativosfinales/listar?fecha=2023-16-21&sort=pC,desc',
@@ -65,7 +65,7 @@ describe('API tests <Volumenes Operativos Finales> module', () => {
         })
     })
 
-    it('grabar - status 200', () => {
+    it('[grabar] status 200', () => {
         cy.get('@jsession').request({
             method: 'POST',
             url: '/api/spac/control/volumenesoperativosfinales/grabar?fecha=2021-06-21',
@@ -83,7 +83,7 @@ describe('API tests <Volumenes Operativos Finales> module', () => {
         })
     })
 
-    it('report - [pdf] status 200', () => {
+    it('[report - pdf] status200, doc .pdf', () => {
         cy.get('@jsession').request({
             method: 'GET',
             url: '/api/spac/control/volumenesoperativosfinales/report?fecha=2021-06-21&reportType=pdf&sort=pC,desc'
@@ -91,10 +91,13 @@ describe('API tests <Volumenes Operativos Finales> module', () => {
         .then((response) => {
             // assertion on api response
             expect(response.status).to.eq(200)
+            console.log(response.body)
+            //expect response headers contain value file.pdf
+            expect(response.headers['content-disposition']).to.contain('.pdf')
         })
     })
 
-    it('report - [xls] status 200', () => {
+    it('[report-xls] status200, doc .xls', () => {
         cy.get('@jsession').request({
             method: 'GET',
             url: '/api/spac/control/volumenesoperativosfinales/report?fecha=2021-06-21&reportType=xls&sort=pC,desc'
@@ -102,28 +105,25 @@ describe('API tests <Volumenes Operativos Finales> module', () => {
         .then((response) => {
             // assertion on api response
             expect(response.status).to.eq(200)
+            //expect response headers contain value file.xls
+            expect(response.headers['content-disposition']).to.contain('.xls')
         })
     })
 
-
-    //imprimirlo o descargarlo => pendiente
-    it.only('report - [print] status 200', () => {
+    it('[report - print] status200, doc .pdf', () => {
         cy.get('@jsession').request({
             method: 'GET',
             url: '/api/spac/control/volumenesoperativosfinales/report?fecha=2021-06-21&reportType=print&sort=pC,desc',
-         //   encoding: 'binary',
         })
         .then((response) => {
             // assertion on api response
             expect(response.status).to.eq(200)
-            console.log(response.body)
-/*             cy.writeFile('report.pdf', response.body, 'binary')
-            cy.openPDF('report.pdf')
- */
+            //expect response headers contain value file.pdf
+            expect(response.headers['content-disposition']).to.contain('.pdf')
         })
     })
 
-    it('report - [pdf] status 400 fecha invalida', () => {
+    it('[report - pdf] status400 invalid date', () => {
         cy.get('@jsession').request({
             method: 'GET',
             url: '/api/spac/control/volumenesoperativosfinales/report?fecha=2023-066-21&reportType=pdf&sort=pC,desc',

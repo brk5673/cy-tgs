@@ -43,16 +43,3 @@ Cypress.Commands.add('loginAPI', (username, password) => {
   });
 
 })
-
-const openPDF = (fileName) => {
-  // Get the path to the PDF viewer.
-  const pdfViewerPath = process.env.PDF_VIEWER_PATH || '/usr/bin/open';
-
-  // Open the PDF file in the PDF viewer.
-  const command = `${pdfViewerPath} ${fileName}`;
-  expect(command);
-};
-
-// Add the custom command to Cypress.
-Cypress.Commands.add('openPDF', openPDF);
-
