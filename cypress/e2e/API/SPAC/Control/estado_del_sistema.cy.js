@@ -5,7 +5,7 @@ describe('API tests <Estado del Sistema> module', () => {
     beforeEach(() => {
      cy.loginAPI(USER1, PASS1)
     })
-    it("init - status code 200", () => {
+    it("[init] status code 200", () => {
         cy.get('@jsession').then(token => {
             cy.request({
                 method: 'GET',
@@ -20,7 +20,8 @@ describe('API tests <Estado del Sistema> module', () => {
             })
         })  
     })
-    it('init - home page data', () => {
+
+    it('[init] - response properties', () => {
         cy.get('@jsession').then(token => {
             cy.request({
                 method: 'GET',
@@ -41,7 +42,7 @@ describe('API tests <Estado del Sistema> module', () => {
         })
     })
     
-    it('listar - status code 200', () => {
+    it('[listar] status code 200', () => {
         cy.get('@jsession').request({
             method: 'GET',
             url: '/api/spac/control/estadodelsistema/listar?fechaDesde=2023-06-21&fechaHasta=2023-06-21'
@@ -52,7 +53,7 @@ describe('API tests <Estado del Sistema> module', () => {
         })
     })
 
-    it('listar - status code 400, ', () => {
+    it('[listar] status code 400, ', () => {
         cy.get('@jsession').request({
             method: 'GET',
             url: '/api/spac/control/estadodelsistema/listar?fechaDesde=2021-06-13&fechaHasta=2020-06-13&sort=numeroEntidadLegal,asc',
@@ -64,7 +65,7 @@ describe('API tests <Estado del Sistema> module', () => {
         })
     })
 
-    it('estado general - status 200', () => {
+    it('[estado general] status 200', () => {
         cy.get('@jsession').request({
             method: 'GET',
             url: '/api/spac/control/estadodelsistema/estadogeneral?fechaDesde=2023-06-21&fechaHasta=2023-06-21'
@@ -75,7 +76,7 @@ describe('API tests <Estado del Sistema> module', () => {
         })
     })
 
-    it('estado general - print general status', () => {
+    it('[estado general] print general status', () => {
         cy.get('@jsession').request({
             url: '/api/spac/control/estadodelsistema/estadogeneral?fechaDesde=2023-06-21&fechaHasta=2023-06-21'
         })
@@ -90,7 +91,7 @@ describe('API tests <Estado del Sistema> module', () => {
         })
     })
 
-    it('agregar - status 200', () => {
+    it('[agregar] status 200', () => {
         cy.get('@jsession').request({
             url: '/api/spac/control/estadodelsistema/agregar'
         })
@@ -99,7 +100,7 @@ describe('API tests <Estado del Sistema> module', () => {
         })
     })
 
-    it('agregar nuevo - status 200', () => {
+    it('[agregar nuevo] status 200', () => {
         cy.get('@jsession').request({
             method: 'POST',
             url: '/api/spac/control/estadodelsistema/agregarnuevo',
@@ -115,7 +116,7 @@ describe('API tests <Estado del Sistema> module', () => {
         })
     })
 
-    it('agregar nuevo - status 500', () => {
+    it('[agregar nuevo] status 500', () => {
         cy.get('@jsession').request({
             method: 'POST',
             url: '/api/spac/control/estadodelsistema/agregarnuevo',
@@ -133,7 +134,7 @@ describe('API tests <Estado del Sistema> module', () => {
         })
     })
 
-    it('agregar nuevo - status 404', () => {
+    it('[agregar nuevo] status 404', () => {
         cy.get('@jsession').request({
             method: 'POST',
             url: '/api/spac/control/estadodelsistema/agregarnuevo',
@@ -150,7 +151,7 @@ describe('API tests <Estado del Sistema> module', () => {
         })
     })
 
-    it('delete - status 200', () => {
+    it('[delete] status 200', () => {
         cy.get('@jsession').request({
             method: 'POST',
             url: '/api/spac/control/estadodelsistema/eliminar?fechaPrograma=2023-06-21&numero=1'
@@ -160,7 +161,7 @@ describe('API tests <Estado del Sistema> module', () => {
         })
     })
 
-    it('delete - status 409 [eliminar estado automatico]', () => {
+    it('[delete] status 409 [eliminar estado automatico]', () => {
         cy.get('@jsession').request({
             method: 'POST',
             url: '/api/spac/control/estadodelsistema/eliminar?fechaPrograma=2020-06-21&numero=1',
@@ -171,18 +172,20 @@ describe('API tests <Estado del Sistema> module', () => {
         })
     })
 
-/*     it.only('report - xls status 200', () => {
+/*      it.only('[report - xls] status200, .xls doc', () => {
         cy.get('@jsession').request({
             method: 'GET',
-            url: '/api/spac/control/estadodelsistema/xls?fechaDesde=2021-05-17&fechaHasta=2021-05-17'
+            url: '/api/spac/control/estadodelsistema/xls?fechaDesde=2020-06-21&fechaHasta=2020-06-21&reportType=xls&sort=estado,desc' // este endpoint devuelve un xml
         })
         .then((response) => {
             // Realiza las aserciones sobre la respuesta de la API
             expect(response.status).to.eq(200)
+            //expect response headers contain value file.xls
+            expect(response.headers['content-disposition']).to.contain('.xls')
         })
     })
 
-    it.only('report - pdf status 200', () => {
+    it('[report - pdf] status200', () => {
         cy.get('@jsession').request({
             method: 'GET',
             url: '/api/spac/control/estadodelsistema/pdf?fechaDesde=2021-05-17&fechaHasta=2021-05-17'
@@ -193,7 +196,7 @@ describe('API tests <Estado del Sistema> module', () => {
         })
     })
 
-    it.only('report - print status 200', () => {
+    it('[report - print] status200', () => {
         cy.get('@jsession').request({
             method: 'GET',
             url: '/api/spac/control/estadodelsistema/print?fechaDesde=2021-05-17&fechaHasta=2021-05-17'
@@ -203,7 +206,6 @@ describe('API tests <Estado del Sistema> module', () => {
             expect(response.status).to.eq(200)
         })
     })
-
 
  */
 

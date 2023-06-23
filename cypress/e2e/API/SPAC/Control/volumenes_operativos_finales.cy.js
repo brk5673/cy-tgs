@@ -83,7 +83,7 @@ describe('API tests <Volumenes Operativos Finales> module', () => {
         })
     })
 
-    it('[report - pdf] status200, doc .pdf', () => {
+    it('[report - pdf] status200, .pdf doc', () => {
         cy.get('@jsession').request({
             method: 'GET',
             url: '/api/spac/control/volumenesoperativosfinales/report?fecha=2021-06-21&reportType=pdf&sort=pC,desc'
@@ -97,7 +97,7 @@ describe('API tests <Volumenes Operativos Finales> module', () => {
         })
     })
 
-    it('[report-xls] status200, doc .xls', () => {
+    it('[report-xls] status200, .xls doc', () => {
         cy.get('@jsession').request({
             method: 'GET',
             url: '/api/spac/control/volumenesoperativosfinales/report?fecha=2021-06-21&reportType=xls&sort=pC,desc'
@@ -110,7 +110,7 @@ describe('API tests <Volumenes Operativos Finales> module', () => {
         })
     })
 
-    it('[report - print] status200, doc .pdf', () => {
+    it('[report - print] status200, .pdf doc', () => {
         cy.get('@jsession').request({
             method: 'GET',
             url: '/api/spac/control/volumenesoperativosfinales/report?fecha=2021-06-21&reportType=print&sort=pC,desc',
