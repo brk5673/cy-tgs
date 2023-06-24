@@ -45,6 +45,19 @@ describe('API tests <Parte de Pautas> module', () => {
         })
     })
 
+    it('[listar] status 400', () => {
+        cy.get('@jsession').request({
+            method: 'GET',
+            url: '/api/spac/control/partedepautas/listar?fecha=20212-06-21',
+            failOnStatusCode: false
+        })
+        .then((response) => {
+            // assertion with api response
+            expect(response.status).to.eq(400)
+        })
+    })
+
+
 
 
 
