@@ -14,7 +14,9 @@
     "api:vp": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Control/view_parametrizada.cy.js",
     "api:eds": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Control/estado_del_sistema.cy.js",
     "api:vof": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Control/volumenes_operativos_finales.cy.js",
-    "api:pdp": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Control/parte_de_pautas.cy.js"
+    "api:pdp": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Control/parte_de_pautas.cy.js",
+    "api:cdi": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Control/consulta_desvio_inyeccion.cy.js"
+
   },
   "author": "jfc",
   "license": "ISC",
