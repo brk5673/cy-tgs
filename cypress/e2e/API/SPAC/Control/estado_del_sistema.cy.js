@@ -172,42 +172,50 @@ describe('API tests <Estado del Sistema> module', () => {
         })
     })
 
-/*      it.only('[report - xls] status200, .xls doc', () => {
+    it('[report - xls] status200, .xls doc', () => {
         cy.get('@jsession').request({
             method: 'GET',
-            url: '/api/spac/control/estadodelsistema/xls?fechaDesde=2020-06-21&fechaHasta=2020-06-21&reportType=xls&sort=estado,desc' // este endpoint devuelve un xml
+            url: '/api/spac/control/estadodelsistema/report?fechadesde=2020-06-21&fechahasta=2020-06-21&reportType=xls&sort=estado,desc'
         })
         .then((response) => {
             // Realiza las aserciones sobre la respuesta de la API
             expect(response.status).to.eq(200)
             //expect response headers contain value file.xls
             expect(response.headers['content-disposition']).to.contain('.xls')
+            // expect 'content length' contain string not equal to zero
+            expect(response.headers['content-length']).not.to.equal('0')
         })
     })
 
-    it('[report - pdf] status200', () => {
+    it('[report - pdf] status200, .pdf doc', () => {
         cy.get('@jsession').request({
             method: 'GET',
-            url: '/api/spac/control/estadodelsistema/pdf?fechaDesde=2021-05-17&fechaHasta=2021-05-17'
+            url: '/api/spac/control/estadodelsistema/report?fechadesde=2020-06-21&fechahasta=2020-06-21&reportType=pdf&sort=estado,desc'
         })
         .then((response) => {
             // Realiza las aserciones sobre la respuesta de la API
             expect(response.status).to.eq(200)
+            //expect response headers contain value file.pdf
+            expect(response.headers['content-disposition']).to.contain('.pdf')
+            // expect 'content length' contain string not equal to zero
+            expect(response.headers['content-length']).not.to.equal('0')
         })
     })
 
     it('[report - print] status200', () => {
         cy.get('@jsession').request({
             method: 'GET',
-            url: '/api/spac/control/estadodelsistema/print?fechaDesde=2021-05-17&fechaHasta=2021-05-17'
+            url: '/api/spac/control/estadodelsistema/report?fechadesde=2020-06-21&fechahasta=2020-06-21&reportType=print&sort=estado,desc'
         })
         .then((response) => {
             // Realiza las aserciones sobre la respuesta de la API
             expect(response.status).to.eq(200)
+            //expect response headers contain value file.pdf
+            expect(response.headers['content-disposition']).to.contain('.pdf')
+            // expect 'content length' contain string not equal to zero
+            expect(response.headers['content-length']).not.to.equal('0')
         })
     })
-
- */
 
     it('notificar - status 200', () => {
         cy.get('@jsession').request({
