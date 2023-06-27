@@ -34,6 +34,7 @@ Cypress.Commands.add('getLastDownload', () => {
   })
 })
 
+//cypress command login
 Cypress.Commands.add('loginAPI', (username, password) => {
   cy.request('POST', '/api/user/login', {
     username, password
@@ -42,4 +43,11 @@ Cypress.Commands.add('loginAPI', (username, password) => {
     cy.wrap(token).as("jsession")
   });
 
+})
+
+// cypress command logout
+Cypress.Commands.add('logoutAPI', () => {
+  cy.request('GET', '/api/user/logout').then((response) => {
+    expect(response.status).to.eq(200)
+  });
 })

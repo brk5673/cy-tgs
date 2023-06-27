@@ -57,7 +57,7 @@ describe('API tests <Parte de Pautas> module', () => {
         })
     })
 
-    it.only('[enviar] status 200 + response properties', () => {
+    it('[enviar] status 200 + response properties', () => {
         cy.get('@jsession').request({
             method: 'POST',
             url: '/api/spac/control/partedepautas/enviar?fecha=2021-06-21',
