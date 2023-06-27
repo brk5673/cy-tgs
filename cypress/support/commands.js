@@ -47,7 +47,7 @@ Cypress.Commands.add('loginAPI', (username, password) => {
 
 // cypress command logout
 Cypress.Commands.add('logoutAPI', () => {
-  cy.request('GET', '/api/user/logout').then((response) => {
+  cy.request('POST', '/api/user/logout').then((response) => {
     expect(response.status).to.eq(200)
   });
 })
