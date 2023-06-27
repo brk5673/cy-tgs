@@ -112,7 +112,7 @@ describe('API tests <Consulta de Desvio de Inyecciones> module', () => {
         })
     })
 
-    it.only('[enviar nota] <NOTA 1 CON SUPERACION>', () => {
+    it('[enviar nota] <NOTA 1 CON SUPERACION>', () => {
         cy.get('@jsession').request({
             method: 'POST',
             url: '/api/spac/control/desvio-inyeccion/enviar-nota',
@@ -130,7 +130,7 @@ describe('API tests <Consulta de Desvio de Inyecciones> module', () => {
         })
     })
 
-    it.only('[enviar nota] <NOTA 2 CON SUPERACION>', () => {
+    it('[enviar nota] <NOTA 2 CON SUPERACION>', () => {
         cy.get('@jsession').request({
             method: 'POST',
             url: '/api/spac/control/desvio-inyeccion/enviar-nota',
@@ -148,7 +148,7 @@ describe('API tests <Consulta de Desvio de Inyecciones> module', () => {
         })
     })
 
-    it.only('[enviar nota] <NOTA 1 SIN SUPERACION>', () => {
+    it('[enviar nota] <NOTA 1 SIN SUPERACION>', () => {
         cy.get('@jsession').request({
             method: 'POST',
             url: '/api/spac/control/desvio-inyeccion/enviar-nota',
@@ -166,7 +166,7 @@ describe('API tests <Consulta de Desvio de Inyecciones> module', () => {
         })
     })
 
-    it.only('[enviar nota] <NOTA 2 SIN SUPERACION>', () => {
+    it('[enviar nota] <NOTA 2 SIN SUPERACION>', () => {
         cy.get('@jsession').request({
             method: 'POST',
             url: '/api/spac/control/desvio-inyeccion/enviar-nota',
@@ -184,14 +184,14 @@ describe('API tests <Consulta de Desvio de Inyecciones> module', () => {
         })
     })
 
-    it.only('[enviar nota] <NOTA DEFICIT DE INYECCION>', () => {
+    it('[enviar nota] <NOTA DEFICIT DE INYECCION>', () => {
         cy.get('@jsession').request({
             method: 'POST',
             url: '/api/spac/control/desvio-inyeccion/enviar-nota',
             body: {
                 "gasoducto": "310",
                 "operador": 384,
-                "tipoNota": "NOTA_DEFICIT_DE_INYECCION",
+                "tipoNota": "NOTA_DEFICIT_DE_INY",
                 "valorIngresado": "string",
                 "fechaDesde": "2020-06-21T06:00:00",
                 "fechaHasta": "2020-06-21T17:00:43"
@@ -201,6 +201,64 @@ describe('API tests <Consulta de Desvio de Inyecciones> module', () => {
             expect(response.status).to.eq(204)
         })
     })
+
+    it('[report <xls>] status200, .xls doc', () => {
+        cy.get('@jsession').request({
+            method: 'GET',
+            url: '/api/spac/control/desvio-inyeccion/report?gasoducto=310&operador=111&reportType=xls&fechaDesde=2020-06-21T06:00:00&fechaHasta=2020-06-21T16:00:00'
+        })
+        .then((response) => {
+            // Realiza las aserciones sobre la respuesta de la API
+            expect(response.status).to.eq(200)
+            //expect response headers contain value file.xls
+            expect(response.headers['content-disposition']).to.contain('.xls')
+            // expect 'content length' contain string not equal to zero
+            expect(response.headers['content-length']).not.to.equal('0')
+        })
+    })
+
+    it('[report <pdf>] status200, .pdf doc', () => {
+        cy.get('@jsession').request({
+            method: 'GET',
+            url: '/api/spac/control/desvio-inyeccion/report?gasoducto=310&operador=111&reportType=pdf&fechaDesde=2020-06-21T06:00:00&fechaHasta=2020-06-21T16:00:00'
+        })
+        .then((response) => {
+            // Realiza las aserciones sobre la respuesta de la API
+            expect(response.status).to.eq(200)
+            //expect response headers contain value file.xls
+            expect(response.headers['content-disposition']).to.contain('.pdf')
+            // expect 'content length' contain string not equal to zero
+            expect(response.headers['content-length']).not.to.equal('0')
+        })
+    })
+
+    it('[report <print>] status200, .pdf doc', () => {
+        cy.get('@jsession').request({
+            method: 'GET',
+            url: '/api/spac/control/desvio-inyeccion/report?gasoducto=310&operador=111&reportType=print&fechaDesde=2020-06-21T06:00:00&fechaHasta=2020-06-21T16:00:00'
+        })
+        .then((response) => {
+            // Realiza las aserciones sobre la respuesta de la API
+            expect(response.status).to.eq(200)
+            //expect response headers contain value file.xls
+            expect(response.headers['content-disposition']).to.contain('.pdf')
+            // expect 'content length' contain string not equal to zero
+            expect(response.headers['content-length']).not.to.equal('0')
+        })
+    })
+
+    it('[report <print>] status 4xx', () => {
+        cy.get('@jsession').request({
+            method: 'GET',
+            url: '/api/spac/control/desvio-inyeccion/report?gasoducto=310&operador=111&reportType=print&fechaDesde=11112026-06-21T06:00:00&fechaHasta=2023-06-21T16:00:00',
+            failOnStatusCode: false
+        })
+        .then((response) => {
+            // Realiza las aserciones sobre la respuesta de la API
+            expect(response.status).to.eq(400)
+        })
+    })
+
 
 
 

@@ -217,7 +217,7 @@ describe('API tests <Estado del Sistema> module', () => {
         })
     })
 
-    it('notificar - status 200', () => {
+    it('[notificar] status 200', () => {
         cy.get('@jsession').request({
             method: 'POST',
             url: '/api/spac/control/estadodelsistema/notificar?fechaPrograma=2023-06-21&accion=N'
