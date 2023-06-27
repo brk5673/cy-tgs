@@ -52,7 +52,7 @@ describe('API tests <Consulta de Desvio de Inyecciones> module', () => {
         })
     })
 
-    it('[get nota <NOTA 1 CON SUPERACION>] status200', () => {
+    it('[get nota] <NOTA 1 CON SUPERACION> status200', () => {
         cy.get('@jsession').request({
             method: 'GET',
             url: '/api/spac/control/desvio-inyeccion/nota-desvio?gasoducto=310&operador=111&tipoNota=NOTA_1_CON_SUPERACION&fechaDesde=2020-06-21T06:00:00&fechaHasta=2020-06-21T09:00:00'
@@ -64,7 +64,7 @@ describe('API tests <Consulta de Desvio de Inyecciones> module', () => {
         })
     })
 
-    it('[get nota <NOTA 2 CON SUPERACION>] status200', () => {
+    it('[get nota] <NOTA 2 CON SUPERACION> status200', () => {
         cy.get('@jsession').request({
             method: 'GET',
             url: '/api/spac/control/desvio-inyeccion/nota-desvio?gasoducto=310&operador=111&tipoNota=NOTA_2_CON_SUPERACION&fechaDesde=2020-06-21T06:00:00&fechaHasta=2020-06-21T09:00:00'
@@ -76,7 +76,7 @@ describe('API tests <Consulta de Desvio de Inyecciones> module', () => {
         })
     })
 
-    it('[get nota <NOTA 1 SIN SUPERACION>] status200', () => {
+    it('[get nota] <NOTA 1 SIN SUPERACION> status200', () => {
         cy.get('@jsession').request({
             method: 'GET',
             url: '/api/spac/control/desvio-inyeccion/nota-desvio?gasoducto=310&operador=111&tipoNota=NOTA_1_SIN_SUPERACION&fechaDesde=2020-06-21T06:00:00&fechaHasta=2020-06-21T09:00:00'
@@ -88,7 +88,7 @@ describe('API tests <Consulta de Desvio de Inyecciones> module', () => {
         })
     })
 
-    it('[get nota <NOTA 2 SIN SUPERACION>] status200', () => {
+    it('[get nota] <NOTA 2 SIN SUPERACION> status200', () => {
         cy.get('@jsession').request({
             method: 'GET',
             url: '/api/spac/control/desvio-inyeccion/nota-desvio?gasoducto=310&operador=111&tipoNota=NOTA_2_SIN_SUPERACION&fechaDesde=2020-06-21T06:00:00&fechaHasta=2020-06-21T09:00:00'
@@ -100,7 +100,7 @@ describe('API tests <Consulta de Desvio de Inyecciones> module', () => {
         })
     })
 
-    it('[get nota <NOTA DEFICIT DE INYECCION>] status200', () => {
+    it('[get nota] <NOTA DEFICIT DE INYECCION> status200', () => {
         cy.get('@jsession').request({
             method: 'GET',
             url: '/api/spac/control/desvio-inyeccion/nota-desvio?gasoducto=310&operador=111&tipoNota=NOTA_DEFICIT_DE_INY&fechaDesde=2020-06-21T06:00:00&fechaHasta=2020-06-21T09:00:00'
@@ -111,6 +111,98 @@ describe('API tests <Consulta de Desvio de Inyecciones> module', () => {
             expect(response.body['errores']).not.to.equal('0')
         })
     })
+
+    it.only('[enviar nota] <NOTA 1 CON SUPERACION>', () => {
+        cy.get('@jsession').request({
+            method: 'POST',
+            url: '/api/spac/control/desvio-inyeccion/enviar-nota',
+            body: {
+                "gasoducto": "310",
+                "operador": 384,
+                "tipoNota": "NOTA_1_CON_SUPERACION",
+                "valorIngresado": "string",
+                "fechaDesde": "2020-06-21T06:00:00",
+                "fechaHasta": "2020-06-21T17:00:43"
+            }
+        }).then((response) => {
+            // assertion on api response
+            expect(response.status).to.eq(204)
+        })
+    })
+
+    it.only('[enviar nota] <NOTA 2 CON SUPERACION>', () => {
+        cy.get('@jsession').request({
+            method: 'POST',
+            url: '/api/spac/control/desvio-inyeccion/enviar-nota',
+            body: {
+                "gasoducto": "310",
+                "operador": 384,
+                "tipoNota": "NOTA_2_CON_SUPERACION",
+                "valorIngresado": "string",
+                "fechaDesde": "2020-06-21T06:00:00",
+                "fechaHasta": "2020-06-21T17:00:43"
+            }
+        }).then((response) => {
+            // assertion on api response
+            expect(response.status).to.eq(204)
+        })
+    })
+
+    it.only('[enviar nota] <NOTA 1 SIN SUPERACION>', () => {
+        cy.get('@jsession').request({
+            method: 'POST',
+            url: '/api/spac/control/desvio-inyeccion/enviar-nota',
+            body: {
+                "gasoducto": "310",
+                "operador": 384,
+                "tipoNota": "NOTA_1_SIN_SUPERACION",
+                "valorIngresado": "string",
+                "fechaDesde": "2020-06-21T06:00:00",
+                "fechaHasta": "2020-06-21T17:00:43"
+            }
+        }).then((response) => {
+            // assertion on api response
+            expect(response.status).to.eq(204)
+        })
+    })
+
+    it.only('[enviar nota] <NOTA 2 SIN SUPERACION>', () => {
+        cy.get('@jsession').request({
+            method: 'POST',
+            url: '/api/spac/control/desvio-inyeccion/enviar-nota',
+            body: {
+                "gasoducto": "310",
+                "operador": 384,
+                "tipoNota": "NOTA_2_SIN_SUPERACION",
+                "valorIngresado": "string",
+                "fechaDesde": "2020-06-21T06:00:00",
+                "fechaHasta": "2020-06-21T17:00:43"
+            }
+        }).then((response) => {
+            // assertion on api response
+            expect(response.status).to.eq(204)
+        })
+    })
+
+    it.only('[enviar nota] <NOTA DEFICIT DE INYECCION>', () => {
+        cy.get('@jsession').request({
+            method: 'POST',
+            url: '/api/spac/control/desvio-inyeccion/enviar-nota',
+            body: {
+                "gasoducto": "310",
+                "operador": 384,
+                "tipoNota": "NOTA_DEFICIT_DE_INYECCION",
+                "valorIngresado": "string",
+                "fechaDesde": "2020-06-21T06:00:00",
+                "fechaHasta": "2020-06-21T17:00:43"
+            }
+        }).then((response) => {
+            // assertion on api response
+            expect(response.status).to.eq(204)
+        })
+    })
+
+
 
 
     
