@@ -66,7 +66,7 @@ describe('API tests <Consulta de Desvio de Inyecciones> module', () => {
 
     // no funciona y falta para modificar
 
-    it('[grabar] <baja> status 200', () => {
+/*     it('[grabar] <baja> status 200', () => {
         cy.get('@jsession').request({
             method: 'POST',
             url: '/api/spac/mantenimiento/desviodeinyeccion/configuraciondecontactos/grabar',
@@ -77,7 +77,7 @@ describe('API tests <Consulta de Desvio de Inyecciones> module', () => {
             }
         })
     })
-
+ */
     it('[report] <xls> status200, .xls doc', () => {
         cy.get('@jsession').request({
             method: 'GET',

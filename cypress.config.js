@@ -1,9 +1,9 @@
 
 const { defineConfig } = require("cypress");
-const allureWriter = require("@shelex/cypress-allure-plugin/writer");
+//const allureWriter = require("@shelex/cypress-allure-plugin/writer");
 
 async function setupNodeEvents(on, config) {
-  allureWriter(on, config);
+ // allureWriter(on, config);
   return config;
 }
 
