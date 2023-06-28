@@ -37,6 +37,94 @@ describe('API tests <Consulta de Desvio de Inyecciones> module', () => {
             expect(response.body).to.have.length.greaterThan(0)
         })
     })
+
+    it('[grabar] <alta> status 200', () => {
+        cy.get('@jsession').request({
+            method: 'POST',
+            url: '/api/spac/mantenimiento/desviodeinyeccion/configuraciondecontactos/grabar',
+            body: {
+                "altas": [
+                  {
+                    "ccDeficit": false,
+                    "ccExcesoConMapo": false,
+                    "ccExcesoSinMapo": false,
+                    "email": "messi10@gmail.ar",
+                    "id": 0,
+                    "idGasoducto": "640",
+                    "nombre": "messi10",
+                    "nroEntidadLegal": 130,
+                    "paraDeficit": false,
+                    "paraExcesoConMapo": false,
+                    "paraExcesoSinMapo": false
+                  }
+                ],
+                "bajas": [],
+                "modificaciones": []
+            }
+        })
+    })
+
+    // no funciona y falta para modificar
+
+    it('[grabar] <baja> status 200', () => {
+        cy.get('@jsession').request({
+            method: 'POST',
+            url: '/api/spac/mantenimiento/desviodeinyeccion/configuraciondecontactos/grabar',
+            body: {
+                "altas": [],
+                "bajas": [0],
+                "modificaciones": []
+            }
+        })
+    })
+
+    it('[report] <xls> status200, .xls doc', () => {
+        cy.get('@jsession').request({
+            method: 'GET',
+            url: '/api/spac/mantenimiento/desviodeinyeccion/configuraciondecontactos/report?reportType=xls'
+        })
+        .then((response) => {
+            // Realiza las aserciones sobre la respuesta de la API
+            expect(response.status).to.eq(200)
+            //expect response headers contain value file.xls
+            expect(response.headers['content-disposition']).to.contain('.xls')
+            // expect 'content length' contain string not equal to zero
+            expect(response.headers['content-length']).not.to.equal('0')
+        })
+    })
+
+    it('[report] <pdf> status200, .pdf doc', () => {
+        cy.get('@jsession').request({
+            method: 'GET',
+            url: '/api/spac/mantenimiento/desviodeinyeccion/configuraciondecontactos/report?reportType=pdf'
+        })
+        .then((response) => {
+            // Realiza las aserciones sobre la respuesta de la API
+            expect(response.status).to.eq(200)
+            //expect response headers contain value file.pdf
+            expect(response.headers['content-disposition']).to.contain('.pdf')
+            // expect 'content length' contain string not equal to zero
+            expect(response.headers['content-length']).not.to.equal('0')
+        })
+    })
+
+    it('[report] <print> status200', () => {
+        cy.get('@jsession').request({
+            method: 'GET',
+            url: '/api/spac/mantenimiento/desviodeinyeccion/configuraciondecontactos/report?reportType=print'
+        })
+        .then((response) => {
+            // Realiza las aserciones sobre la respuesta de la API
+            expect(response.status).to.eq(200)
+            //expect response headers contain value file.pdf
+            expect(response.headers['content-disposition']).to.contain('.pdf')
+            // expect 'content length' contain string not equal to zero
+            expect(response.headers['content-length']).not.to.equal('0')
+        })
+    })
+
+
+
     
 
 
