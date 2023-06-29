@@ -34,8 +34,27 @@ describe('API tests <Administracion de Desvio de Inyecciones> module', () => {
         })
     })
 
+    it.only('[agregar nuevo] <PUNTOS PARA MAPO> status 201created>', () => {
+        cy.get('@jsession').request({
+            method: 'POST',
+            url: '/api/spac/mantenimiento/desvio-inyeccion/administracion/puntos-mapo/',
+            body: {
+                "idGasoducto": "200",
+                "nroPunto": 14,
+                "idAgrupamiento": "340",
+                "mapoDefinida": 6,
+                "idVariableCost": "15515443/15515088/15513080"
+            }
+        })
+        .then((response) => {
+            // Realiza las aserciones sobre la respuesta de la API
+            expect(response.status).to.eq(201)
+        })
 
-    
+    })
+
+
+
     it('[init] <UMBRAL POR OPERADOR> status code 200, response properties', () => {
         cy.get('@jsession').request({
             method: 'GET',
