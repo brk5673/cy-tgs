@@ -11,6 +11,7 @@
     "ui:cdi": "cypress run --browser chrome --spec cypress/e2e/SPAC/Control/consulta_desvio_inyecciones.cy.js",
     "api:regression": "cypress run --browser chrome --spec cypress/e2e/api/**/*.cy.js --env mochawesome=true",
     "api:control": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Control/*.cy.js",
+    "api:mantenimiento":"cypress run --browser chrome --spec cypress/e2e/API/SPAC/Mantenimiento/**/*.cy.js",
     "api:vp": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Control/view_parametrizada.cy.js",
     "api:eds": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Control/estado_del_sistema.cy.js",
     "api:vof": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Control/volumenes_operativos_finales.cy.js",
