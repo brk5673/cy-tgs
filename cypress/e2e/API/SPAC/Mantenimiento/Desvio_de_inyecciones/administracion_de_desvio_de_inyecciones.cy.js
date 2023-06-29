@@ -34,23 +34,67 @@ describe('API tests <Administracion de Desvio de Inyecciones> module', () => {
         })
     })
 
-    it.only('[agregar nuevo] <PUNTOS PARA MAPO> status 201created>', () => {
+    it('[agregar nuevo] <PUNTOS PARA MAPO> status 2xx=Created', () => {
         cy.get('@jsession').request({
             method: 'POST',
             url: '/api/spac/mantenimiento/desvio-inyeccion/administracion/puntos-mapo/',
             body: {
-                "idGasoducto": "200",
-                "nroPunto": 14,
-                "idAgrupamiento": "340",
+                "idGasoducto": "500",
+                "nroPunto": 1,
+                "idAgrupamiento": "800",
                 "mapoDefinida": 6,
-                "idVariableCost": "15515443/15515088/15513080"
+                "idVariableCost": "658198557/313318024/15512782"
             }
         })
         .then((response) => {
             // Realiza las aserciones sobre la respuesta de la API
             expect(response.status).to.eq(201)
         })
+    })
 
+    it('[editar] <PUNTOS PARA MAPO> status 2xx', () => {
+        cy.get('@jsession').request({
+            url: '/api/spac/mantenimiento/desvio-inyeccion/administracion/puntos-mapo/',
+        })
+        .then((response) => {
+            const id0 = response.body[0].id
+
+            cy.request({
+                method: 'PUT',
+                url: '/api/spac/mantenimiento/desvio-inyeccion/administracion/puntos-mapo/',
+                body: {
+                    "id": id0,
+                    "idGasoducto": "500",
+                    "nroPunto": 1,
+                    "idAgrupamiento": "800",
+                    "mapoDefinida": 10, // valor a modificar
+                    "idVariableCost": "658198557/313318024/15512782"
+                }
+            })
+            .then((response) => {
+                // Realiza las aserciones sobre la respuesta de la API
+                expect(response.status).to.eq(204)
+            })
+        })
+    })
+
+
+    it('[delete] <PUNTOS PARA MAPO> status 2xx', () => {
+        cy.get('@jsession').request({
+            url: '/api/spac/mantenimiento/desvio-inyeccion/administracion/puntos-mapo/',
+        })
+        .then((response) => {
+            // guardar id
+            const id0 = response.body[0].id
+
+            cy.request({
+                method: 'DELETE',
+                url: '/api/spac/mantenimiento/desvio-inyeccion/administracion/puntos-mapo/' + id0,
+            })
+            .then((response) => {
+                expect(response.status).to.eq(204)
+            })
+        })
     })
 
 
