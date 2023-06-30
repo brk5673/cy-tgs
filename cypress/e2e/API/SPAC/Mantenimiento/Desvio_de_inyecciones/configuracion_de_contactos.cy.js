@@ -63,9 +63,6 @@ describe('API tests <Consulta de Desvio de Inyecciones> module', () => {
             }
         })
     })
-
-    // no funciona y falta para EDITH y BAJA
-
      
     it('[grabar] <editar> status 200', () => {
         cy.get('@jsession').request({
@@ -104,7 +101,6 @@ describe('API tests <Consulta de Desvio de Inyecciones> module', () => {
             })
         })
     })
-
 
     it('[grabar] <baja> status 200', () => {
         cy.get('@jsession').request({
