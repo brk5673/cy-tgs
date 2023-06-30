@@ -212,6 +212,30 @@ describe('API tests <Administracion de Desvio de Inyecciones> module', () => {
         })
     })
 
+    it('[editar] <NOTAS DESVIO> status 2xx', () => {
+        cy.get('@jsession').request({
+            url: '/api/spac/mantenimiento/desvio-inyeccion/administracion/notas-desvio/',
+        })
+        .then((response) => {
+            const id0 = response.body.nota1ConSuperacion
+
+            cy.request({
+                method: 'PATCH',
+                url: '/api/spac/mantenimiento/desvio-inyeccion/administracion/notas-desvio/',
+                body:     {
+                    "nota1SinSuperacion": {
+                        "nota": "*pruebaBack*                        DESVIO DE INYECCIÓN SIN SUPERACIÓN DE MAPOS\n\nFecha:<fecha_actual>                                        Hora:<hora_actual>\n\nNos dirigimos a Ud. con relación a la inyección de gas natural en el Sistema de Transporte de TGS y a los efectos de hacerle saber que, del análisis de las proyecciones de inyección al Sistema de Transporte de TGS extraído de nuestro sistema SPAC para la hora <hora> surge un exceso de inyección en el/los <numero_de_los_puntos> para el día operativo <dia_operativo> según el siguiente detalle:\n\n<LISTA_DE_PUNTOS>\n\nTotal exceso<sumatoria_diferencia>m3/d. @ 9300 KCal.\n\nConsecuentemente, y de acuerdo a las facultades e instrucciones reconocidas por el Enargas en su nota \"ENRG GT/GAL/I N°01182\" del 06 de Febrero de 2009, y lo notificado por esta Transportista en su nota DAL 0635/09 de fecha 11/03/2009; ese Operador Relacionado deberá ajustar estrictamente el caudal inyectado al volumen programado por TGS para el día de la fecha. A la par le informamos que en el marco del Procedimiento arriba citado se está dando debida participación a ENARGAS y Secretaría de Energía a través de la notificación correspondiente.\n\nAtentamente,\n<nombre_apellido_usuario>"
+                    
+                    },
+                }
+            })
+            .then((response) => {
+                // Realiza las aserciones sobre la respuesta de la API
+                expect(response.status).to.eq(204)
+            })
+        })
+    })
+
 
 
 
