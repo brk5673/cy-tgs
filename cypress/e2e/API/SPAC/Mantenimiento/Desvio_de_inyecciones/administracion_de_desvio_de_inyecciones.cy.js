@@ -99,6 +99,12 @@ describe('API tests <Administracion de Desvio de Inyecciones> module', () => {
 
 
 
+
+
+
+
+// -----------------------------------------------------------------------------------------------------------------------
+
     it('[init] <UMBRAL POR OPERADOR> status code 200, response properties', () => {
         cy.get('@jsession').request({
             method: 'GET',
@@ -125,9 +131,73 @@ describe('API tests <Administracion de Desvio de Inyecciones> module', () => {
             // Realiza las aserciones sobre la respuesta de la API
             expect(response.status).to.eq(200)
         })
+    })  
+
+    it('[agregar nuevo] <UMBRAL POR OPERADOR> status 2xx=Created', () => {
+        cy.get('@jsession').request({
+            method: 'POST',
+            url: '/api/spac/mantenimiento/desvio-inyeccion/administracion/umbral-por-operador/',
+            body: {
+                "idGasoducto": "500",
+                "idOperadorRelacionado": 684,
+                "volumenM3d": 11
+            }
+        })
+        .then((response) => {
+            // Realiza las aserciones sobre la respuesta de la API
+            expect(response.status).to.eq(201)
+        })
+    })
+
+    it('[editar] <UMBRAL POR OPERADOR> status 2xx', () => {
+        cy.get('@jsession').request({
+            url: '/api/spac/mantenimiento/desvio-inyeccion/administracion/umbral-por-operador/',
+        })
+        .then((response) => {
+            const id0 = response.body[0].id
+
+            cy.request({
+                method: 'PUT',
+                url: '/api/spac/mantenimiento/desvio-inyeccion/administracion/umbral-por-operador/',
+                body: {
+                    "id": id0,
+                    "idGasoducto": "500",
+                    "idOperadorRelacionado": 684,
+                    "volumenM3d": 1.6 // valor a modificar
+                    }
+            })
+            .then((response) => {
+                // Realiza las aserciones sobre la respuesta de la API
+                expect(response.status).to.eq(204)
+            })
+        })
+    })
+
+    it('[delete] <UMBRAL POR OPERADOR> status 2xx', () => {
+        cy.get('@jsession').request({
+            url: '/api/spac/mantenimiento/desvio-inyeccion/administracion/umbral-por-operador/',
+        })
+        .then((response) => {
+            // guardar id
+            const id0 = response.body[0].id
+
+            cy.request({
+                method: 'DELETE',
+                url: '/api/spac/mantenimiento/desvio-inyeccion/administracion/umbral-por-operador/' + id0,
+            })
+            .then((response) => {
+                expect(response.status).to.eq(204)
+            })
+        })
     })
 
 
+
+
+
+
+
+// -----------------------------------------------------------------------------------------------------------------------
 
     it('[listar] <NOTAS DE DESVIO> status code 200, response properties', () => {
         cy.get('@jsession').request({
@@ -143,6 +213,17 @@ describe('API tests <Administracion de Desvio de Inyecciones> module', () => {
     })
 
 
+
+
+
+
+
+
+
+
+
+
+// -----------------------------------------------------------------------------------------------------------------------
 
     it('[init] <PUNTOS EXCEPTUADOS> status code 200, response properties', () => {
         cy.get('@jsession').request({
@@ -170,12 +251,37 @@ describe('API tests <Administracion de Desvio de Inyecciones> module', () => {
         })
     })
 
+    it('[agregar nuevo] <PUNTOS EXCEPTUADOS> status 2xx=Created', () => {
+        cy.get('@jsession').request({
+            method: 'POST',
+            url: '/api/spac/mantenimiento/desvio-inyeccion/administracion/puntos-exceptuados/',
+            body: {
+                "numero": 1
+            }
+        })
+        .then((response) => {
+            // Realiza las aserciones sobre la respuesta de la API
+            expect(response.status).to.eq(201)
+        })
+    })
 
+    it('[delete] <PUNTOS EXCEPTUADOS> status 2xx', () => {
+        cy.get('@jsession').request({
+            url: '/api/spac/mantenimiento/desvio-inyeccion/administracion/puntos-exceptuados/',
+        })
+        .then((response) => {
+            // guardar id
+            const id0 = response.body[0].numero
 
-
-
-
-
+            cy.request({
+                method: 'DELETE',
+                url: '/api/spac/mantenimiento/desvio-inyeccion/administracion/puntos-exceptuados/' + id0,
+            })
+            .then((response) => {
+                expect(response.status).to.eq(204)
+            })
+        })
+    })
 
 
 
