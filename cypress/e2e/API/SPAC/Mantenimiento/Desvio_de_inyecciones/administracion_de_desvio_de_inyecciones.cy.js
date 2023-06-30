@@ -34,7 +34,7 @@ describe('API tests <Administracion de Desvio de Inyecciones> module', () => {
         })
     })
 
-    it('[agregar nuevo] <PUNTOS PARA MAPO> status 2xx=Created', () => {
+    it('[grabar - agregar nuevo] <PUNTOS PARA MAPO> status 2xx=Created', () => {
         cy.get('@jsession').request({
             method: 'POST',
             url: '/api/spac/mantenimiento/desvio-inyeccion/administracion/puntos-mapo/',
@@ -52,7 +52,7 @@ describe('API tests <Administracion de Desvio de Inyecciones> module', () => {
         })
     })
 
-    it('[editar] <PUNTOS PARA MAPO> status 2xx', () => {
+    it('[grabar - editar] <PUNTOS PARA MAPO> status 2xx', () => {
         cy.get('@jsession').request({
             url: '/api/spac/mantenimiento/desvio-inyeccion/administracion/puntos-mapo/',
         })
@@ -79,7 +79,7 @@ describe('API tests <Administracion de Desvio de Inyecciones> module', () => {
     })
 
 
-    it('[delete] <PUNTOS PARA MAPO> status 2xx', () => {
+    it('[grabar - delete] <PUNTOS PARA MAPO> status 2xx', () => {
         cy.get('@jsession').request({
             url: '/api/spac/mantenimiento/desvio-inyeccion/administracion/puntos-mapo/',
         })
@@ -133,7 +133,7 @@ describe('API tests <Administracion de Desvio de Inyecciones> module', () => {
         })
     })  
 
-    it('[agregar nuevo] <UMBRAL POR OPERADOR> status 2xx=Created', () => {
+    it('[grabar - agregar nuevo] <UMBRAL POR OPERADOR> status 2xx=Created', () => {
         cy.get('@jsession').request({
             method: 'POST',
             url: '/api/spac/mantenimiento/desvio-inyeccion/administracion/umbral-por-operador/',
@@ -149,7 +149,7 @@ describe('API tests <Administracion de Desvio de Inyecciones> module', () => {
         })
     })
 
-    it('[editar] <UMBRAL POR OPERADOR> status 2xx', () => {
+    it('[grabar - editar] <UMBRAL POR OPERADOR> status 2xx', () => {
         cy.get('@jsession').request({
             url: '/api/spac/mantenimiento/desvio-inyeccion/administracion/umbral-por-operador/',
         })
@@ -173,7 +173,7 @@ describe('API tests <Administracion de Desvio de Inyecciones> module', () => {
         })
     })
 
-    it('[delete] <UMBRAL POR OPERADOR> status 2xx', () => {
+    it('[grabar - delete] <UMBRAL POR OPERADOR> status 2xx', () => {
         cy.get('@jsession').request({
             url: '/api/spac/mantenimiento/desvio-inyeccion/administracion/umbral-por-operador/',
         })
@@ -212,7 +212,7 @@ describe('API tests <Administracion de Desvio de Inyecciones> module', () => {
         })
     })
 
-    it('[editar] <NOTAS DESVIO> status 2xx', () => {
+    it('[grabar - editar] <NOTAS DESVIO> status 2xx', () => {
         cy.get('@jsession').request({
             url: '/api/spac/mantenimiento/desvio-inyeccion/administracion/notas-desvio/',
         })
@@ -275,7 +275,7 @@ describe('API tests <Administracion de Desvio de Inyecciones> module', () => {
         })
     })
 
-    it('[agregar nuevo] <PUNTOS EXCEPTUADOS> status 2xx=Created', () => {
+    it('[grabar - agregar nuevo] <PUNTOS EXCEPTUADOS> status 2xx=Created', () => {
         cy.get('@jsession').request({
             method: 'POST',
             url: '/api/spac/mantenimiento/desvio-inyeccion/administracion/puntos-exceptuados/',
@@ -289,7 +289,7 @@ describe('API tests <Administracion de Desvio de Inyecciones> module', () => {
         })
     })
 
-    it('[delete] <PUNTOS EXCEPTUADOS> status 2xx', () => {
+    it('[grabar - delete] <PUNTOS EXCEPTUADOS> status 2xx', () => {
         cy.get('@jsession').request({
             url: '/api/spac/mantenimiento/desvio-inyeccion/administracion/puntos-exceptuados/',
         })

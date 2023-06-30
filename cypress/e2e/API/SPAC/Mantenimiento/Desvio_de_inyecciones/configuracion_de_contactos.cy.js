@@ -64,20 +64,71 @@ describe('API tests <Consulta de Desvio de Inyecciones> module', () => {
         })
     })
 
-    // no funciona y falta para modificar
+    // no funciona y falta para EDITH y BAJA
 
-/*     it('[grabar] <baja> status 200', () => {
+     
+    it('[grabar] <editar> status 200', () => {
         cy.get('@jsession').request({
-            method: 'POST',
-            url: '/api/spac/mantenimiento/desviodeinyeccion/configuraciondecontactos/grabar',
-            body: {
-                "altas": [],
-                "bajas": [0],
-                "modificaciones": []
-            }
+            url: '/api/spac/mantenimiento/desviodeinyeccion/configuraciondecontactos/listar',
+        })
+        .then((response) => {
+            const id0 = response.body[0].id
+
+            cy.request({
+                method: 'POST',
+                url: '/api/spac/mantenimiento/desviodeinyeccion/configuraciondecontactos/grabar',
+                body: {
+                    "altas": [],
+                    "bajas": [],
+                    "modificaciones": [
+                        {
+                            "ccDeficit": false,
+                            "ccExcesoConMapo": false,
+                            "ccExcesoSinMapo": false,
+                            "email": "messi101@gmail.ar",
+                            "id": id0,
+                            "idGasoducto": "640",
+                            "nombre": "messi101",
+                            "nroEntidadLegal": 130,
+                            "paraDeficit": false,
+                            "paraExcesoConMapo": false,
+                            "paraExcesoSinMapo": false
+                        }
+    
+                    ]
+                }
+            })
+            .then((response) => {
+                // Realiza las aserciones sobre la respuesta de la API
+                expect(response.status).to.eq(200)
+            })
         })
     })
- */
+
+
+    it('[grabar] <baja> status 200', () => {
+        cy.get('@jsession').request({
+            url: '/api/spac/mantenimiento/desviodeinyeccion/configuraciondecontactos/listar',
+        })
+        .then((response) => {
+            const id0 = response.body[0].id
+
+            cy.request({
+                method: 'POST',
+                url: '/api/spac/mantenimiento/desviodeinyeccion/configuraciondecontactos/grabar',
+                body: {
+                    "altas": [],
+                    "bajas": [id0],
+                    "modificaciones": []
+                }
+            })
+            .then((response) => {
+                // Realiza las aserciones sobre la respuesta de la API
+                expect(response.status).to.eq(200)
+            })
+        })
+    })
+
     it('[report] <xls> status200, .xls doc', () => {
         cy.get('@jsession').request({
             method: 'GET',
