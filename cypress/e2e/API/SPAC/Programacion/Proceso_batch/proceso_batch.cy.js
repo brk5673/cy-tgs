@@ -25,7 +25,7 @@ describe('API tests <Proceso Batch> module', () => {
         })
     })
 
-    // caso de prueba fecha limite
+    // fecha limite
     it('[fecha limite] status 200 & properties', () => {
         cy.get('@jsession').request('/api/common/date/frontend-limits')
             .then((response) => {
@@ -33,6 +33,10 @@ describe('API tests <Proceso Batch> module', () => {
                 expect(response.body).to.have.property('fechaMinima')
             })
     })
+    
+
+    
+    
     
 })
 
