@@ -6,12 +6,10 @@ describe('API tests <Proceso Batch> module', () => {
         cy.loginAPI(USER3, PASS3)
     })
 
-    // list test case
-
     it('[process status] status code 200', () => {
         cy.get('@jsession').request({
             method: 'GET',
-            url: '/api/spac/programacion/proceso-batch/status-programacion?fecha=2022-07-03', // lis endpoint responden igual /status-programacion y /status-programacion+{fecha actual}
+            url: '/api/spac/programacion/proceso-batch/status-programacion?fecha=2022-07-03', // los endpoint responden igual /status-programacion y /status-programacion+{fecha actual}
         })
         .then((response) => {
             // validate response have JSON format
@@ -27,5 +25,22 @@ describe('API tests <Proceso Batch> module', () => {
         })
     })
 
-
+    // caso de prueba fecha limite
+    it('[fecha limite] status 200 & properties', () => {
+        cy.get('@jsession').request('/api/common/date/frontend-limits')
+            .then((response) => {
+                expect(response.body).to.have.property('fechaMaxima')
+                expect(response.body).to.have.property('fechaMinima')
+            })
+    })
+    
 })
+
+
+
+
+
+
+
+
+
