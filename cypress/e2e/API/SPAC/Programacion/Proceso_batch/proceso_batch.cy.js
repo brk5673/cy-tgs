@@ -6,10 +6,10 @@ describe('API tests <Proceso Batch> module', () => {
         cy.loginAPI(USER3, PASS3)
     })
 
-    it('[process status] status code 200', () => {
+    it.only('[estado programacion] status code 200', () => {
         cy.get('@jsession').request({
             method: 'GET',
-            url: '/api/spac/programacion/proceso-batch/status-programacion?2023-06-10', // los endpoint responden igual /status-programacion y /status-programacion+{fecha actual}
+            url: '/api/spac/programacion/proceso-batch/status-programacion?fecha=2023-06-20', // los endpoint responden igual /status-programacion y /status-programacion+{fecha actual}
         })
         .then((response) => {
             // validate response have JSON format
@@ -69,7 +69,7 @@ describe('API tests <Proceso Batch> module', () => {
             url: '/api/spac/programacion/proceso-batch/proceso-batch/',
             body: {
                 "estado": "SIN_PROGRAMACION",
-                "fecha": "2023-06-10"
+                "fecha": "2023-06-20"
             }
         })
         .then((response) => {
