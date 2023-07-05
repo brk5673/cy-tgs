@@ -34,6 +34,46 @@ describe('API tests <Provision> module', () => {
     
     })
 
+    it('[disponibles] status 200', () => {
+        cy.get('@jsession').request({
+            method: 'GET',
+            url: '/api/spac/facturacion/facturacion/disponibles',
+        })
+        .then((response) => {
+            expect(response.status).to.eq(200)
+            console.log(response.body)
+        })
+    })
+
+    it('[en revision] status 200', () => {
+        cy.get('@jsession').request({
+            method: 'GET',
+            url: '/api/spac/facturacion/facturacion/enRevision',
+        })
+        .then((response) => {
+            expect(response.status).to.eq(200)
+            console.log(response.body)
+        })
+    })
+
+    it('[transferibles] status 200', () => {
+        cy.get('@jsession').request({
+            method: 'GET',
+            url: '/api/spac/facturacion/facturacion/transferibles',
+        })
+        .then((response) => {
+            expect(response.status).to.eq(200)
+            console.log(response.body)
+        })
+    })
+
+
+
+
+
+
+
+
 
 
 
