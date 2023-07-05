@@ -12,13 +12,17 @@
     "api:regression": "cypress run --browser chrome --spec cypress/e2e/api/**/*.cy.js --env mochawesome=true",
     "api:control": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Control/*.cy.js",
     "api:mantenimiento":"cypress run --browser chrome --spec cypress/e2e/API/SPAC/Mantenimiento/**/*.cy.js",
+   
     "api:vp": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Control/view_parametrizada.cy.js",
     "api:eds": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Control/estado_del_sistema.cy.js",
     "api:vof": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Control/volumenes_operativos_finales.cy.js",
     "api:pdp": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Control/parte_de_pautas.cy.js",
     "api:cdi": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Control/consulta_desvio_inyeccion.cy.js",
+ 
     "api:cc": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Mantenimiento/Desvio_de_inyecciones/configuracion_de_contactos.cy.js",
-    "api:adi": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Mantenimiento/Desvio_de_inyecciones/administracion_de_desvio_de_inyecciones.cy.js"
+    "api:adi": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Mantenimiento/Desvio_de_inyecciones/administracion_de_desvio_de_inyecciones.cy.js",
+
+    "api:pr": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Facturacion/provision.cy.js"
 
 
   },
