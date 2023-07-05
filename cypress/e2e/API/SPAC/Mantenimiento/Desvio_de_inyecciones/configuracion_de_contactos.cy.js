@@ -62,6 +62,11 @@ describe('API tests <Consulta de Desvio de Inyecciones> module', () => {
                 "modificaciones": []
             }
         })
+        .then((response) => {
+            // Realiza las aserciones sobre la respuesta de la API
+            expect(response.status).to.eq(200)
+        })
+
     })
      
     it('[grabar] <editar> status 200', () => {
