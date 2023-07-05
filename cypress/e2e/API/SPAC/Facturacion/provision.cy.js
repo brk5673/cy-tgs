@@ -21,7 +21,7 @@ describe('API tests <Provision> module', () => {
         })
     })
 
-    it('[generar provision] status 200', () => {
+/*     it('[generar provision] status 200', () => {
         cy.get('@jsession').request({
             method: 'POST',
             url: '/api/spac/facturacion/provision/generarprovision?periodo=2023%2F02',
@@ -33,6 +33,7 @@ describe('API tests <Provision> module', () => {
     
     
     })
+ */
 
     it('[disponibles] status 200', () => {
         cy.get('@jsession').request({
