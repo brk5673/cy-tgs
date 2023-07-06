@@ -25,8 +25,8 @@
     "api:adi": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Mantenimiento/Desvio_de_inyecciones/administracion_de_desvio_de_inyecciones.cy.js",
 
     "api:pr": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Facturacion/provision.cy.js",
-    "api:ct": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Facturacion/contactos.cy.js"
-
+    "api:ct": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Facturacion/contactos.cy.js",
+    "api:rpc": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Facturacion/reportes_por_contrato.cy.js"
 
 
   },

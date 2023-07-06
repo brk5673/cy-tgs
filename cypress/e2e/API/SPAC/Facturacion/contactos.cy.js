@@ -1,7 +1,7 @@
 /// <reference types="cypress"/>
 import { PASS2, USER2 } from "../../../../fixtures/credentials"
 
-describe('API tests <Provision> module', () => {
+describe('API tests <Contactos> module', () => {
     beforeEach(() => {
         cy.loginAPI(USER2, PASS2)
     })
@@ -13,6 +13,7 @@ describe('API tests <Provision> module', () => {
         })
         .then((response) => {
             console.log(response.body[0])
+            expect(response.status).to.eq(200)
             expect(response.body[0]).to.have.property('abreviaturaEntidadLegal')
             expect(response.body[0]).to.have.property('codigoContrato')
             expect(response.body[0]).to.have.property('nombreEntidadLegal')
@@ -28,6 +29,7 @@ describe('API tests <Provision> module', () => {
         })
         .then((response) => {
             console.log(response.body[0])
+            expect(response.status).to.eq(200)
             expect(response.body[0]).to.have.property('contrato')
             expect(response.body[0]).to.have.property('email')
             expect(response.body[0]).to.have.property('entidadLegal')

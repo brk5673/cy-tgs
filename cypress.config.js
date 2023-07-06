@@ -12,11 +12,14 @@ module.exports = defineConfig({
     reporter: 'mochawesome',
     reporterOptions: {
       reportDir: 'cypress/results',
-      overwrite: false,
+      overwrite: true,
       html: true,
-      json: true,
+      json: false,
     },
     baseUrl: "http://10.1.11.237:8080/etgs", // sit URL
+    // baseUrl: "http://10.1.11.236:8080/etgs", // dev URL
+    // baseUrl: "https://apps-qa.tgs.com.ar/etgs", // uat2 URL
+
     setupNodeEvents,
     chromeWebSecurity: false,
     watchForFileChanges: false,
