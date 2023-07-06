@@ -1,5 +1,5 @@
 /// <reference types="cypress"/>
-import { PASS2, USER2 } from "../../../../fixtures/credentials"
+import { PASS2, PASS4, USER2, USER4 } from "../../../../fixtures/credentials"
 
 describe('API tests <Reportes por Contrato> module', () => {
     beforeEach(() => {
@@ -53,7 +53,7 @@ describe('API tests <Reportes por Contrato> module', () => {
         })
     })
 
-    it('[listar reporte] status 200', () => {
+    it('[listar] status 200', () => {
         cy.get('@jsession').request({
             method: 'POST', // debe ser GET
             url: '/api/spac/facturacion/reportesPorContrato/listarreportes?periodo=2023/03&tipocierreajuste=C&nroajuste=0&tiporeporte=1&tiporeporte=2&tiporeporte=3&tiporeporte=4&tiporeporte=5&tiporeporte=6&tiporeporte=7&tiporeporte=8&tiporeporte=9&tiporeporte=10&',
@@ -63,6 +63,22 @@ describe('API tests <Reportes por Contrato> module', () => {
 
         })
     })
+
+    it.only('[generar] status 200', () => {
+        cy.get('@jsession').request({
+            method: 'POST',
+            url: '/api/spac/facturacion/reportesPorContrato/generarreportes?nuevoajuste=false&tiporeporte=6&periodo=2022%2F09&contrato=TF310',
+            body: {
+                "clave": PASS4,
+                "usuario": USER4
+            }
+        })
+        .then((response) => {
+            expect(response.status).to.eq(200)
+
+        })
+    })
+
 
     it('[descargar zip] status 200', () => {
         cy.get('@jsession').request({
