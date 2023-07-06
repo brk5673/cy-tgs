@@ -121,6 +121,55 @@ describe('API tests <Provision> module', () => {
         })
     })
 
+    it('[report] <xls> status200, .xls doc', () => {
+        cy.get('@jsession').request({
+            method: 'GET',
+            url: '/api/spac/facturacion/contactos/xls?el=685&contrato=ED887'
+        })
+        .then((response) => {
+            // Realiza las aserciones sobre la respuesta de la API
+            expect(response.status).to.eq(200)
+            //expect response headers contain value file.xls
+            expect(response.headers['content-disposition']).to.contain('.xls')
+            // expect 'content length' contain string not equal to zero
+            expect(response.headers['content-length']).not.to.equal('0')
+        })
+    })
+
+    it('[report] <pdf> status200, .pdf doc', () => {
+        cy.get('@jsession').request({
+            method: 'GET',
+            url: '/api/spac/facturacion/contactos/pdf?el=685&contrato=ED887'
+        })
+        .then((response) => {
+            // Realiza las aserciones sobre la respuesta de la API
+            expect(response.status).to.eq(200)
+            //expect response headers contain value file.pdf
+            expect(response.headers['content-disposition']).to.contain('.pdf')
+            // expect 'content length' contain string not equal to zero
+            expect(response.headers['content-length']).not.to.equal('0')
+        })
+    })
+
+    it('[report] <print> status200', () => {
+        cy.get('@jsession').request({
+            method: 'GET',
+            url: '/api/spac/facturacion/contactos/pdf?el=685&contrato=ED887'
+        })
+        .then((response) => {
+            // Realiza las aserciones sobre la respuesta de la API
+            expect(response.status).to.eq(200)
+            //expect response headers contain value file.pdf
+            expect(response.headers['content-disposition']).to.contain('.pdf')
+            // expect 'content length' contain string not equal to zero
+            expect(response.headers['content-length']).not.to.equal('0')
+        })
+    })
+
+
+
+
+
 
 
 
