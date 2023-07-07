@@ -6,12 +6,13 @@ describe('API tests <Proceso Batch> module', () => {
         cy.loginAPI(USER3, PASS3)
     })
 
-    it.only('[estado programacion] status code 200', () => {
+    it('[estado programacion] status code 200', () => {
         cy.get('@jsession').request({
             method: 'GET',
             url: '/api/spac/programacion/proceso-batch/status-programacion?fecha=2023-06-20', // los endpoint responden igual /status-programacion y /status-programacion+{fecha actual}
         })
         .then((response) => {
+            console.log(response.body['estado'])
             // validate response have JSON format
             expect(response.headers['content-type']).to.not.eq('application/json')
             // Realiza las aserciones sobre la respuesta de la API
@@ -20,7 +21,6 @@ describe('API tests <Proceso Batch> module', () => {
             expect(response.body).to.have.property('dia')
             // response to have property 'estado'
             expect(response.body).to.have.property('estado')
-            console.log(response.body['estado'])
             // response to have property 'usuario'
             expect(response.body).to.have.property('usuario')
         })
@@ -46,16 +46,16 @@ describe('API tests <Proceso Batch> module', () => {
         .then((response) => {
             expect(response.status).to.eq(200)
             expect(response.body).to.have.property('dia')
-            expect(response.body).to.have.property('fechaUltimaProgramacion')
+            expect(response.body).to.have.property('programacionFinalizada')
             expect(response.body).to.have.property('estado')
             expect(response.body).to.have.property('usuario')
         })
     })
 
-    it('[cambiar fecha] status 200', () => {
+    it('[cambiar fecha] status 4xx', () => {
         cy.get('@jsession').request({
             method: 'GET',
-            url: '/api/spac/programacion/proceso-batch/status-programacion?fecha=100-12-29',
+            url: '/api/spac/programacion/proceso-batch/status-programacion?fecha=100b-12-29',
             failOnStatusCode: false
         })
         .then((response) => {

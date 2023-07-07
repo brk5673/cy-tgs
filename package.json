@@ -9,7 +9,7 @@
     "cy:runChrome": "cypress run --browser chrome --spec cypress/e2e/login.cy.js",
     "ui:cc": "cypress run --browser chrome --spec cypress/e2e/SPAC/Mantenimiento/Desvio_de_inyecciones/configuracion_contactos.cy.js",
     "ui:cdi": "cypress run --browser chrome --spec cypress/e2e/SPAC/Control/consulta_desvio_inyecciones.cy.js",
-    "api:regression": "cypress run --browser chrome --spec cypress/e2e/api/**/*.cy.js --env mochawesome=true",
+    "api:regression": "cypress run --browser chrome --spec cypress/e2e/API/**/*.cy.js --env mochawesome=true",
 
     "api:control": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Control/*.cy.js",  
     "api:vp": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Control/view_parametrizada.cy.js",
@@ -26,7 +26,11 @@
     "api:prov": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Facturacion/provision.cy.js",
     "api:fact": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Facturacion/facturacion.cy.js",
     "api:cont": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Facturacion/contactos.cy.js",
-    "api:rpc": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Facturacion/reportes_por_contrato.cy.js"
+    "api:rpc": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Facturacion/reportes_por_contrato.cy.js",
+
+    "api:programacion":"cypress run --browser chrome --spec cypress/e2e/API/SPAC/Programacion/**/*.cy.js",
+    "api:pb": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Programacion/Proceso_batch/proceso_batch.cy.js"
+
 
   },
   "author": "jfc",
