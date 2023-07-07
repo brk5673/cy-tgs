@@ -10,7 +10,8 @@
     "ui:cc": "cypress run --browser chrome --spec cypress/e2e/SPAC/Mantenimiento/Desvio_de_inyecciones/configuracion_contactos.cy.js",
     "ui:cdi": "cypress run --browser chrome --spec cypress/e2e/SPAC/Control/consulta_desvio_inyecciones.cy.js",
     "api:regression": "cypress run --browser chrome --spec cypress/e2e/api/**/*.cy.js --env mochawesome=true",
-    "api:control": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Control/*.cy.js",
+
+    "api:control": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Control/*.cy.js",  
     "api:vp": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Control/view_parametrizada.cy.js",
     "api:eds": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Control/estado_del_sistema.cy.js",
     "api:vof": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Control/volumenes_operativos_finales.cy.js",
@@ -19,8 +20,13 @@
  
     "api:mantenimiento":"cypress run --browser chrome --spec cypress/e2e/API/SPAC/Mantenimiento/**/*.cy.js",
     "api:cc": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Mantenimiento/Desvio_de_inyecciones/configuracion_de_contactos.cy.js",
-    "api:adi": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Mantenimiento/Desvio_de_inyecciones/administracion_de_desvio_de_inyecciones.cy.js"
-
+    "api:adi": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Mantenimiento/Desvio_de_inyecciones/administracion_de_desvio_de_inyecciones.cy.js",
+ 
+    "api:facturacion": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Facturacion/*.cy.js",
+    "api:prov": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Facturacion/provision.cy.js",
+    "api:fact": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Facturacion/facturacion.cy.js",
+    "api:cont": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Facturacion/contactos.cy.js",
+    "api:rpc": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Facturacion/reportes_por_contrato.cy.js"
 
   },
   "author": "jfc",
