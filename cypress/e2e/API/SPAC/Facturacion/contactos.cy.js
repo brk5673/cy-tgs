@@ -1,61 +1,59 @@
 /// <reference types="cypress"/>
-import { PASS1, USER1 } from "../../../../../fixtures/credentials"
+import { PASS2, USER2 } from "../../../../fixtures/credentials"
 
-describe('API tests <Consulta de Desvio de Inyecciones> module', () => {
+describe('API tests <Contactos> module', () => {
     beforeEach(() => {
-        cy.loginAPI(USER1, PASS1)
+        cy.loginAPI(USER2, PASS2)
     })
 
-    it('[init] status code 200, response properties', () => {
+    it('[get] status code 200, response properties', () => {
         cy.get('@jsession').request({
             method: 'GET',
-            url: '/api/spac/mantenimiento/desviodeinyeccion/configuraciondecontactos/init',
+            url: '/api/spac/facturacion/contactos/getContratos',
         })
         .then((response) => {
-            // validate response have JSON format
-            expect(response.headers['content-type']).to.not.eq('application/json')
-            // Realiza las aserciones sobre la respuesta de la API
+            console.log(response.body[0])
             expect(response.status).to.eq(200)
-            // response to have property 'entidadesLegales'
-            expect(response.body).to.have.property('entidadesLegales')
-            // response to have property 'gasoductos'
-            expect(response.body).to.have.property('gasoductos')
+            expect(response.body[0]).to.have.property('abreviaturaEntidadLegal')
+            expect(response.body[0]).to.have.property('codigoContrato')
+            expect(response.body[0]).to.have.property('nombreEntidadLegal')
+            expect(response.body[0]).to.have.property('numeroEntidadLegal')
+
         })
     })
 
     it('[listar] status code 200, response properties', () => {
         cy.get('@jsession').request({
             method: 'GET',
-            url: '/api/spac/mantenimiento/desviodeinyeccion/configuraciondecontactos/listar',
+            url: '/api/spac/facturacion/contactos/listarContactos?el=685&contrato=ED887',
         })
         .then((response) => {
-            // validate response have JSON format
-            expect(response.headers['content-type']).to.not.eq('application/json')
-            // Realiza las aserciones sobre la respuesta de la API
+            console.log(response.body[0])
             expect(response.status).to.eq(200)
-            // response have an array
-            expect(response.body).to.have.length.greaterThan(0)
+            expect(response.body[0]).to.have.property('contrato')
+            expect(response.body[0]).to.have.property('email')
+            expect(response.body[0]).to.have.property('entidadLegal')
+            expect(response.body[0]).to.have.property('id_contacto')
+            expect(response.body[0]).to.have.property('nombre')
+            expect(response.body[0]).to.have.property('numeroContacto')
+            console.log(response.body[0].entidadLegal)
+
         })
     })
 
     it('[grabar] <alta> status 200', () => {
         cy.get('@jsession').request({
             method: 'POST',
-            url: '/api/spac/mantenimiento/desviodeinyeccion/configuraciondecontactos/grabar',
+            url: '/api/spac/facturacion/contactos/grabar',
             body: {
                 "altas": [
                   {
-                    "ccDeficit": false,
-                    "ccExcesoConMapo": false,
-                    "ccExcesoSinMapo": false,
+                    "contrato": "TI448",
                     "email": "messi10@gmail.ar",
-                    "id": 0,
-                    "idGasoducto": "640",
+                    "id_contacto": 0,
+                    "entidadLegal": "ACINDAR INDUSTRIA ARG. DE ACERO S.A",
                     "nombre": "messi10",
-                    "nroEntidadLegal": 130,
-                    "paraDeficit": false,
-                    "paraExcesoConMapo": false,
-                    "paraExcesoSinMapo": false
+                    "numeroContacto": 1,
                   }
                 ],
                 "bajas": [],
@@ -68,55 +66,50 @@ describe('API tests <Consulta de Desvio de Inyecciones> module', () => {
         })
 
     })
-     
+
     it('[grabar] <editar> status 200', () => {
         cy.get('@jsession').request({
-            url: '/api/spac/mantenimiento/desviodeinyeccion/configuraciondecontactos/listar',
+            url: '/api/spac/facturacion/contactos/listarContactos?el=776&contrato=TI448',
         })
         .then((response) => {
-            const id0 = response.body[0].id
+            const id0 = response.body[0].id_contacto
+            console.log(response.body[0].email)
 
             cy.request({
                 method: 'POST',
-                url: '/api/spac/mantenimiento/desviodeinyeccion/configuraciondecontactos/grabar',
+                url: '/api/spac/facturacion/contactos/grabar',
                 body: {
                     "altas": [],
                     "bajas": [],
-                    "modificaciones": [
-                        {
-                            "ccDeficit": false,
-                            "ccExcesoConMapo": false,
-                            "ccExcesoSinMapo": false,
-                            "email": "messi101@gmail.ar",
-                            "id": id0,
-                            "idGasoducto": "640",
-                            "nombre": "messi101",
-                            "nroEntidadLegal": 130,
-                            "paraDeficit": false,
-                            "paraExcesoConMapo": false,
-                            "paraExcesoSinMapo": false
-                        }
-    
-                    ]
+                    "modificaciones": [{
+                            "contrato": "TI448",
+                            "email": "messi1001@gmail.ar", // dato a modificar
+                            "id_contacto": id0,
+                            "entidadLegal": "ACINDAR INDUSTRIA ARG. DE ACERO S.A",
+                            "nombre": "messi10",
+                            "numeroContacto": 1,
+                    }]
                 }
             })
             .then((response) => {
                 // Realiza las aserciones sobre la respuesta de la API
                 expect(response.status).to.eq(200)
+
             })
         })
     })
 
     it('[grabar] <baja> status 200', () => {
         cy.get('@jsession').request({
-            url: '/api/spac/mantenimiento/desviodeinyeccion/configuraciondecontactos/listar',
+            url: '/api/spac/facturacion/contactos/listarContactos?el=776&contrato=TI448',
         })
         .then((response) => {
-            const id0 = response.body[0].id
+            const id0 = response.body[0].id_contacto
+            console.log(response.body[0].email)
 
             cy.request({
                 method: 'POST',
-                url: '/api/spac/mantenimiento/desviodeinyeccion/configuraciondecontactos/grabar',
+                url: '/api/spac/facturacion/contactos/grabar',
                 body: {
                     "altas": [],
                     "bajas": [id0],
@@ -133,7 +126,7 @@ describe('API tests <Consulta de Desvio de Inyecciones> module', () => {
     it('[report] <xls> status200, .xls doc', () => {
         cy.get('@jsession').request({
             method: 'GET',
-            url: '/api/spac/mantenimiento/desviodeinyeccion/configuraciondecontactos/report?reportType=xls'
+            url: '/api/spac/facturacion/contactos/xls?el=685&contrato=ED887'
         })
         .then((response) => {
             // Realiza las aserciones sobre la respuesta de la API
@@ -148,7 +141,7 @@ describe('API tests <Consulta de Desvio de Inyecciones> module', () => {
     it('[report] <pdf> status200, .pdf doc', () => {
         cy.get('@jsession').request({
             method: 'GET',
-            url: '/api/spac/mantenimiento/desviodeinyeccion/configuraciondecontactos/report?reportType=pdf'
+            url: '/api/spac/facturacion/contactos/pdf?el=685&contrato=ED887'
         })
         .then((response) => {
             // Realiza las aserciones sobre la respuesta de la API
@@ -163,7 +156,7 @@ describe('API tests <Consulta de Desvio de Inyecciones> module', () => {
     it('[report] <print> status200', () => {
         cy.get('@jsession').request({
             method: 'GET',
-            url: '/api/spac/mantenimiento/desviodeinyeccion/configuraciondecontactos/report?reportType=print'
+            url: '/api/spac/facturacion/contactos/pdf?el=685&contrato=ED887'
         })
         .then((response) => {
             // Realiza las aserciones sobre la respuesta de la API
@@ -177,7 +170,15 @@ describe('API tests <Consulta de Desvio de Inyecciones> module', () => {
 
 
 
-    
+
+
+
+
+
+
+
+
+
 
 
 
