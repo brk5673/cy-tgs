@@ -58,21 +58,6 @@ describe('API tests <Proceso Batch> module', () => {
             })
     })
 
-/*     it('[cambiar fecha] status 200', () => {
-        cy.get('@jsession').request({
-            method: 'GET',
-            url: '/api/spac/programacion/proceso-batch/status-programacion?fecha=2022-12-29'
-        })
-        .then((response) => {
-            expect(response.status).to.eq(200)
-            expect(response.body).to.have.property('dia')
-            expect(response.body).to.have.property('programacionFinalizada')
-            expect(response.body).to.have.property('estado')
-            expect(response.body).to.have.property('usuario')
-        })
-    })
- */
-
     it('[cambiar fecha] status 4xx', () => {
         cy.get('@jsession').request({
             method: 'GET',
@@ -112,16 +97,6 @@ describe('API tests <Proceso Batch> module', () => {
             expect(response.status).to.eq(200)
         })
     })
-
-    /* it.only('[habilitar programacion] status200', () => {
-        cy.get('@jsession').request({
-            method: 'GET',
-            url: '/api/spac/programacion/proceso-batch/programacion',
-        })
-        .then((response) => {
-            expect(response.status).to.eq(200)
-        })
-    }) */
 
     // us2025-----------------------------------------------------------------
 
@@ -181,13 +156,13 @@ describe('API tests <Proceso Batch> module', () => {
 
     // us2027-----------------------------------------------------------------
 
-    it.only('[ejecutar reprogramacion] status200', () => {
+    it('[ejecutar reprogramacion] status200', () => {
         cy.get('@jsession').request({
             method: 'POST',
             url: '/api/spac/programacion/proceso-batch/proceso-batch/',
             body: {
                 "estado": "DESHABILITAD" | "DESHABILITADO_FUERA_DE_HORA",
-                "fecha": "2023-07-10"
+                "fecha": "2023-07-12"
               }
         })
         .then((response) => {
@@ -195,7 +170,7 @@ describe('API tests <Proceso Batch> module', () => {
         })
     })
 
-    it.only('[estado programacion] <fecha definida> st200', () => {
+    it('[estado programacion] <fecha definida> st200', () => {
         cy.get('@jsession').request({
             method: 'GET',
             url: '/api/spac/programacion/proceso-batch/status-programacion?fecha=2023-07-10',
@@ -207,17 +182,118 @@ describe('API tests <Proceso Batch> module', () => {
         })
     })
 
-    it.only('[contratos sin solicitud] status200 & response', () => {
+    it('[contratos sin solicitud] status200 & properties', () => {
         cy.get('@jsession').request({
             method: 'GET',
-            url: '/api/spac/programacion/proceso-batch/contratos-sin-solicitudes?fecha=2023-07-10',
+            url: '/api/spac/programacion/proceso-batch/contratos-sin-solicitudes/?fecha=2023-07-12',
         })
         .then((response) => {
             expect(response.status).to.eq(200)
-            expect(response.body).to.have.property('contrato')
-            expect(response.body).to.have.property('entidadLegal')
+            expect(response.body[0]).to.have.property('codigoContrato')
+            expect(response.body[0]).to.have.property('nombreEntidadLegal')
         })
     })
+
+    //us2212------------------------------------------------------------------
+
+    it('[puntos sin confirmacion] status200 & properties', () => {
+        cy.get('@jsession').request({
+            method: 'GET',
+            url: '/api/spac/programacion/proceso-batch/puntos-sin-confirmacion/?fecha=2023-07-12',
+        })
+        .then((response) => {
+            expect(response.status).to.eq(200)
+            expect(response.body[0]).to.have.property('cantidadSolicitada')
+            expect(response.body[0]).to.have.property('nombrePunto')
+            expect(response.body[0]).to.have.property('nroContrato')
+        })
+    })
+
+    //us2073------------------------------------------------------------------
+
+    it('[contratos sin solicitud - puntos sin confirmacion - contratos con corte a la entrega] status200 & properties', () => {
+        cy.get('@jsession').request({
+            method: 'POST',
+            url: '/api/spac/programacion/proceso-batch/proceso-batch/',
+            body: {
+                "estado": "DESHABILITADO_PROGRAMADO",
+                "fecha": "2023-07-12"
+            }
+        })
+        .then((response) => {
+            expect(response.status).to.eq(200)
+        })
+    })
+
+    it('[estado programacion] <fecha definida> st200', () => {
+        cy.get('@jsession').request({
+            method: 'GET',
+            url: '/api/spac/programacion/proceso-batch/status-programacion?fecha=2023-07-12',
+        })
+        .then((response) => {
+            expect(response.status).to.eq(200)
+            console.log(response.body['estado'])
+
+        })
+    })
+
+    //us2096------------------------------------------------------------------
+
+    it('[contratos con corte a la entrega => excesos en contratos] status200 & properties', () => {
+        cy.get('@jsession').request({
+            method: 'GET',
+            url: '/api/sasas/progasasaramasion/proceso-vatch/conddsdsdga/?fecha=2023-07-12',
+        })
+        .then((response) => {
+            expect(response.status).to.eq(200)
+
+
+        })
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //us2118------------------------------------------------------------------
+
+    it('[contratos con corte a la entrega => excesos en contratos] status200 & properties', () => {
+        cy.request({
+            method: 'GET',
+            url: '/api/spac/programacion/proceso-batch/contratos-con-corte-a-la-entrega/?fecha=2023-07-12',
+
+        })
+        .then((response) => {
+            expect(response.status).to.eq(200)
+            console.log(response.body)
+        
+        })
+
+    })
+
+
+
+
+
+
+
+
 
 
 
@@ -231,6 +307,18 @@ describe('API tests <Proceso Batch> module', () => {
 
     
 })
+
+it.only('[puntos sin confirmacion] status200 & properties', () => {
+    cy.request({
+        method: 'GET',
+        url: '/api/spac/programacion/proceso-batch/puntos-sin-confirmacio',
+    })
+    .then((response) => {
+        expect(response.status).to.eq(200)
+    })
+})
+
+
 
 
 
