@@ -64,7 +64,7 @@ describe('API tests <Reportes por Contrato> module', () => {
         })
     })
 
-    it.only('[generar] status 200', () => {
+    it('[generar] status 200', () => {
         cy.get('@jsession').request({
             method: 'POST',
             url: '/api/spac/facturacion/reportesPorContrato/generarreportes?nuevoajuste=false&tiporeporte=6&periodo=2022%2F09&contrato=TF310',
