@@ -194,7 +194,7 @@ describe('API tests <Proceso Batch> module', () => {
             method: 'POST',
             url: '/api/spac/programacion/proceso-batch/proceso-batch/',
             body: {
-                "estado": "DESHABILITAD" | "DESHABILITADO_FUERA_DE_HORA",
+                "estado": "DESHABILITADO_PROGRAMADO",
                 "fecha": "2023-10-28"
               }
         })
