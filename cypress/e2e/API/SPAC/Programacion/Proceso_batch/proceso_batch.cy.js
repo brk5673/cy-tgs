@@ -185,7 +185,7 @@ describe('API tests <Proceso Batch> module', () => {
 
     // us2027 => [Ejecutar (Re)Programación -> Ctos sin solicitudes]-----------------------------------------------------------------
 
-    it.only('[ejecutar reprogramacion] status200', () => {
+    it('[ejecutar reprogramacion] status200', () => {
         cy.request('/api/spac/programacion/proceso-batch/status-programacion?fecha=2023-10-28').then((response) => {
             console.log(response.body.estado)
             expect(response.body.estado).to.eq('DESHABILITADO_FUERA_DE_HORA')
@@ -203,7 +203,7 @@ describe('API tests <Proceso Batch> module', () => {
         })
     })
 
-    it.only('[estado programacion] <fecha definida> st200', () => {
+    it('[estado programacion] <fecha definida> st200', () => {
         cy.get('@jsession').request({
             method: 'GET',
             url: '/api/spac/programacion/proceso-batch/status-programacion?fecha=2023-10-28',
@@ -216,7 +216,7 @@ describe('API tests <Proceso Batch> module', () => {
         })
     })
 
-    it.only('[contratos sin solicitud] status200 & properties', () => {
+    it('[contratos sin solicitud] status200 & properties', () => {
         cy.get('@jsession').request({
             method: 'GET',
             url: '/api/spac/programacion/proceso-batch/contratos-sin-solicitudes/?fecha=2023-10-28',
