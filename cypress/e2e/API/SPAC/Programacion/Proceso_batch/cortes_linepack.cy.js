@@ -19,9 +19,9 @@ describe('API tests <Proceso Batch> module', () => {
         })
     })
 
-    it('[listar <17Ago>] st200 & properties', () => {
+    it('[listar <22Ago2025>] st200 & properties', () => {
         cy.get('@jsession').request({
-                url: '/api/spac/programacion/proceso-batch/cortes-line-pack/?fecha=2023-08-17'
+                url: '/api/spac/programacion/proceso-batch/cortes-line-pack/?fecha=2025-08-22'
         })
         .then((response) => {
             expect(response.status).to.eq(200)
@@ -32,7 +32,7 @@ describe('API tests <Proceso Batch> module', () => {
         })
     })
 
-    it('[listar <url bad request>] st 4xx', () => {
+    it('[listar <urlBadRequest>] st 4xx', () => {
         cy.get('@jsession').request({
                 url: '/api/spac/programacion/proceso-batch/corteXXs-line-pack/?fecha=2023-08-17'
         })
@@ -45,7 +45,50 @@ describe('API tests <Proceso Batch> module', () => {
         })
     })
 
-    it.only('[report - pdf] status200, .pdf doc', () => {
+    
+    it('[grabar edicion <volumenAprobadoRecepcion>] status 200', () => {
+
+        cy.get('@jsession').request({
+            method: 'GET',
+            url: '/api/spac/programacion/proceso-batch/cortes-line-pack/?fecha=2025-08-22'
+        })
+        .then((response) => {
+            expect(response.status).to.eq(200)
+            // guardar volumenAprobadoRecepcion
+            console.log(response.body.linepack[55].volumenAprobadoRecepcion)
+            const volumenAprobadoRecepcion = response.body.linepack[55].volumenAprobadoRecepcion
+            cy.request({
+                method: 'POST',
+                url: '/api/spac/programacion/proceso-batch/cortes-line-pack/?fecha=2025-08-22',
+                body: 
+                    [{
+                        "fechaProgramacion":"2025-08-22",
+                        "nroSolicitud":-1528,
+                        "estadoDesbalance":"S",
+                        "codigoContrato":"TF283",
+                        "codigoZonaRecepcion":"TDF",
+                        "volumenSolicitadoRecepcion":191338,
+                        "volumenProgramadoRecepcion":volumenAprobadoRecepcion,
+                        "volumenAprobadoRecepcion":volumenAprobadoRecepcion - 1,
+                        "codigoZonaEntrega":"GBA",
+                        "volumenSolicitadoEntrega":0,
+                        "volumenProgramadoEntrega":0,
+                        "volumenAprobadoEntrega":0,
+                        "combustibleProgramado":0,
+                        "vmasC":0
+                    }]
+            })
+            .then((response) => {
+                expect(response.status).to.eq(204)
+            })
+        })
+    })
+    
+    
+
+
+
+    it('[report - pdf] status200, .pdf doc', () => {
         cy.get('@jsession').request({
             method: 'GET',
             url: '/api/spac/programacion/proceso-batch/cortes-line-pack/report/?fecha=2023-08-17&reportType=pdf&'
