@@ -44,5 +44,51 @@ describe('API tests <Proceso Batch> module', () => {
 
         })
     })
+
+    it.only('[report - pdf] status200, .pdf doc', () => {
+        cy.get('@jsession').request({
+            method: 'GET',
+            url: '/api/spac/programacion/proceso-batch/cortes-line-pack/report/?fecha=2023-08-17&reportType=pdf&'
+        })
+        .then((response) => {
+            // Realiza las aserciones sobre la respuesta de la API
+            expect(response.status).to.eq(200)
+            //expect response headers contain value file.pdf
+            expect(response.headers['content-disposition']).to.contain('.pdf')
+            // expect 'content length' contain string not equal to zero
+            expect(response.headers['content-length']).not.to.equal('0')
+        })
+    })
+
+    it('[report - excel] status200, .pdf doc', () => {
+        cy.get('@jsession').request({
+            method: 'GET',
+            url: '/api/spac/programacion/proceso-batch/cortes-line-pack/report/?fecha=2023-08-17&reportType=xls&'
+        })
+        .then((response) => {
+            // Realiza las aserciones sobre la respuesta de la API
+            expect(response.status).to.eq(200)
+            //expect response headers contain value file.pdf
+            expect(response.headers['content-disposition']).to.contain('.xls')
+            // expect 'content length' contain string not equal to zero
+            expect(response.headers['content-length']).not.to.equal('0')
+        })
+    })
+
+    it('[report - print] status200, .pdf doc', () => {
+        cy.get('@jsession').request({
+            method: 'GET',
+            url: '/api/spac/programacion/proceso-batch/cortes-line-pack/report/?fecha=2023-08-17&reportType=print&'
+        })
+        .then((response) => {
+            // Realiza las aserciones sobre la respuesta de la API
+            expect(response.status).to.eq(200)
+            //expect response headers contain value file.pdf
+            expect(response.headers['content-disposition']).to.contain('.pdf')
+            // expect 'content length' contain string not equal to zero
+            expect(response.headers['content-length']).not.to.equal('0')
+        })
+    })
+
     
 })
