@@ -91,7 +91,7 @@ describe('API tests <Proceso Batch> module', () => {
     })
 
 
-    //-------------------------------
+    //------------------------------------
 
     it('[report - pdf] status200, .pdf doc', () => {
         cy.get('@jsession').request({
