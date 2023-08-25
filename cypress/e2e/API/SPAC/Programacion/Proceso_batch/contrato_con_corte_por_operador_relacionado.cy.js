@@ -1,7 +1,7 @@
 /// <reference types="cypress"/>
 import { PASS1, PASS3, USER1, USER3 } from "../../../../../fixtures/credentials"
 
-describe('API tests <Proceso Batch> module', () => {
+describe('API tests <Contratos con Corte por Operador Relacionado> module', () => {
     beforeEach(() => {
         cy.loginAPI(USER3, PASS3)
     })
@@ -18,7 +18,7 @@ describe('API tests <Proceso Batch> module', () => {
         })
     })
 
-    it('[status programacion] st200 & properties', () => {
+    it('[status programacion <current day>] st200 & properties', () => {
         cy.get('@jsession').request({
                 url: '/api/spac/programacion/proceso-batch/status-programacion',
         })
@@ -93,7 +93,7 @@ describe('API tests <Proceso Batch> module', () => {
 
     //------------------------------------
 
-    it('[report - pdf] status200, .pdf doc', () => {
+    it('[report <pdf>] status200, .pdf doc', () => {
         cy.get('@jsession').request({
             method: 'GET',
             url: '/api/spac/programacion/proceso-batch/contratos-corte-operador-relacionado/report?fecha=2023-08-22&tolerancia=0&entidadLegalAbreviatura=Todas&reportType=pdf'
@@ -108,7 +108,7 @@ describe('API tests <Proceso Batch> module', () => {
         })
     })
 
-    it('[report - excel] status200, .pdf doc', () => {
+    it('[report <excel>] status200, .pdf doc', () => {
         cy.get('@jsession').request({
             method: 'GET',
             url: '/api/spac/programacion/proceso-batch/contratos-corte-operador-relacionado/report?fecha=2023-08-22&tolerancia=0&entidadLegalAbreviatura=Todas&reportType=xls'
@@ -123,7 +123,7 @@ describe('API tests <Proceso Batch> module', () => {
         })
     })
 
-    it('[report - print] status200, .pdf doc', () => {
+    it('[report <print>] status200, .pdf doc', () => {
         cy.get('@jsession').request({
             method: 'GET',
             url: '/api/spac/programacion/proceso-batch/contratos-corte-operador-relacionado/report?fecha=2023-08-22&tolerancia=0&entidadLegalAbreviatura=Todas&reportType=print'
@@ -137,10 +137,6 @@ describe('API tests <Proceso Batch> module', () => {
             expect(response.headers['content-length']).not.to.equal('0')
         })
     })
-
-
-
-
 
 
 

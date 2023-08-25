@@ -1,12 +1,12 @@
 /// <reference types="cypress"/>
 import { PASS1, PASS3, USER1, USER3 } from "../../../../../fixtures/credentials"
 
-describe('API tests <Proceso Batch> module', () => {
+describe('API tests <Cortes Linepack> module', () => {
     beforeEach(() => {
         cy.loginAPI(USER3, PASS3)
     })
 
-    it('[pantalla inicial <fecha actual>] status 200 & properties', () => {
+    it('[pantalla inicial <current day>] status 200 & properties', () => {
         cy.get('@jsession').request({
                 url: '/api/spac/programacion/proceso-batch/status-programacion',
         })
@@ -28,11 +28,10 @@ describe('API tests <Proceso Batch> module', () => {
             expect(response.body).to.exist
             //expect response body not contain html tag
             expect(response.headers['content-type']).not.to.include('text/html');
-
         })
     })
 
-    it('[listar <urlBadRequest>] st 4xx', () => {
+    it('[listar <bad request>] st 4xx', () => {
         cy.get('@jsession').request({
                 url: '/api/spac/programacion/proceso-batch/corteXXs-line-pack/?fecha=2023-08-17'
         })
@@ -40,13 +39,11 @@ describe('API tests <Proceso Batch> module', () => {
             expect(response.status).not.to.eq(200)
             // expect response body exist and not contain html tag
             expect(response.headers['content-type']).not.to.include('text/html');
-
-
         })
     })
 
     
-    it('[grabar edicion <volumenAprobadoRecepcion>] status 200', () => {
+    it('[grabar edicion <volumen aprobado recepcion>] status 200', () => {
 
         cy.get('@jsession').request({
             method: 'GET',
@@ -84,11 +81,8 @@ describe('API tests <Proceso Batch> module', () => {
         })
     })
     
-    
 
-
-
-    it('[report - pdf] status200, .pdf doc', () => {
+    it('[report <pdf>] status200, .pdf doc', () => {
         cy.get('@jsession').request({
             method: 'GET',
             url: '/api/spac/programacion/proceso-batch/cortes-line-pack/report/?fecha=2023-08-17&reportType=pdf&'
@@ -103,7 +97,7 @@ describe('API tests <Proceso Batch> module', () => {
         })
     })
 
-    it('[report - excel] status200, .pdf doc', () => {
+    it('[report <excel>] status200, .pdf doc', () => {
         cy.get('@jsession').request({
             method: 'GET',
             url: '/api/spac/programacion/proceso-batch/cortes-line-pack/report/?fecha=2023-08-17&reportType=xls&'
@@ -118,7 +112,7 @@ describe('API tests <Proceso Batch> module', () => {
         })
     })
 
-    it('[report - print] status200, .pdf doc', () => {
+    it('[report <print>] status200, .pdf doc', () => {
         cy.get('@jsession').request({
             method: 'GET',
             url: '/api/spac/programacion/proceso-batch/cortes-line-pack/report/?fecha=2023-08-17&reportType=print&'

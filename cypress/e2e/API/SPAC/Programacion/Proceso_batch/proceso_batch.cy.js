@@ -8,7 +8,7 @@ describe('API tests <Proceso Batch> module', () => {
 
     //us1973-----------------------------------------------------------------
 
-    it('[estado programacion] status 200 & properties', () => {
+    it('[status programacion <current day>] status 200 & properties', () => {
         cy.get('@jsession').request({
             method: 'GET',
             url: '/api/spac/programacion/proceso-batch/status-programacion', //  Valor fecha por default de última programación, sin hora. 
@@ -29,7 +29,7 @@ describe('API tests <Proceso Batch> module', () => {
     })
 
     //estado programacion fecha invalida
-    it('[estado programacion] <fecha invalida> status 400', () => {
+    it('[status programacion <fecha invalida>] status 400', () => {
         cy.get('@jsession').request({
             method: 'POST',
             url: '/api/spac/programacion/proceso-batch/status-programacion?fecha=1980-06-20', // limit date > 1990-01-01
@@ -42,7 +42,7 @@ describe('API tests <Proceso Batch> module', () => {
     })
 
     //bad request
-    it('[estado programacion] url invalida status 400', () => {
+    it('[status programacion] url invalida status 400', () => {
         cy.get('@jsession').request({
             method: 'GET',
             url: '/api/spac/programacion/proceso-batch/status-?fecha=2023-06-20&', // without 'programacion'
@@ -54,7 +54,7 @@ describe('API tests <Proceso Batch> module', () => {
         })
     })
 
-    it('[estado programacion] <fecha definida> status 200 & properties', () => {
+    it('[status programacion <20Jun2023>] status 200 & properties', () => {
         cy.get('@jsession').request({
             method: 'GET',
             url: '/api/spac/programacion/proceso-batch/status-programacion?fecha=2023-06-20', 
@@ -105,7 +105,7 @@ describe('API tests <Proceso Batch> module', () => {
         })
     })
     
-    it('[estado programacion] <fecha definida> st200', () => {
+    it('[status programacion <28Oct2023>] st200', () => {
         cy.get('@jsession').request({
             url: '/api/spac/programacion/proceso-batch/status-programacion?fecha=2023-10-28', 
         })
@@ -169,7 +169,7 @@ describe('API tests <Proceso Batch> module', () => {
         })
     })
 
-    it('[estado programacion] <fecha definida> st200', () => {
+    it('[status programacion <10Jul2023>] st200', () => {
         cy.get('@jsession').request({
             method: 'GET',
             url: '/api/spac/programacion/proceso-batch/status-programacion?fecha=2023-07-10',
@@ -259,7 +259,7 @@ describe('API tests <Proceso Batch> module', () => {
         })
     })
 
-    it('[estado programacion] <fecha definida> st200', () => {
+    it('[status programacion <fecha definida>] st200', () => {
         cy.get('@jsession').request({
             method: 'GET',
             url: '/api/spac/programacion/proceso-batch/status-programacion?fecha=2023-07-12',
