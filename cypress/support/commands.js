@@ -51,3 +51,13 @@ Cypress.Commands.add('logoutAPI', () => {
     expect(response.status).to.eq(200)
   });
 })
+
+// cypress command get date
+Cypress.Commands.add('today', () => {
+  const date = new Date()
+  const day = date.getDate()
+  const month = (date.getMonth() + 1).toString().padStart(2, '0'); // PadStart agrega un 0 si tiene un solo dígito
+  const year = date.getFullYear()
+  return `${year}-${month}-${day}`
+
+})

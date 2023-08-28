@@ -33,6 +33,17 @@ describe('API tests <Exceso en contratos TI> module', () => {
         })
     })
 
+    it('[listar <bad request>] status 400', () => {
+        cy.get('@jsession').request({
+                url: '/api/spac/programacion/proceso-batch/exceso-contratos-ti/?fechaFinal=2023-44-24&fechaInicial=2023-08-87', // date 24-44-23& 87082023
+                failOnStatusCode: false
+        })
+        .then((response) => {
+            expect(response.status).to.eq(400)
+        })
+    })
+
+
     it('[report <pdf>] status200, .pdf doc', () => {
         cy.request({
             url: '/api/spac/programacion/proceso-batch/exceso-contratos-ti/report?reportType=pdf&fechaInicial=2023-08-01&fechaFinal=2023-08-24'
