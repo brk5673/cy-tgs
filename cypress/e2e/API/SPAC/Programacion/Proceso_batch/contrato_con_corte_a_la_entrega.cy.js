@@ -6,7 +6,7 @@ describe('API tests <Contratos con Corte a la Entrega> module', () => {
         cy.loginAPI(USER3, PASS3)
     })
 
-    it('[status programacion <current day>] status 200 & properties', () => {
+    it('[status programacion <current date>] status 200 & properties', () => {
         cy.get('@jsession').request({
                 url: '/api/spac/programacion/proceso-batch/status-programacion',
         })

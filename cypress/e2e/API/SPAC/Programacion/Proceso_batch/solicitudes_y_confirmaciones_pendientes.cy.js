@@ -1,7 +1,7 @@
 /// <reference types="cypress"/>
 import { PASS1, PASS3, USER1, USER3 } from "../../../../../fixtures/credentials"
 
-describe('API tests <Contratos con Corte a la Entrega> module', () => {
+describe('API tests <Solicitudes y Confirmaciones Pendientes> module', () => {
     beforeEach(() => {
         cy.loginAPI(USER3, PASS3)
     })

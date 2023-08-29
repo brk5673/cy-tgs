@@ -19,7 +19,7 @@ describe('API tests <Exceso en contratos TI> module', () => {
         })
     })
 
-    it('[listar <fecha final = 24Ago2023>] status 200 & properties', () => {
+    it('[listar <ff=24Ago2023>] status 200 & properties', () => {
         cy.request({
             url: '/api/spac/programacion/proceso-batch/exceso-contratos-ti/?fechaFinal=2023-08-24&fechaInicial=2023-08-01'
         })
