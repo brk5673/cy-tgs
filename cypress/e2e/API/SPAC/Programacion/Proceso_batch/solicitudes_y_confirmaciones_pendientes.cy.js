@@ -1,11 +1,13 @@
 /// <reference types="cypress"/>
-import { totalmem } from "os"
 import { PASS1, PASS3, USER1, USER3 } from "../../../../../fixtures/credentials"
+// import  "../../../../../fixtures/EDIsolicitudes" 
 
 describe('API tests <Solicitudes y Confirmaciones Pendientes> module', () => {
     beforeEach(() => {
         cy.loginAPI(USER3, PASS3)
     })
+
+    // pantalla inicial <us2107>----------------------------------------------------------------------------------------------------------------
 
     it('[pantalla inicial <current date>] status 200 & properties', () => {
         cy.today().then((date) => {
@@ -38,24 +40,136 @@ describe('API tests <Solicitudes y Confirmaciones Pendientes> module', () => {
         })
     })
 
-    it('[ver detalle <current date>] status 200 & properties', () => {
-        cy.tomorrow().then((tomorrow) => {
-            cy.log(tomorrow)
 
-            cy.request({
-                method: 'POST',
-                url: '/api/spac/solicitudEdi/saveLote',
-                body: [{
-                    "solicitudDto":{"fechaInicial":tomorrow,"fechaFinal":tomorrow,"codigoContrato":"ED072","entidadLegal":"ENERGY CONSULTING SERVICES S.A.","numeroSolicitud":null,"estado":null,"tipo":"M","dias":2,"usuario":"jdinesta","ultimaModificacion":"","version":0,"puntosRecepcion":[{"numeroPunto":19172,"nombrePunto":"TRANSF TDF/GBA TF-318 LITORAL AL ED-072 ECS","codigoZona":"GBA","nombreZona":null,"rolPunto":"Recepción","prioridadPunto":2,"referenciaAAAA":"ECS-LG-SWAP","cantidad":45000,"cantidadConfirmada":null,"cantidadConfirmadaRecepcion":null,"cantidadConfirmadaEntrega":null}],"puntosEntrega":[{"numeroPunto":248,"nombrePunto":"CAMARA BRAGADO-25 DE MAYO","codigoZona":"BUE","nombreZona":null,"rolPunto":"Entrega","prioridadPunto":1,"referenciaAAAA":"ECSARDION","cantidad":45000,"cantidadConfirmada":null,"cantidadConfirmadaRecepcion":null,"cantidadConfirmadaEntrega":null}],"caminos":[{"tipoCamino":"Normal","codigoZonaRecepcion":"GBA","nombreZonaRecepcion":"Gran Buenos Aires","prioridadRecepcion":15,"cantidadRecepcion":45000,"codigoZonaEntrega":"BUE","nombreZonaEntrega":"Buenos Aires","prioridadEntrega":16,"cantidadEntrega":45000,"cantidadFuel":0,"porcentajeFuel":0,"cmd":null}],"zonasPuntosRecepcion":[],"zonasPuntosEntrega":[],"editable":null,"borrable":null},"results":"1 - Advertencia - Se va a reemplazar la solicitud fuera de hora Nro. null. Confirme la importación por favor.\n","deshabilitar":false,"withConfirmation":true,"checked":true
-                }]
+
+    //-----------------------------------------------------------------------------------
+
+    it('prueba proceso batch', () => {
+        cy.deshabilitarPB()
+    })
+
+    it('prueba proceso batch', () => {
+        cy.ejecutarPB()
+    })
+
+
+
+
+
+
+    it('prueba subir archivo', () => {
+        cy.fixture("EDIsolicitudes.dat", 'binary')
+            .then((file) => Cypress.Blob.binaryStringToBlob(file))
+                .then((blob) => {
+                    console.log(blob)
+
+                    var formdata = new FormData();
+                    formdata.append("file", blob, "EDIsolicitudes.dat");
+
+                    cy.request({
+                        method: "POST",
+                        url: "/api/spac/solicitudEdi/importEdi",
+                        headers: {
+                            'content-type': 'multipart/form-data'
+                        },
+                        body: formdata
+                    }).its('status').should('be.equal', 200)
+        })
+        
+    })
+
+
+    it('[cargar solicitud] status 200 & properties', () => {
+        cy.importEDI() // algo mal en este command
+        cy.addSolicitudesEDI1()
+        cy.addSolicitudesEDI2()
+    })
+
+    // ver detalle de solicitud <us2108>------------------------ESTO ES SOLO FRONT, LO DEMAS YA ESTABA MIGRADO-------------------------------------------------------------
+
+    it.only('[VER detalle <solicitud> <current date>] status 200 & properties', () => {
+        cy.today().then((date) => {
+            cy.get('@jsession').request({
+                url: `/api/spac/solicitudes?fechaInicial=${date}&fechaFinal=${date}`
             })
             .then((response) => {
                 expect(response.status).to.eq(200)
+                expect(response.headers['content-type']).not.to.include('text/html')
+                console.log(response.body.solicitudes[0].numeroSolicitud)
+                console.log(response.body.solicitudes[0].codigoContrato)
+                cy.request({
+                    url: `/api/spac/solicitudes/${response.body.solicitudes[0].codigoContrato}/${response.body.solicitudes[0].numeroSolicitud}?enHora=true`
+                })
+                .then((response) => {
+                    expect(response.status).to.eq(200)
+                    expect(response.body).to.have.property('caminos')
+                    expect(response.body).to.have.property('puntosEntrega')
+                    expect(response.body).to.have.property('puntosRecepcion')
+                    expect(response.body).to.have.property('zonasPuntosEntrega')
+                    expect(response.body).to.have.property('zonasPuntosRecepcion')
+                })
+            })            
+        })
+    })
+
+    it.only('[VER detalle <solicitud> <day after>] status 200 & properties', () => {
+        cy.tomorrow().then((tomorrow) => {
+            cy.get('@jsession').request({
+                url: `/api/spac/solicitudes?fechaInicial=${tomorrow}&fechaFinal=${tomorrow}`
+            })
+            .then((response) => {
+                expect(response.status).to.eq(200)
+                expect(response.headers['content-type']).not.to.include('text/html')
+                console.log(response.body.solicitudes[0].numeroSolicitud)
+                console.log(response.body.solicitudes[0].codigoContrato)
+                cy.request({
+                    url: `/api/spac/solicitudes/${response.body.solicitudes[0].codigoContrato}/${response.body.solicitudes[0].numeroSolicitud}?enHora=true`
+                })
+                .then((response) => {
+                    expect(response.status).to.eq(200)
+                    expect(response.body).to.have.property('caminos')
+                    expect(response.body).to.have.property('puntosEntrega')
+                    expect(response.body).to.have.property('puntosRecepcion')
+                    expect(response.body).to.have.property('zonasPuntosEntrega')
+                    expect(response.body).to.have.property('zonasPuntosRecepcion')
+                })
+            })
+        })
+    })
+    
+
+
+
+
+
+    // aceptar solicitudes y confirmaciones pendientes <us2109>----------------------------------------------------------------------
+
+    it('[aceptar s&c <current date>] status 200 & properties', () => {
+        cy.today().then((date) => {
+            cy.request({
+                url: `/api/spac/programacion/proceso-batch/solicitudes-confirmaciones-pendientes/?fecha=${date}`,
+            })
+            .then((response) => {
+                cy.request({
+                    method: 'POST',
+                    url: `/api/spac/programacion/proceso-batch/solicitudes-confirmaciones-pendientes/?fecha=${date}`,
+                    body: {
+                        "solicitudesConfirmaciones":[
+                            {
+                                "contrato":response.body.solicitudesConfirmaciones[0].contrato,
+                                "numero": response.body.solicitudesConfirmaciones[0].numero
+                            }
+                        ]
+                    }
+                })
+                .then((response) => {
+                    expect(response.status).to.eq(200)
+                })
             })
         })
     })
 
-    it('[aceptar soli/confirm <day after>] status 200 & properties', () => {
+    it('[aceptar s&c <day after>] status 200 & properties', () => {
         cy.tomorrow().then((tomorrow) => {
             cy.request({
                 url: `/api/spac/programacion/proceso-batch/solicitudes-confirmaciones-pendientes/?fecha=${tomorrow}`,
@@ -67,8 +181,8 @@ describe('API tests <Solicitudes y Confirmaciones Pendientes> module', () => {
                     body: {
                         "solicitudesConfirmaciones":[
                             {
-                            "contrato":"ED072",
-                            "numero": response.body.solicitudesConfirmaciones[0].numero
+                                "contrato":response.body.solicitudesConfirmaciones[0].contrato,
+                                "numero": response.body.solicitudesConfirmaciones[0].numero
                             }
                         ]
                     }
