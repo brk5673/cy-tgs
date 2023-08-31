@@ -43,7 +43,7 @@ describe('API tests <Solicitudes y Confirmaciones Pendientes> module', () => {
 
 
     //-----------------------------------------------------------------------------------
-
+/* 
     it('prueba proceso batch', () => {
         cy.deshabilitarPB()
     })
@@ -52,12 +52,12 @@ describe('API tests <Solicitudes y Confirmaciones Pendientes> module', () => {
         cy.ejecutarPB()
     })
 
+ */
 
 
 
 
-
-    it('prueba subir archivo', () => {
+/*     it('prueba subir archivo', () => {
         cy.fixture("EDIsolicitudes.dat", 'binary')
             .then((file) => Cypress.Blob.binaryStringToBlob(file))
                 .then((blob) => {
@@ -77,17 +77,17 @@ describe('API tests <Solicitudes y Confirmaciones Pendientes> module', () => {
         })
         
     })
-
-
+ */
+/* 
     it('[cargar solicitud] status 200 & properties', () => {
         cy.importEDI() // algo mal en este command
         cy.addSolicitudesEDI1()
         cy.addSolicitudesEDI2()
     })
-
+ */
     // ver detalle de solicitud <us2108>------------------------ESTO ES SOLO FRONT, LO DEMAS YA ESTABA MIGRADO-------------------------------------------------------------
 
-    it.only('[VER detalle <solicitud> <current date>] status 200 & properties', () => {
+    it('[VER detalle <solicitud> <current date>] status 200 & properties', () => {
         cy.today().then((date) => {
             cy.get('@jsession').request({
                 url: `/api/spac/solicitudes?fechaInicial=${date}&fechaFinal=${date}`
@@ -112,7 +112,7 @@ describe('API tests <Solicitudes y Confirmaciones Pendientes> module', () => {
         })
     })
 
-    it.only('[VER detalle <solicitud> <day after>] status 200 & properties', () => {
+    it('[VER detalle <solicitud> <day after>] status 200 & properties', () => {
         cy.tomorrow().then((tomorrow) => {
             cy.get('@jsession').request({
                 url: `/api/spac/solicitudes?fechaInicial=${tomorrow}&fechaFinal=${tomorrow}`

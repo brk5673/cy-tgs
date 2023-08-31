@@ -55,7 +55,7 @@ Cypress.Commands.add('logoutAPI', () => {
 // cypress command get date
 Cypress.Commands.add('today', () => {
   const date = new Date()
-  const day = date.getDate()
+  const day = date.getDate().toString().padStart(2, '0'); // PadStart agrega un 0 si tiene un solo dígito
   const month = (date.getMonth() + 1).toString().padStart(2, '0'); // PadStart agrega un 0 si tiene un solo dígito
   const year = date.getFullYear()
   return `${year}-${month}-${day}`
@@ -66,7 +66,7 @@ Cypress.Commands.add('tomorrow', () => {
   const tomorrow = new Date(date);
   tomorrow.setDate(date.getDate() + 1);
 
-  const day = tomorrow.getDate();
+  const day = tomorrow.getDate().toString().padStart(2, '0'); // PadStart agrega un 0 si tiene un solo dígito
   const month = (tomorrow.getMonth() + 1).toString().padStart(2, '0'); // PadStart agrega un 0 si tiene un solo dígito
   const year = tomorrow.getFullYear();
 
@@ -294,3 +294,34 @@ Cypress.Commands.add('ejecutarPB', () => {
   })
 })
 
+Cypress.Commands.add('deshabilitarPBtomorrow', () => {
+  cy.tomorrow().then((tomorrow) => {
+    cy.request(`/api/spac/programacion/proceso-batch/status-programacion?fecha=${tomorrow}`).then((response) => {
+      expect(response.status).to.eq(200)
+    })
+    cy.get('@jsession').request({
+        method: 'POST',
+        url: '/api/spac/programacion/proceso-batch/proceso-batch/',
+        body: {
+            "estado": "DESHABILITADO",
+            "fecha": tomorrow
+          }
+    })
+  })
+})
+
+Cypress.Commands.add('ejecutarPBtomorrow', () => {
+  cy.tomorrow().then((tomorrow) => {
+    cy.request(`/api/spac/programacion/proceso-batch/status-programacion?fecha=${tomorrow}`).then((response) => {
+      expect(response.status).to.eq(200)
+    })
+    cy.get('@jsession').request({
+        method: 'POST',
+        url: '/api/spac/programacion/proceso-batch/proceso-batch/',
+        body: {
+            "estado": "DESHABILITADO_PROGRAMADO",
+            "fecha": tomorrow
+          }
+    })
+  })
+})
