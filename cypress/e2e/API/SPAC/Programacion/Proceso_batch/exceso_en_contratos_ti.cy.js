@@ -1,4 +1,5 @@
 /// <reference types="cypress"/>
+import { url } from "inspector"
 import { PASS1, PASS3, USER1, USER3 } from "../../../../../fixtures/credentials"
 
 describe('API tests <Exceso en contratos TI> module', () => {
@@ -7,7 +8,7 @@ describe('API tests <Exceso en contratos TI> module', () => {
     })
 
     it('[pantalla inicial] status 200 & properties', () => {
-        cy.request({
+        cy.get('@jsession').request({
             url: '/api/spac/programacion/proceso-batch/status-programacion',
         })
         .then((response) => {
@@ -20,8 +21,8 @@ describe('API tests <Exceso en contratos TI> module', () => {
     })
 
     it('[listar <ff=24Ago2023>] status 200 & properties', () => {
-        cy.request({
-            url: '/api/spac/programacion/proceso-batch/exceso-contratos-ti/?fechaFinal=2023-08-24&fechaInicial=2023-08-01'
+        cy.get('@jsession').request({
+            url: '/api/spac/programacion/proceso-batch/exceso-contratos-ti/?fechaFinal=2020-08-22&fechaInicial=2020-08-01'
         })
         .then((response) => {
             expect(response.status).to.eq(200)
@@ -43,6 +44,8 @@ describe('API tests <Exceso en contratos TI> module', () => {
         })
     })
 
+
+    //--------------- exportar reporte <us2219> ----------------------------
 
     it('[report <pdf>] status200, .pdf doc', () => {
         cy.request({

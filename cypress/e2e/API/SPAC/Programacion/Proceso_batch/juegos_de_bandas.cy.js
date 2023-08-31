@@ -63,10 +63,10 @@ describe('API tests <Juegos de Bandas> module', () => {
                 method: 'POST',
                 url: '/api/spac/programacion/proceso-batch/juegos-banda/', 
                 body: [{
-                        "bandaMaxima": response.body[0].bandaMaxima +1,
-                        "bandaMinima": response.body[0].bandaMinima -1,
-                        "codigoSociedad": response.body[0].codigoSociedad,
-                        "fechaProgramacion": response.body[0].fechaProgramacion
+                    "bandaMaxima": response.body[0].bandaMaxima +1,
+                    "bandaMinima": response.body[0].bandaMinima -1,
+                    "codigoSociedad": response.body[0].codigoSociedad,
+                    "fechaProgramacion": response.body[0].fechaProgramacion
                 }]
             })
             .then((response) => {

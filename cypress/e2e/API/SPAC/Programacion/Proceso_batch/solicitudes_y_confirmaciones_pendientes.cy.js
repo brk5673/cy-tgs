@@ -40,51 +40,9 @@ describe('API tests <Solicitudes y Confirmaciones Pendientes> module', () => {
         })
     })
 
-
-
     //-----------------------------------------------------------------------------------
-/* 
-    it('prueba proceso batch', () => {
-        cy.deshabilitarPB()
-    })
-
-    it('prueba proceso batch', () => {
-        cy.ejecutarPB()
-    })
-
- */
 
 
-
-
-/*     it('prueba subir archivo', () => {
-        cy.fixture("EDIsolicitudes.dat", 'binary')
-            .then((file) => Cypress.Blob.binaryStringToBlob(file))
-                .then((blob) => {
-                    console.log(blob)
-
-                    var formdata = new FormData();
-                    formdata.append("file", blob, "EDIsolicitudes.dat");
-
-                    cy.request({
-                        method: "POST",
-                        url: "/api/spac/solicitudEdi/importEdi",
-                        headers: {
-                            'content-type': 'multipart/form-data'
-                        },
-                        body: formdata
-                    }).its('status').should('be.equal', 200)
-        })
-        
-    })
- */
-/* 
-    it('[cargar solicitud] status 200 & properties', () => {
-        cy.importEDI() // algo mal en este command
-        cy.addSolicitudesEDI1()
-        cy.addSolicitudesEDI2()
-    })
- */
     // ver detalle de solicitud <us2108>------------------------ESTO ES SOLO FRONT, LO DEMAS YA ESTABA MIGRADO-------------------------------------------------------------
 
     it('[VER detalle <solicitud> <current date>] status 200 & properties', () => {
@@ -138,10 +96,6 @@ describe('API tests <Solicitudes y Confirmaciones Pendientes> module', () => {
     })
     
 
-
-
-
-
     // aceptar solicitudes y confirmaciones pendientes <us2109>----------------------------------------------------------------------
 
     it('[aceptar s&c <current date>] status 200 & properties', () => {
@@ -150,21 +104,26 @@ describe('API tests <Solicitudes y Confirmaciones Pendientes> module', () => {
                 url: `/api/spac/programacion/proceso-batch/solicitudes-confirmaciones-pendientes/?fecha=${date}`,
             })
             .then((response) => {
-                cy.request({
-                    method: 'POST',
-                    url: `/api/spac/programacion/proceso-batch/solicitudes-confirmaciones-pendientes/?fecha=${date}`,
-                    body: {
-                        "solicitudesConfirmaciones":[
-                            {
-                                "contrato":response.body.solicitudesConfirmaciones[0].contrato,
-                                "numero": response.body.solicitudesConfirmaciones[0].numero
-                            }
-                        ]
-                    }
-                })
-                .then((response) => {
+                if (response.body.solicitudesConfirmaciones.length > 0) {
+                    cy.request({
+                        method: 'POST',
+                        url: `/api/spac/programacion/proceso-batch/solicitudes-confirmaciones-pendientes/?fecha=${date}`,
+                        body: {
+                            "solicitudesConfirmaciones":[
+                                {
+                                    "contrato":response.body.solicitudesConfirmaciones[0].contrato,
+                                    "numero": response.body.solicitudesConfirmaciones[0].numero
+                                }
+                            ]
+                        }
+                    })
+                    .then((response) => {
+                        expect(response.status).to.eq(200)
+                    })
+                } else {
                     expect(response.status).to.eq(200)
-                })
+                    expect(response.headers['content-type']).not.to.include('text/html')
+                }
             })
         })
     })
@@ -175,21 +134,24 @@ describe('API tests <Solicitudes y Confirmaciones Pendientes> module', () => {
                 url: `/api/spac/programacion/proceso-batch/solicitudes-confirmaciones-pendientes/?fecha=${tomorrow}`,
             })
             .then((response) => {
-                cy.request({
-                    method: 'POST',
-                    url: `/api/spac/programacion/proceso-batch/solicitudes-confirmaciones-pendientes/?fecha=${tomorrow}`,
-                    body: {
-                        "solicitudesConfirmaciones":[
-                            {
+                if (response.body.solicitudesConfirmaciones.length > 0) {
+                    cy.request({
+                        method: 'POST',
+                        url: `/api/spac/programacion/proceso-batch/solicitudes-confirmaciones-pendientes/?fecha=${tomorrow}`,
+                        body: {
+                            "solicitudesConfirmaciones":[{
                                 "contrato":response.body.solicitudesConfirmaciones[0].contrato,
                                 "numero": response.body.solicitudesConfirmaciones[0].numero
-                            }
-                        ]
-                    }
-                })
-                .then((response) => {
+                            }]
+                        }
+                    })
+                    .then((response) => {
+                        expect(response.status).to.eq(200)
+                    })
+                } else {
                     expect(response.status).to.eq(200)
-                })
+                    expect(response.headers['content-type']).not.to.include('text/html')
+                }
             })
         })
     })

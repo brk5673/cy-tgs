@@ -25,6 +25,7 @@ describe('API tests <Contratos con Corte a la Entrega> module', () => {
         })
         .then((response) => {
             expect(response.status).to.eq(200)
+            expect(response.headers['content-type']).not.to.include('text/html')
         })
     })
 
@@ -38,7 +39,7 @@ describe('API tests <Contratos con Corte a la Entrega> module', () => {
         })
     })
 
-    //---------------
+    //--------------- exportar reporte <us2214> ----------------------------
 
     it('[report <pdf>] status200, .pdf doc', () => {
         cy.get('@jsession').request({

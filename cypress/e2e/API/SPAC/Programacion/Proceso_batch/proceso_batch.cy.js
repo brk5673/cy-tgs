@@ -183,7 +183,7 @@ describe('API tests <Proceso Batch> module', () => {
         })
     })
 
-    // us2027 => [Ejecutar (Re)Programación -> Ctos sin solicitudes]-----------------------------------------------------------------
+    // ----------- <us2027> Ejecutar (Re)Programación -> Ctos sin solicitudes -----------------------------------------------------------------
 
     it('[ejecutar reprogramacion] status200', () => {
         cy.request('/api/spac/programacion/proceso-batch/status-programacion?fecha=2023-10-28').then((response) => {
