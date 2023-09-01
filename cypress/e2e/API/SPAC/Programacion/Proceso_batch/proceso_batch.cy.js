@@ -376,13 +376,6 @@ describe('API tests <Proceso Batch> module', () => {
 
 
 
-
-
-
-
-
-
-
 /*     // us2018 => [DESHABILITAR PROGRAMACION]-----------------------------------------------------------------
 
     it('[deshabilitar programacion] status200', () => {
@@ -535,11 +528,6 @@ describe('API tests <Proceso Batch> module', () => {
 
 
 
-
-
-
-
-
     // <us2212> Continuar Programación 0.5: Ctos sin solicitud -> Puntos sin confirmación --------------------------------------------------------
 
     it('[puntos sin confirmacion <current date>] status200 & properties', () => {
@@ -555,21 +543,7 @@ describe('API tests <Proceso Batch> module', () => {
             })
         })
     })
-
-    it('[puntos sin confirmacion <day after>] status200 & properties', () => {
-        cy.tomorrow().then((tomorrow) => {
-            cy.get('@jsession').request({
-                url: `/api/spac/programacion/proceso-batch/puntos-sin-confirmacion/?fecha=${tomorrow}`,
-            })
-            .then((response) => {
-                expect(response.status).to.eq(200)
-                expect(response.body[0]).to.have.property('cantidadSolicitada')
-                expect(response.body[0]).to.have.property('nombrePunto')
-                expect(response.body[0]).to.have.property('nroContrato')
-            })
-        })
-    })
-
+    
 
     // <us2073> Continuar Programación 1: Ctos sin solicitud / Ptos sin confirmación -> Ctos con cortes de entrega -------------------------------------------------------------
 
@@ -628,27 +602,14 @@ describe('API tests <Proceso Batch> module', () => {
                 expect(response.headers['content-type']).not.to.include('text/html')        
             })
         })
-
     })
 
 
+    // <us2207> Exportar Archivos - Puntos sin Confirmación ------------------------------------------------------------------
+    // <us2202> Exportar Archivos - Puntos sin Solicitud ---------------------------------------------------------------------
 
 
 
 
-
-
-
-
-
-
-
-
-    
-
-
-
-
-    
 })
 

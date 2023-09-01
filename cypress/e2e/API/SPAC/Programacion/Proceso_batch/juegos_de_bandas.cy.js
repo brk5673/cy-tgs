@@ -47,6 +47,8 @@ describe('API tests <Juegos de Bandas> module', () => {
         })
     })
 
+    // accion grabar <us2141> ----------------------------
+
     it('[editar y grabar <fi=22Ago23, ff=22Ago23>] status 204 & properties', () => {
         cy.get('@jsession').request({
                 url: '/api/spac/programacion/proceso-batch/juegos-banda/?fechaDesde=2023-08-22&fechaHasta=2023-08-22'
@@ -74,6 +76,8 @@ describe('API tests <Juegos de Bandas> module', () => {
             })
         })
     })
+
+    // exportar reporte <us2207> --------------------------------------
 
     it('[report <pdf>] status200, .pdf doc', () => {
         cy.request({
