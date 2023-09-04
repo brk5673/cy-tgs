@@ -60,6 +60,8 @@ describe('API tests <Juegos de Bandas> module', () => {
             expect(response.body[0]).to.have.property('codigoSociedad')
             expect(response.body[0]).to.have.property('editable').eq(true)
             expect(response.body[0]).to.have.property('fechaProgramacion')
+            cy.log(response.body[0].bandaMaxima)
+            cy.log(response.body[0].bandaMinima)
 
             cy.request({
                 method: 'POST',
@@ -73,7 +75,13 @@ describe('API tests <Juegos de Bandas> module', () => {
             })
             .then((response) => {
                 expect(response.status).to.eq(204)
+                cy.request('/api/spac/programacion/proceso-batch/juegos-banda/?fechaDesde=2023-08-22&fechaHasta=2023-08-22').then((response) => {
+                    expect(response.status).to.eq(200)
+                    cy.log(response.body[0].bandaMaxima)
+                    cy.log(response.body[0].bandaMinima)
+                })
             })
+
         })
     })
 
