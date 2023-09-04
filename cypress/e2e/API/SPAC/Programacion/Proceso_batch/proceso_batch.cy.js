@@ -54,7 +54,9 @@ describe('API tests <Proceso Batch> module', () => {
         })
     })
  */
-    // fechas limites minimos y maximos
+
+// fechas limites minimos y maximos
+
     it('[fecha limite] status 200 & properties', () => {
         cy.get('@jsession').request('/api/common/date/frontend-limits')
             .then((response) => {
@@ -66,9 +68,8 @@ describe('API tests <Proceso Batch> module', () => {
             })
     })
     
-
-
-    // batch process e2e <dia actual> ------------------------------
+    
+// batch process e2e <dia actual> ------------------------------
 
     it('[batch process <current date>] status 200 & properties', () => {
         cy.today().then((date) => {
