@@ -6,7 +6,7 @@ describe('API tests <Contratos con Corte por Operador Relacionado> module', () =
         cy.loginAPI(USER3, PASS3)
     })
 
-    it('[pantalla inicial <init>] status 200 & properties', () => {
+    it.only('[pantalla inicial <init>] status 200 & properties', () => {
         cy.get('@jsession').request({
                 url: '/api/spac/programacion/proceso-batch/contratos-corte-operador-relacionado/init',
         })

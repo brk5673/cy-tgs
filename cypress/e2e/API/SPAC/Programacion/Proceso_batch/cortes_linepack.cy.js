@@ -4,7 +4,7 @@ import { PASS1, PASS3, USER1, USER3 } from "../../../../../fixtures/credentials"
 describe('API tests <Cortes Linepack> module', () => {
     beforeEach(() => {
         cy.loginAPI(USER3, PASS3)
-    })
+    }) 
 
     it('[pantalla inicial <current day>] status 200 & properties', () => {
         cy.get('@jsession').request({

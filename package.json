@@ -18,7 +18,7 @@
     "api:pdp": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Control/parte_de_pautas.cy.js",
     "api:cdi": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Control/consulta_desvio_inyeccion.cy.js",
  
-    "api:mantenimiento":"cypress run --browser chrome --spec cypress/e2e/API/SPAC/Mantenimiento/**/*.cy.js",
+    "api:mantenimiento": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Mantenimiento/**/*.cy.js",
     "api:cc": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Mantenimiento/Desvio_de_inyecciones/configuracion_de_contactos.cy.js",
     "api:adi": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Mantenimiento/Desvio_de_inyecciones/administracion_de_desvio_de_inyecciones.cy.js",
  
@@ -28,7 +28,9 @@
     "api:cont": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Facturacion/contactos.cy.js",
     "api:rpc": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Facturacion/reportes_por_contrato.cy.js",
 
-    "api:programacion":"cypress run --browser chrome --spec cypress/e2e/API/SPAC/Programacion/**/*.cy.js",
+    "api:programacion": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Programacion/*.cy.js",
+    
+    "api:procesoBatch": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Programacion/Proceso_batch/proceso_batch.cy.js && cypress run --browser chrome --spec cypress/e2e/API/SPAC/Programacion/Proceso_batch/*.cy.js",
     "api:pb": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Programacion/Proceso_batch/proceso_batch.cy.js",
     "api:clp": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Programacion/Proceso_batch/cortes_linepack.cy.js",
     "api:ccxor": "cypress run --browser chrome --spec cypress/e2e/API/SPAC/Programacion/Proceso_batch/contrato_con_corte_por_operador_relacionado.cy.js",
