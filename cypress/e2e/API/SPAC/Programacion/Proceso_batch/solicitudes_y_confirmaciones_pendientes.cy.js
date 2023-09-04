@@ -1,5 +1,5 @@
 /// <reference types="cypress"/>
-import { PASS1, PASS3, USER1, USER3 } from "../../../../../fixtures/credentials"
+import { PASS3, USER3 } from "../../../../../fixtures/credentials"
 // import  "../../../../../fixtures/EDIsolicitudes" 
 
 describe('API tests <Solicitudes y Confirmaciones Pendientes> module', () => {

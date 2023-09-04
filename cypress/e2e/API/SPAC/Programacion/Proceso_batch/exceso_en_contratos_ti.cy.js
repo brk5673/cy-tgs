@@ -1,6 +1,6 @@
 /// <reference types="cypress"/>
 import { url } from "inspector"
-import { PASS1, PASS3, USER1, USER3 } from "../../../../../fixtures/credentials"
+import { PASS3, USER3 } from "../../../../../fixtures/credentials"
 
 describe('API tests <Exceso en contratos TI> module', () => {
     beforeEach(() => {

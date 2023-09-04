@@ -16,7 +16,8 @@ module.exports = defineConfig({
       html: true,
       json: false,
     },
-    baseUrl: "http://10.1.11.237:8080/etgs", // sit URL
+    //baseUrl: "http://10.1.11.237:8080/etgs", // sit URL
+    baseUrl: "http://10.1.11.236:8080/etgs", // dev URL
     setupNodeEvents,
     chromeWebSecurity: false,
     watchForFileChanges: false,

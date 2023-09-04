@@ -146,44 +146,56 @@ describe('API tests <Juegos de Bandas> module', () => {
     // exportar reporte <us2207> --------------------------------------
 
     it('[report <pdf>] status200, .pdf doc', () => {
-        cy.request({
-            url: '/api/spac/programacion/proceso-batch/juegos-banda/report/?fechaDesde=2023-08-22&fechaHasta=2023-08-22&reportType=pdf&'
-        })
-        .then((response) => {
-            expect(response.status).to.eq(200)
-            //expect response headers contain value file.pdf
-            expect(response.headers['content-disposition']).to.contain('.pdf')
-            // expect 'content length' contain string not equal to zero
-            expect(response.headers['content-length']).not.to.equal('0')
+        cy.today().then((today) => {
+            cy.tomorrow().then((tomorrow) => {
+                cy.request({
+                    url: `/api/spac/programacion/proceso-batch/juegos-banda/report/?fechaDesde=${today}&fechaHasta=${tomorrow}&reportType=pdf&`
+                })
+                .then((response) => {
+                    expect(response.status).to.eq(200)
+                    //expect response headers contain value file.pdf
+                    expect(response.headers['content-disposition']).to.contain('.pdf')
+                    // expect 'content length' contain string not equal to zero
+                    expect(response.headers['content-length']).not.to.equal('0')
+                })
+            })
         })
     })
 
     it('[report <excel>] status200, .xls doc', () => {
-        cy.request({
-            url: '/api/spac/programacion/proceso-batch/juegos-banda/report/?fechaDesde=2023-08-22&fechaHasta=2023-08-22&reportType=xls&'
-        })
-        .then((response) => {
-            expect(response.status).to.eq(200)
-            //expect response headers contain value file.xls
-            expect(response.headers['content-disposition']).to.contain('.xls')
-            // expect 'content length' contain string not equal to zero
-            expect(response.headers['content-length']).not.to.equal('0')
+        cy.today().then((today) => {
+            cy.tomorrow().then((tomorrow) => {
+
+                cy.request({
+                    url: `/api/spac/programacion/proceso-batch/juegos-banda/report/?fechaDesde=${today}&fechaHasta=${tomorrow}&reportType=xls&`
+                })
+                .then((response) => {
+                    expect(response.status).to.eq(200)
+                    //expect response headers contain value file.xls
+                    expect(response.headers['content-disposition']).to.contain('.xls')
+                    // expect 'content length' contain string not equal to zero
+                    expect(response.headers['content-length']).not.to.equal('0')
+                })
+            })
         })
     })
 
     it('[report <print>] status200, .pdf doc', () => {
-        cy.request({
-            url: '/api/spac/programacion/proceso-batch/juegos-banda/report/?fechaDesde=2023-08-22&fechaHasta=2023-08-22&reportType=print&'
-        })
-        .then((response) => {
-            expect(response.status).to.eq(200)
-            //expect response headers contain value file.pdf
-            expect(response.headers['content-disposition']).to.contain('.pdf')
-            // expect 'content length' contain string not equal to zero
-            expect(response.headers['content-length']).not.to.equal('0')
+        cy.today().then((today) => {
+            cy.tomorrow().then((tomorrow) => {
+
+                cy.request({
+                    url: `/api/spac/programacion/proceso-batch/juegos-banda/report/?fechaDesde=${today}&fechaHasta=${tomorrow}&reportType=print&`
+                })
+                .then((response) => {
+                    expect(response.status).to.eq(200)
+                    //expect response headers contain value file.pdf
+                    expect(response.headers['content-disposition']).to.contain('.pdf')
+                    // expect 'content length' contain string not equal to zero
+                    expect(response.headers['content-length']).not.to.equal('0')
+                })
+            })
         })
     })
-
-
 
 })

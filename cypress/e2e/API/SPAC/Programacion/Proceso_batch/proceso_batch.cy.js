@@ -419,12 +419,12 @@ describe('API tests <Proceso Batch> module', () => {
     })
 
 
-// <us2212> Continuar Programación 0.5: Ctos sin solicitud -> Puntos sin confirmación --------------------------------------------------------
+// <us2212> Puntos sin confirmación --------------------------------------------------------
 
     it('[puntos sin confirmacion <current date>] status200 & properties', () => {
-        cy.today().then((date) => {
+        cy.tomorrow().then((tomorrow) => {
             cy.get('@jsession').request({
-                url: `/api/spac/programacion/proceso-batch/puntos-sin-confirmacion/?fecha=${date}`,
+                url: `/api/spac/programacion/proceso-batch/puntos-sin-confirmacion/?fecha=${tomorrow}`,
             })
             .then((response) => {
                 expect(response.status).to.eq(200)
@@ -451,7 +451,7 @@ describe('API tests <Proceso Batch> module', () => {
     })
 
 
-    // <us2118> Contratos con corte a la entrega - Acción "Listar" ------------------------------------------------------------------
+// <us2118> Contratos con corte a la entrega - Acción "Listar" ------------------------------------------------------------------
 
     it('[contratos con corte a la entrega => excesos en contratos] status200 & properties', () => {
         cy.today().then((date) => {
@@ -466,10 +466,113 @@ describe('API tests <Proceso Batch> module', () => {
     })
 
 
-    // <us2207> Exportar Archivos - Puntos sin Confirmación ------------------------------------------------------------------
+// <us2207> Exportar Archivos - Puntos sin Confirmación ------------------------------------------------------------------
+
+    it('[report <pdf>] status200, .pdf doc', () => {
+        cy.tomorrow().then((tomorrow) => {
+            cy.get('@jsession').request({
+                method: 'GET',
+                url: `/api/spac/programacion/proceso-batch/puntos-sin-confirmacion/report?reportType=pdf&fecha=${tomorrow}`
+            })
+            .then((response) => {
+                // Realiza las aserciones sobre la respuesta de la API
+                expect(response.status).to.eq(200)
+                //expect response headers contain value file.pdf
+                expect(response.headers['content-disposition']).to.contain('.pdf')
+                // expect 'content length' contain string not equal to zero
+                expect(response.headers['content-length']).not.to.equal('0')
+            })
+        })
+    })
+
+    it('[report <xls>] status200, .xls doc', () => {
+        cy.tomorrow().then((tomorrow) => {
+            cy.get('@jsession').request({
+                method: 'GET',
+                url: `/api/spac/programacion/proceso-batch/puntos-sin-confirmacion/report?reportType=xls&fecha=${tomorrow}`
+            })
+            .then((response) => {
+                // Realiza las aserciones sobre la respuesta de la API
+                expect(response.status).to.eq(200)
+                //expect response headers contain value file.pdf
+                expect(response.headers['content-disposition']).to.contain('.xls')
+                // expect 'content length' contain string not equal to zero
+                expect(response.headers['content-length']).not.to.equal('0')
+            })
+        })
+    })
+
+    it('[report <print>] status200, .pdf doc', () => {
+        cy.tomorrow().then((tomorrow) => {
+            cy.get('@jsession').request({
+                method: 'GET',
+                url: `/api/spac/programacion/proceso-batch/puntos-sin-confirmacion/report?reportType=print&fecha=${tomorrow}`
+            })
+            .then((response) => {
+                // Realiza las aserciones sobre la respuesta de la API
+                expect(response.status).to.eq(200)
+                //expect response headers contain value file.pdf
+                expect(response.headers['content-disposition']).to.contain('.pdf')
+                // expect 'content length' contain string not equal to zero
+                expect(response.headers['content-length']).not.to.equal('0')
+            })
+        })
+    })
 
 
-    // <us2202> Exportar Archivos - Puntos sin Solicitud ---------------------------------------------------------------------
+// <us2202> Exportar Archivos - Puntos sin Solicitud ---------------------------------------------------------------------
+
+    it('[report <pdf>] status200, .pdf doc', () => {
+        cy.tomorrow().then((tomorrow) => {
+            cy.get('@jsession').request({
+                method: 'GET',
+                url: `/api/spac/programacion/proceso-batch/puntos-sin-confirmacion/report?reportType=pdf&fecha=${tomorrow}`
+            })
+            .then((response) => {
+                // Realiza las aserciones sobre la respuesta de la API
+                expect(response.status).to.eq(200)
+                //expect response headers contain value file.pdf
+                expect(response.headers['content-disposition']).to.contain('.pdf')
+                // expect 'content length' contain string not equal to zero
+                expect(response.headers['content-length']).not.to.equal('0')
+            })
+        })
+    })
+
+    it('[report <xls>] status200, .xls doc', () => {
+        cy.tomorrow().then((tomorrow) => {
+            cy.get('@jsession').request({
+                method: 'GET',
+                url: `/api/spac/programacion/proceso-batch/puntos-sin-confirmacion/report?reportType=xls&fecha=${tomorrow}`
+            })
+            .then((response) => {
+                // Realiza las aserciones sobre la respuesta de la API
+                expect(response.status).to.eq(200)
+                //expect response headers contain value file.pdf
+                expect(response.headers['content-disposition']).to.contain('.xls')
+                // expect 'content length' contain string not equal to zero
+                expect(response.headers['content-length']).not.to.equal('0')
+            })
+        })
+    })
+
+    it('[report <print>] status200, .pdf doc', () => {
+        cy.tomorrow().then((tomorrow) => {
+            cy.get('@jsession').request({
+                method: 'GET',
+                url: `/api/spac/programacion/proceso-batch/puntos-sin-confirmacion/report?reportType=print&fecha=${tomorrow}`
+            })
+            .then((response) => {
+                // Realiza las aserciones sobre la respuesta de la API
+                expect(response.status).to.eq(200)
+                //expect response headers contain value file.pdf
+                expect(response.headers['content-disposition']).to.contain('.pdf')
+                // expect 'content length' contain string not equal to zero
+                expect(response.headers['content-length']).not.to.equal('0')
+            })
+        })
+    })
+
 
 
 
