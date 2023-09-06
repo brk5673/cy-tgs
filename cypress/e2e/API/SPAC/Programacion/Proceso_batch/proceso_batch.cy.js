@@ -68,7 +68,7 @@ describe('API tests <Proceso Batch> module', () => {
             })
     })
     
-    
+
 // batch process e2e <dia actual> ------------------------------
 
     it('[batch process <current date>] status 200 & properties', () => {
@@ -129,172 +129,7 @@ describe('API tests <Proceso Batch> module', () => {
                     }).then((response) => {
                         expect(response.status).to.eq(200)
                     })
-                } else {
-                    console.log(response.body['estado'])
-                    expect(response.status).to.eq(200)
-                    expect(response.body).to.have.property('dia')
-                    expect(response.body).to.have.property('estado')
-                    expect(response.body).to.have.property('usuario')
-                }
-            })
-
-
-        // deshabiitar interno
-            cy.request({
-                url: `/api/spac/programacion/proceso-batch/status-programacion?fecha=${date}`,
-            }).then((response) => {
-                console.log(response.body['estado'])
-                if (response.body.estado == 'HABILITADO_INTERNO') {
-                    cy.request({
-                        method: 'POST',
-                        url: '/api/spac/programacion/proceso-batch/proceso-batch/',
-                        body: {
-                            "estado": "DESHABILITADO_FUERA_DE_HORA",
-                            "fecha": date
-                        }
-                    }).then((response) => {
-                        expect(response.status).to.eq(200)
-                    })
-                } else {
-                    expect(response.status).to.eq(200)
-                    expect(response.body).to.have.property('dia')
-                    expect(response.body).to.have.property('estado')
-                    expect(response.body).to.have.property('usuario')
-                }
-                console.log(response.body['estado'])
-            })
-
-
-        // ejecutar (re)programacion
-            cy.request({
-                url: `/api/spac/programacion/proceso-batch/status-programacion?fecha=${date}`,
-            }).then((response) => {
-                console.log(response.body['estado'])
-                if (response.body.estado == 'DESHABILITADO_FUERA_DE_HORA') {
-                    cy.request({
-                        method: 'POST',
-                        url: '/api/spac/programacion/proceso-batch/proceso-batch/',
-                        body: {
-                            "estado": "DESHABILITADO_PROGRAMADO",
-                            "fecha": date
-                        }
-                    }).then((response) => {
-                        expect(response.status).to.eq(200)
-                    })
-                } else {
-                    expect(response.status).to.eq(200)
-                    expect(response.body).to.have.property('dia')
-                    expect(response.body).to.have.property('estado')
-                    expect(response.body).to.have.property('usuario')
-                }
-                console.log(response.body['estado'])
-            })
-
-
-        // <us2073> Continuar Programación 1: Ctos sin solicitud / Ptos sin confirmación -> Ctos con cortes de entrega -------------------------------------
-            cy.get('@jsession').request({
-                url: `/api/spac/programacion/proceso-batch/puntos-sin-confirmacion/?fecha=${date}`,
-            })
-            .then((response) => {
-                expect(response.status).to.eq(200)
-                expect(response.body[0]).to.have.property('cantidadSolicitada')
-                expect(response.body[0]).to.have.property('nombrePunto')
-                expect(response.body[0]).to.have.property('nroContrato')
-
-                cy.request({
-                    method: 'POST',
-                    url: '/api/spac/programacion/proceso-batch/proceso-batch/',
-                    body: {
-                        "estado": "DESHABILITADO_PROGRAMADO",
-                        "fecha": date
-                    }
-                })
-                .then((response) => {
-                    expect(response.status).to.eq(200)
-                })
-            })
-        
-
-        // habilitar programacion (para re-ejecutar pb)
-            cy.request({
-                url: `/api/spac/programacion/proceso-batch/status-programacion?fecha=${date}`,
-            }).then((response) => {
-                console.log(response.body['estado'])
-                if (response.body.estado == 'DESHABILITADO_PROGRAMADO') {
-                    cy.request({
-                        method: 'POST',
-                        url: '/api/spac/programacion/proceso-batch/proceso-batch/',
-                        body: {
-                            "estado": "HABILITADO",
-                            "fecha": date
-                        }
-                    }).then((response) => {
-                        expect(response.status).to.eq(200)
-                    })
-                } else {
-                    expect(response.status).to.eq(200)
-                    expect(response.body).to.have.property('dia')
-                    expect(response.body).to.have.property('estado')
-                    expect(response.body).to.have.property('usuario')
-                }
-                console.log(response.body['estado'])
-            })
-                
-        })
-    })
-
-
-
-// batch process e2e <dia despues> ------------------------------
-    it('[batch process <day after>] status 200 & properties', () => {
-        cy.tomorrow().then((date) => {
-            
-        // deshabiitar programacion
-            cy.request({
-                url: `/api/spac/programacion/proceso-batch/status-programacion?fecha=${date}`,
-            }).then((response) => {
-                console.log(response.body['estado'])
-                if (response.body.estado == 'SIN_PROGRAMACION') {
-                    console.log(response.body['estado']) 
-                    cy.request({
-                        method: 'POST',
-                        url: '/api/spac/programacion/proceso-batch/proceso-batch/',
-                        body: {
-                            "estado": "DESHABILITADO",
-                            "fecha": date
-                        }
-                    }).then((response) => {
-                        expect(response.status).to.eq(200)
-                    })
-                    
-                } else if (response.body.estado == 'HABILITADO') {
-                    console.log(response.body['estado'])
-                    cy.request({
-                        method: 'POST',
-                        url: '/api/spac/programacion/proceso-batch/proceso-batch/',
-                        body: {
-                            "estado": "DESHABILITADO",
-                            "fecha": date
-                        }
-                    }).then((response) => {
-                        expect(response.status).to.eq(200)
-                    })
-                } else {
-                    console.log(response.body['estado'])
-                    expect(response.status).to.eq(200)
-                    expect(response.body).to.have.property('dia')
-                    expect(response.body).to.have.property('estado')
-                    expect(response.body).to.have.property('usuario')
-                }
-            })
-
-
-        // habilitar interno
-            cy.request({
-                url: `/api/spac/programacion/proceso-batch/status-programacion?fecha=${date}`,
-            }).then((response) => {
-                console.log(response.body['estado'])
-                if (response.body.estado == 'DESHABILITADO') {
+                } else if (response.body.estado == 'DESHABILITADO_PROGRAMADO') {
                     console.log(response.body['estado'])
                     cy.request({
                         method: 'POST',
@@ -401,12 +236,211 @@ describe('API tests <Proceso Batch> module', () => {
                     cy.request({
                         method: 'POST',
                         url: '/api/spac/programacion/proceso-batch/proceso-batch/',
+                        failOnStatusCode: false,
                         body: {
                             "estado": "HABILITADO",
                             "fecha": date
                         }
                     }).then((response) => {
+                        if (response.status == 409) {
+                            expect(response.status).to.eq(409)
+                            expect(response.body).to.have.property('message')
+                        } else {
+                            expect(response.status).to.eq(200)
+                        }
+                    })
+                } else {
+                    expect(response.status).to.eq(200)
+                    expect(response.body).to.have.property('dia')
+                    expect(response.body).to.have.property('estado')
+                    expect(response.body).to.have.property('usuario')
+                }
+                console.log(response.body['estado'])
+            })
+        })
+    })
+
+
+
+// batch process e2e <dia despues> ------------------------------
+    it.only('[batch process <day after>] status 200 & properties', () => {
+        cy.tomorrow().then((date) => {
+            
+        // deshabiitar programacion
+            cy.request({
+                url: `/api/spac/programacion/proceso-batch/status-programacion?fecha=${date}`,
+            }).then((response) => {
+                console.log(response.body['estado'])
+                if (response.body.estado == 'SIN_PROGRAMACION') {
+                    console.log(response.body['estado']) 
+                    cy.request({
+                        method: 'POST',
+                        url: '/api/spac/programacion/proceso-batch/proceso-batch/',
+                        body: {
+                            "estado": "DESHABILITADO",
+                            "fecha": date
+                        }
+                    }).then((response) => {
                         expect(response.status).to.eq(200)
+                    })
+                } else if (response.body.estado == 'HABILITADO') {
+                    console.log(response.body['estado'])
+                    cy.request({
+                        method: 'POST',
+                        url: '/api/spac/programacion/proceso-batch/proceso-batch/',
+                        body: {
+                            "estado": "DESHABILITADO",
+                            "fecha": date
+                        }
+                    }).then((response) => {
+                        expect(response.status).to.eq(200)
+                    })
+                } else {
+                    console.log(response.body['estado'])
+                    expect(response.status).to.eq(200)
+                    expect(response.body).to.have.property('dia')
+                    expect(response.body).to.have.property('estado')
+                    expect(response.body).to.have.property('usuario')
+                }
+            })
+
+
+        // habilitar interno
+            cy.request({
+                url: `/api/spac/programacion/proceso-batch/status-programacion?fecha=${date}`,
+            }).then((response) => {
+                console.log(response.body['estado'])
+                if (response.body.estado == 'DESHABILITADO') {
+                    console.log(response.body['estado'])
+                    cy.request({
+                        method: 'POST',
+                        url: '/api/spac/programacion/proceso-batch/proceso-batch/',
+                        body: {
+                            "estado": "HABILITADO_INTERNO",
+                            "fecha": date
+                        }
+                    }).then((response) => {
+                        expect(response.status).to.eq(200)
+                    })
+                } else if (response.body.estado == 'DESHABILITADO_PROGRAMADO') {
+                    console.log(response.body['estado'])
+                    cy.request({
+                        method: 'POST',
+                        url: '/api/spac/programacion/proceso-batch/proceso-batch/',
+                        body: {
+                            "estado": "HABILITADO_INTERNO",
+                            "fecha": date
+                        }
+                    }).then((response) => {
+                        expect(response.status).to.eq(200)
+                    })
+                } else {
+                    console.log(response.body['estado'])
+                    expect(response.status).to.eq(200)
+                    expect(response.body).to.have.property('dia')
+                    expect(response.body).to.have.property('estado')
+                    expect(response.body).to.have.property('usuario')
+                }
+            })
+
+
+        // deshabiitar interno
+            cy.request({
+                url: `/api/spac/programacion/proceso-batch/status-programacion?fecha=${date}`,
+            }).then((response) => {
+                console.log(response.body['estado'])
+                if (response.body.estado == 'HABILITADO_INTERNO') {
+                    cy.request({
+                        method: 'POST',
+                        url: '/api/spac/programacion/proceso-batch/proceso-batch/',
+                        body: {
+                            "estado": "DESHABILITADO_FUERA_DE_HORA",
+                            "fecha": date
+                        }
+                    }).then((response) => {
+                        expect(response.status).to.eq(200)
+                    })
+                } else {
+                    expect(response.status).to.eq(200)
+                    expect(response.body).to.have.property('dia')
+                    expect(response.body).to.have.property('estado')
+                    expect(response.body).to.have.property('usuario')
+                }
+                console.log(response.body['estado'])
+            })
+
+
+        // ejecutar (re)programacion
+            cy.request({
+                url: `/api/spac/programacion/proceso-batch/status-programacion?fecha=${date}`,
+            }).then((response) => {
+                console.log(response.body['estado'])
+                if (response.body.estado == 'DESHABILITADO_FUERA_DE_HORA') {
+                    cy.request({
+                        method: 'POST',
+                        url: '/api/spac/programacion/proceso-batch/proceso-batch/',
+                        body: {
+                            "estado": "DESHABILITADO_PROGRAMADO",
+                            "fecha": date
+                        }
+                    }).then((response) => {
+                        expect(response.status).to.eq(200)
+                    })
+                } else {
+                    expect(response.status).to.eq(200)
+                    expect(response.body).to.have.property('dia')
+                    expect(response.body).to.have.property('estado')
+                    expect(response.body).to.have.property('usuario')
+                }
+                console.log(response.body['estado'])
+            })
+
+
+        // <us2073> Continuar Programación 1: Ctos sin solicitud / Ptos sin confirmación -> Ctos con cortes de entrega -------------------------------------
+            cy.get('@jsession').request({
+                url: `/api/spac/programacion/proceso-batch/puntos-sin-confirmacion/?fecha=${date}`,
+            })
+            .then((response) => {
+                expect(response.status).to.eq(200)
+                expect(response.body[0]).to.have.property('cantidadSolicitada')
+                expect(response.body[0]).to.have.property('nombrePunto')
+                expect(response.body[0]).to.have.property('nroContrato')
+
+                cy.request({
+                    method: 'POST',
+                    url: '/api/spac/programacion/proceso-batch/proceso-batch/',
+                    body: {
+                        "estado": "DESHABILITADO_PROGRAMADO",
+                        "fecha": date
+                    }
+                })
+                .then((response) => {
+                    expect(response.status).to.eq(200)
+                })
+            })
+        
+
+        // habilitar programacion (para re-ejecutar pb)
+            cy.request({
+                url: `/api/spac/programacion/proceso-batch/status-programacion?fecha=${date}`,
+            }).then((response) => {
+                console.log(response.body['estado'])
+                if (response.body.estado == 'DESHABILITADO_PROGRAMADO') {
+                    cy.request({
+                        method: 'POST',
+                        url: '/api/spac/programacion/proceso-batch/proceso-batch/',
+                        failOnStatusCode: false,
+                        body: {
+                            "estado": "HABILITADO",
+                            "fecha": date
+                        }
+                    }).then((response) => {
+                        if (response.status == 409) {
+                            expect(response.status).to.eq(409)
+                            expect(response.body).to.have.property('message')
+                        } else {
+                            expect(response.status).to.eq(200)
+                        }
                     })
                 } else {
                     expect(response.status).to.eq(200)

@@ -45,7 +45,7 @@ describe('API tests <Cortes Linepack> module', () => {
     })
  */
     
-    it('[grabar edicion <volumen aprobado recepcion>] status 200', () => {
+    it('[editar y grabar <volumen aprobado recepcion>] status 200', () => {
 
         cy.get('@jsession').request({
             method: 'GET',
