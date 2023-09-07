@@ -57,21 +57,20 @@ describe('API tests <Proceso Batch> module', () => {
 
 // fechas limites minimos y maximos
 
-    it('[fecha limite] status 200 & properties', () => {
-        cy.get('@jsession').request('/api/common/date/frontend-limits')
-            .then((response) => {
-                expect(response.status).to.eq(200)
-                expect(response.body).to.have.property('fechaMaxima')
-                expect(response.body['fechaMaxima']).to.eq('2099-12-31T23:59:59')
-                expect(response.body).to.have.property('fechaMinima')
-                expect(response.body['fechaMinima']).to.equal('1990-01-01T00:00:00')
-            })
+    it('[fecha limite] status 200 & values', () => {
+        cy.get('@jsession').request('/api/common/date/frontend-limits').then((response) => {
+            expect(response.status).to.eq(200)
+            expect(response.body).to.have.property('fechaMaxima')
+            expect(response.body['fechaMaxima']).to.eq('2099-12-31T23:59:59')
+            expect(response.body).to.have.property('fechaMinima')
+            expect(response.body['fechaMinima']).to.equal('1990-01-01T00:00:00')
+        })
     })
     
 
-// batch process e2e <dia actual> ------------------------------
+// batch process e2e <dia actual> ---------------------------------------------------------------------------------------------
 
-    it('[batch process <current date>] status 200 & properties', () => {
+    it('[batch process <current date>] e2e batch process', () => {
         cy.today().then((date) => {
 
         // deshabiitar programacion
@@ -262,8 +261,9 @@ describe('API tests <Proceso Batch> module', () => {
 
 
 
-// batch process e2e <dia despues> ------------------------------
-    it.only('[batch process <day after>] status 200 & properties', () => {
+// batch process e2e <dia despues> -------------------------------------------------------------------------------------------
+
+    it('[batch process <day after>] e2e batch process', () => {
         cy.tomorrow().then((date) => {
             
         // deshabiitar programacion
@@ -456,7 +456,7 @@ describe('API tests <Proceso Batch> module', () => {
 
 // <us2212> Puntos sin confirmación --------------------------------------------------------
 
-    it('[puntos sin confirmacion <current date>] status200 & properties', () => {
+    it('[consulta <puntos sin confirmacion> <current date>] status200 & properties', () => {
         cy.tomorrow().then((tomorrow) => {
             cy.get('@jsession').request({
                 url: `/api/spac/programacion/proceso-batch/puntos-sin-confirmacion/?fecha=${tomorrow}`,
@@ -473,7 +473,7 @@ describe('API tests <Proceso Batch> module', () => {
 
 // <us2096> Continuar Programación 2: Ctos con cortes de entrega -> Excesos en contratos TI ----------------------------------------------------
 
-    it('[contratos con corte a la entrega => excesos en contratos ti <current date>]', () => {
+    it('[consulta <contratos con corte a la entrega => excesos en contratos ti> <current date>] status 200', () => {
         cy.today().then((date) => {
             cy.get('@jsession').request({
                 url: `/api/spac/programacion/proceso-batch/exceso-contratos-ti/?fechaInicial=${date}&fechaFinal=${date}&origen=proceso-batch`,
@@ -488,7 +488,7 @@ describe('API tests <Proceso Batch> module', () => {
 
 // <us2118> Contratos con corte a la entrega - Acción "Listar" ------------------------------------------------------------------
 
-    it('[contratos con corte a la entrega => excesos en contratos] status200 & properties', () => {
+    it('[consulta <contratos con corte a la entrega => excesos en contratos> <current date>] status 200', () => {
         cy.today().then((date) => {
             cy.get('@jsession').request({
                 url: `/api/spac/programacion/proceso-batch/contratos-corte-entrega/?fecha=${date}`,
