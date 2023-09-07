@@ -6,7 +6,22 @@ describe('API tests <Proceso Batch> module', () => {
         cy.loginAPI(USER3, PASS3)
     })
 
-    it('[estado programacion] status 200', () => {
+// set <cambio hora> ----------------------------------------------------------
+    it('[set <cambiar hora>] status 200', () => {
+        cy.get('@jsession').request({
+            method: 'POST',
+            url: '/api/common/date/offset',
+            body: {
+                "offset": 3600000000000000
+            }
+        })
+        .then((response) => {
+            expect(response.status).to.eq(200)
+        })
+    })
+
+// reset <cambio hora> ----------------------------------------------------------
+    it('[reset <cambiar hora>] status 200', () => {
         cy.get('@jsession').request({
             method: 'POST',
             url: '/api/common/date/offset',

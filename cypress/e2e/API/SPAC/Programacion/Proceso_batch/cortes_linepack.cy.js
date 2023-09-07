@@ -54,26 +54,40 @@ describe('API tests <Cortes Linepack> module', () => {
         .then((response) => {
             expect(response.status).to.eq(200)
             // guardar volumen Aprobado Recepcion
-            const volumenAprobadoRecepcion = response.body.linepack[0].volumenAprobadoRecepcion
+            console.log(response.body.linepack[43].volumenAprobadoRecepcion)
+            const volumenAprobadoRecepcion = response.body.linepack[43].volumenAprobadoRecepcion
+            const nroSolicitud = response.body.linepack[43].nroSolicitud
+            const fechaProgramacion = response.body.linepack[43].fechaProgramacion
+            const estadoDesbalance = response.body.linepack[43].estadoDesbalance
+            const codigoContrato = response.body.linepack[43].codigoContrato
+            const codigoZonaRecepcion = response.body.linepack[43].codigoZonaRecepcion
+            const volumenSolicitadoRecepcion = response.body.linepack[43].volumenSolicitadoRecepcion
+            const codigoZonaEntrega = response.body.linepack[43].codigoZonaEntrega
+            const volumenSolicitadoEntrega = response.body.linepack[43].volumenSolicitadoEntrega
+            const volumenProgramadoEntrega = response.body.linepack[43].volumenProgramadoEntrega
+            const volumenAprobadoEntrega = response.body.linepack[43].volumenAprobadoEntrega
+            const combustibleProgramado = response.body.linepack[43].combustibleProgramado
+            const vmasC = response.body.linepack[43].vmasC
+
             cy.request({
                 method: 'POST',
                 url: '/api/spac/programacion/proceso-batch/cortes-line-pack/?fecha=2025-08-22',
                 body: 
                     [{
-                        "fechaProgramacion":"2025-08-22",
-                        "nroSolicitud":-1528,
-                        "estadoDesbalance":"S",
-                        "codigoContrato":"TF283",
-                        "codigoZonaRecepcion":"TDF",
-                        "volumenSolicitadoRecepcion":191338,
+                        "fechaProgramacion":fechaProgramacion,
+                        "nroSolicitud":nroSolicitud,
+                        "estadoDesbalance":estadoDesbalance,
+                        "codigoContrato":codigoContrato,
+                        "codigoZonaRecepcion":codigoZonaRecepcion,
+                        "volumenSolicitadoRecepcion":volumenSolicitadoRecepcion,
                         "volumenProgramadoRecepcion":volumenAprobadoRecepcion,
                         "volumenAprobadoRecepcion":volumenAprobadoRecepcion - 1,
-                        "codigoZonaEntrega":"GBA",
-                        "volumenSolicitadoEntrega":0,
-                        "volumenProgramadoEntrega":0,
-                        "volumenAprobadoEntrega":0,
-                        "combustibleProgramado":0,
-                        "vmasC":0
+                        "codigoZonaEntrega":codigoZonaEntrega,
+                        "volumenSolicitadoEntrega":volumenSolicitadoEntrega,
+                        "volumenProgramadoEntrega":volumenProgramadoEntrega,
+                        "volumenAprobadoEntrega":volumenAprobadoEntrega,
+                        "combustibleProgramado":combustibleProgramado,
+                        "vmasC":vmasC
                     }]
             })
             .then((response) => {

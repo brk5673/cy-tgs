@@ -488,7 +488,7 @@ describe('API tests <Proceso Batch> module', () => {
 
 // <us2118> Contratos con corte a la entrega - Acción "Listar" ------------------------------------------------------------------
 
-    it('[consulta <contratos con corte a la entrega => excesos en contratos> <current date>] status 200', () => {
+    it('[consulta <contratos con corte a la entrega => excesos en contratos ti> <current date>] status 200', () => {
         cy.today().then((date) => {
             cy.get('@jsession').request({
                 url: `/api/spac/programacion/proceso-batch/contratos-corte-entrega/?fecha=${date}`,

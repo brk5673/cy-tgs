@@ -73,6 +73,11 @@ Cypress.Commands.add('tomorrow', () => {
   return `${year}-${month}-${day}`;
 });
 
+// cypress command get milisegundos
+Cypress.Commands.add('mSeg', () => {
+  const milisegundos = new Date().getTime()
+  return milisegundos
+})
 
 Cypress.Commands.add('importEDI', () => {
   cy.request({
