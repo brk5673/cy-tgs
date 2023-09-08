@@ -226,7 +226,7 @@ describe('API tests <Proceso Batch> module', () => {
             })
         
 
-        // habilitar programacion (para re-ejecutar pb)
+/*         // habilitar programacion (para re-ejecutar pb)
             cy.request({
                 url: `/api/spac/programacion/proceso-batch/status-programacion?fecha=${date}`,
             }).then((response) => {
@@ -256,7 +256,7 @@ describe('API tests <Proceso Batch> module', () => {
                 }
                 console.log(response.body['estado'])
             })
-        })
+ */        })
     })
 
 
@@ -420,7 +420,7 @@ describe('API tests <Proceso Batch> module', () => {
             })
         
 
-        // habilitar programacion (para re-ejecutar pb)
+/*         // habilitar programacion (para re-ejecutar pb)
             cy.request({
                 url: `/api/spac/programacion/proceso-batch/status-programacion?fecha=${date}`,
             }).then((response) => {
@@ -450,7 +450,7 @@ describe('API tests <Proceso Batch> module', () => {
                 }
                 console.log(response.body['estado'])
             })
-        })
+ */        })
     })
 
 

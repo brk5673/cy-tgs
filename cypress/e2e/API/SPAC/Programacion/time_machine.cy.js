@@ -12,7 +12,7 @@ describe('API tests <Proceso Batch> module', () => {
             method: 'POST',
             url: '/api/common/date/offset',
             body: {
-                "offset": 3600000000000000
+                "offset": 1234567
             }
         })
         .then((response) => {
@@ -26,7 +26,7 @@ describe('API tests <Proceso Batch> module', () => {
             method: 'POST',
             url: '/api/common/date/offset',
             body: {
-                "offset": "0"
+                "offset": 0
             }
         })
         .then((response) => {

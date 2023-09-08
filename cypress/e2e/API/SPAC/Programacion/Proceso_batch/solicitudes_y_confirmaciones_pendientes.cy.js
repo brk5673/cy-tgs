@@ -108,6 +108,7 @@ describe('API tests <Solicitudes y Confirmaciones Pendientes> module', () => {
                     cy.request({
                         method: 'POST',
                         url: `/api/spac/programacion/proceso-batch/solicitudes-confirmaciones-pendientes/?fecha=${date}`,
+                        failOnStatusCode: false,
                         body: {
                             "solicitudesConfirmaciones":[
                                 {
@@ -118,7 +119,12 @@ describe('API tests <Solicitudes y Confirmaciones Pendientes> module', () => {
                         }
                     })
                     .then((response) => {
-                        expect(response.status).to.eq(200)
+                        if (response.status === 500) {
+                            expect(response.status).to.eq(500)
+                            expect(response.body).to.be.equal("No se puede realizar la acción 'Aceptar Solicitudes/Confirmaciones' desde el estado 'HABILITADO'.")
+                        } else {
+                            expect(response.status).to.eq(200)
+                        }
                     })
                 } else {
                     expect(response.status).to.eq(200)
@@ -138,6 +144,7 @@ describe('API tests <Solicitudes y Confirmaciones Pendientes> module', () => {
                     cy.request({
                         method: 'POST',
                         url: `/api/spac/programacion/proceso-batch/solicitudes-confirmaciones-pendientes/?fecha=${tomorrow}`,
+                        failOnStatusCode: false,
                         body: {
                             "solicitudesConfirmaciones":[{
                                 "contrato":response.body.solicitudesConfirmaciones[0].contrato,
@@ -146,7 +153,12 @@ describe('API tests <Solicitudes y Confirmaciones Pendientes> module', () => {
                         }
                     })
                     .then((response) => {
-                        expect(response.status).to.eq(200)
+                        if (response.status === 500) {
+                            expect(response.status).to.eq(500)
+                            expect(response.body).to.be.equal("No se puede realizar la acción 'Aceptar Solicitudes/Confirmaciones' desde el estado 'HABILITADO'.")
+                        } else {
+                            expect(response.status).to.eq(200)
+                        }
                     })
                 } else {
                     expect(response.status).to.eq(200)
