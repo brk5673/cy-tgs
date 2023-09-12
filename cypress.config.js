@@ -21,5 +21,6 @@ module.exports = defineConfig({
     setupNodeEvents,
     chromeWebSecurity: false,
     watchForFileChanges: false,
+    experimentalRunAllSpecs: true,
   },
 });
